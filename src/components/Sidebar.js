@@ -28,7 +28,6 @@ const Sidebar = () => {
           <DrawerContent p="2" onClick={() => onClose()}>
             <DrawerCloseButton />
             <DrawerHeader />
-
             <DrawerBody>
               <SidebarNav />
             </DrawerBody>
