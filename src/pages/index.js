@@ -100,7 +100,7 @@ const Produtos = () => {
               onChange={(e) => setName(e.target.value)}
               placeholder="Nome do produto"
             />
-            <Button w="40" onClick={handleNewProduct}>
+            <Button id="cadastrar" w="40" onClick={handleNewProduct}>
               CADASTRAR
             </Button>
           </SimpleGrid>
@@ -121,6 +121,7 @@ const Produtos = () => {
                     <Td color="gray.500">{item.name}</Td>
                     <Td textAlign="end">
                       <Button
+                      id="deletar"
                         p="2"
                         h="auto"
                         fontSize={11}

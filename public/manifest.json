@@ -1,0 +1,15 @@
+{
+  "short_name": "Controle Harmonica",
+  "name": "Controle Estoque",
+  "icons": [
+    {
+      "src": "appletouch.png",
+      "type": "image/png",
+      "sizes": "512x512 180x180"
+    }
+  ],
+  "start_url": ".",
+  "display": "standalone",
+  "theme_color": "#000000",
+  "background_color": "#ffffff"
+}

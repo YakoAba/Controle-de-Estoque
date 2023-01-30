@@ -103,7 +103,7 @@ const StockOutputs = () => {
               value={amount}
               onChange={(e) => setAmount(e.target.value)}
             />
-            <Button w="40" onClick={handleNewOutput}>
+            <Button id="salvar" w="40" onClick={handleNewOutput}>
               SALVAR
             </Button>
           </SimpleGrid>
@@ -128,6 +128,7 @@ const StockOutputs = () => {
                     <Td color="gray.500">{item.amount}</Td>
                     <Td textAlign="end">
                       <Button
+                      id="deletar"
                         p="2"
                         h="auto"
                         fontSize={11}

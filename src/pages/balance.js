@@ -99,7 +99,7 @@ const Balance = () => {
                   </option>
                 ))}
             </Select>
-            <Button w="40" onClick={handleFilterProducts}>
+            <Button id="filtrar" w="40" onClick={handleFilterProducts}>
               FILTRAR
             </Button>
           </SimpleGrid>
