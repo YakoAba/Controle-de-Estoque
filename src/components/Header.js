@@ -79,7 +79,7 @@ const Header = () => {
         <Flex ml="auto">
           <HStack>
             <Text>Harmônica</Text>
-            <Avatar size="md" name="Harmônica" />
+            <Avatar size="md" name="Harmônica" bg="#FF2178"/>
           </HStack>
         </Flex>
       </Flex>
