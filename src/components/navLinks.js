@@ -3,6 +3,10 @@ const sections = [
     title: "CADASTRO",
     links: [
       {
+        label: "GRUPO",
+        href: "/grupo",
+      },
+      {
         label: "PRODUTOS",
         href: "/",
       },
