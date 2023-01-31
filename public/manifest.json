@@ -3,9 +3,9 @@
   "name": "Controle de Estoque",
   "icons": [
     {
-      "src": "appletouch.webp",
-      "type": "image/webp",
-      "sizes": "1024x1024 512x512 180x180",
+      "src": "appletouch.png",
+      "type": "image/png",
+      "sizes": " 512x512 180x180",
       "purpose": "any maskable"
     }
   ],
