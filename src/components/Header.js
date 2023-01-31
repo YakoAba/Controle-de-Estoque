@@ -36,7 +36,7 @@ const Header = () => {
         <link
           rel="apple-touch-icon"
           sizes="180x180"
-          href="appletouch.png"
+          href="appletouch.webp"
         ></link>
         <meta name="author" content="YakkoAba" />
         <meta
@@ -73,7 +73,7 @@ const Header = () => {
           width={67}
           height={67}
           objectFit="fill"
-          src="appletouch.png"
+          src="appletouch.webp"
           alt="LOGO"
         />
         <Flex ml="auto">
