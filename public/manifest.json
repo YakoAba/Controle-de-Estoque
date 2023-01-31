@@ -5,7 +5,7 @@
     {
       "src": "appletouch.webp",
       "type": "image/webp",
-      "sizes": "512x512 180x180",
+      "sizes": "1024x1024 512x512 180x180",
       "purpose": "any maskable"
     }
   ],
