@@ -65,7 +65,7 @@ const Header = () => {
           width={67}
           height={67}
           objectFit="fill"
-          src="appletouch.webp"
+          src="harmonica_cozinha.png"
           alt="LOGO"
         />
         <Flex ml="auto">
