@@ -5,21 +5,16 @@ import {
   DrawerCloseButton,
   DrawerContent,
   DrawerHeader,
-  DrawerOverlay,
-  useBreakpointValue,
-  useDisclosure,
+  DrawerOverlay
 } from "@chakra-ui/react";
 import React from "react";
 import { useSidebarContext } from "../contexts/SidebarContext";
+import useMedia from "../contexts/useMedia";
 import SidebarNav from "./SidebarNav";
 
 const Sidebar = () => {
   const { isOpen, onClose } = useSidebarContext();
-
-  const isDrawerSidebar = useBreakpointValue({
-    base: true,
-    lg: false,
-  });
+  const isDrawerSidebar = useMedia("(max-width: 480px)");
 
   if (isDrawerSidebar) {
     return (

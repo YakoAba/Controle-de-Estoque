@@ -5,23 +5,16 @@ import {
   Icon,
   IconButton,
   Text,
-  Image
+  Image,
 } from "@chakra-ui/react";
 import React from "react";
 import { useSidebarContext } from "../contexts/SidebarContext";
 import { FiMenu } from "react-icons/fi";
 import Head from "next/head";
-<<<<<<< HEAD
-=======
-
->>>>>>> parent of 8291137 (t)
+import useMedia from "../contexts/useMedia";
 
 const Header = () => {
-  const isMobile = useBreakpointValue({
-    base: true,
-    lg: false,
-  });
-
+  const isMobile = useMedia("(max-width: 480px)");
   const { onOpen } = useSidebarContext();
 
   return (
@@ -57,32 +50,18 @@ const Header = () => {
         align="center"
         boxShadow="0 1px 0 #ccc"
         color="black"
-        fontWeight="bold"
-      >
-<<<<<<< HEAD
-        <IconButton
-          aria-label="menu"
-          id="menu"
-          icon={<Icon as={FiMenu} />}
-          onClick={onOpen}
-          variant="unstyled"
-          fontSize="20"
-          mr="2"
-        ></IconButton>
-=======
-        {isMobile && (
+        fontWeight="bold">
+        {isMobile && 
           <IconButton
-          aria-label="menu"
-          id="menu"
+            aria-label="menu"
+            id="menu"
             icon={<Icon as={FiMenu} />}
             onClick={onOpen}
             variant="unstyled"
             fontSize="20"
-            mr="2"
-          
-          ></IconButton>
-        )}
->>>>>>> parent of 8291137 (t)
+            mr="2">
+          </IconButton>
+        }
         <Image
           width={67}
           height={67}
@@ -93,7 +72,7 @@ const Header = () => {
         <Flex ml="auto">
           <HStack>
             <Text>Harmônica</Text>
-            <Avatar size="md" name="Harmônica" bg="#FF2178"/>
+            <Avatar size="md" name="Harmônica" bg="#FF2178" />
           </HStack>
         </Flex>
       </Flex>

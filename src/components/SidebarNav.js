@@ -5,7 +5,7 @@ import { useRouter } from "next/router";
 import sections from "./navLinks";
 const SidebarNav = () => {
   const { asPath } = useRouter();
-  //const links = sections.reduce((acc, { links }) => [...acc, ...links], []);
+  const links = sections.reduce((acc, { links }) => [...acc, ...links], []);
 
   const renderLinks = (links) =>
     links.map(({ label, href = "#" }) => (
@@ -19,6 +19,9 @@ const SidebarNav = () => {
         bg={asPath === href ? "gray.200" : ""}
         href={href}
       >
+        <Text fontSize="md" fontWeight="medium" color="black">
+          {label}
+        </Text>
       </ChakraLink>
     ));
 
