@@ -14,6 +14,8 @@ import SidebarNav from "./SidebarNav";
 
 const Sidebar = () => {
   const { isOpen, onClose } = useSidebarContext();
+  const isMobile = useMedia("max-width: 480p");
+
  
     return (
       <Drawer isOpen={isOpen} placement="left" onClose={() => onClose()}>
@@ -29,12 +31,12 @@ const Sidebar = () => {
       </Drawer>
     );
 
-
-  // return (
-  //   <Box as="aside" w="64" mr="8">
-  //     <SidebarNav />
-  //   </Box>
-  // );
+  if (isMobile)
+    return (
+      <Box as="aside" w="64" mr="8">
+        <SidebarNav />
+      </Box>
+    );
 };
 
 export default Sidebar;
