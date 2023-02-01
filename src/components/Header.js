@@ -62,10 +62,10 @@ const Header = () => {
         ></IconButton>
 
         <Image
-          width={67}
-          height={67}
+          width="67"
+          height="50"
           objectFit="fill"
-          src="harmonica_cozinha.png"
+          src="appletouch.webp"
           alt="LOGO"
         />
         <Flex ml="auto">
