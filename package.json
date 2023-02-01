@@ -16,14 +16,14 @@
     "@next/bundle-analyzer": "latest",
     "emotion-theming": "latest",
     "framer-motion": "latest",
-    "next": "latest",
+    "next": "^13.1.6",
     "next-pwa": "latest",
-    "react": "latest",
-    "react-dom": "latest",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
     "react-icons": "latest"
   },
   "devDependencies": {
     "eslint": "latest",
-    "eslint-config-next": "latest"
+    "eslint-config-next": "^13.1.6"
   }
 }
