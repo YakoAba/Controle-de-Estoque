@@ -30,3 +30,6 @@ yarn-error.log*
 
 # vercel
 .vercel
+public/sw.js.map~parent of c0a1af0 (t)
+public/workbox-327c579b.js
+public/workbox-327c579b.js.map
