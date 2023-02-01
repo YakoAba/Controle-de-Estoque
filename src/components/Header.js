@@ -1,3 +1,4 @@
+"use client";
 import {
   Avatar,
   Flex,
@@ -12,16 +13,12 @@ import React from "react";
 import { useSidebarContext } from "../contexts/SidebarContext";
 import { FiMenu } from "react-icons/fi";
 import Head from "next/head";
-
+import useMedia from "../contexts/useMedia";
 
 const Header = () => {
-  const isMobile = useBreakpointValue({
-    base: true,
-    lg: false,
-  });
+  // const isMobile = useMedia("(max-width: 480px)");
 
   const { onOpen } = useSidebarContext();
-
   return (
     <>
       <Head>
@@ -57,18 +54,17 @@ const Header = () => {
         color="black"
         fontWeight="bold"
       >
-        {isMobile && (
+       
           <IconButton
-          aria-label="menu"
-          id="menu"
+            aria-label="menu"
+            id="menu"
             icon={<Icon as={FiMenu} />}
             onClick={onOpen}
             variant="unstyled"
             fontSize="20"
             mr="2"
-          
           ></IconButton>
-        )}
+      
         <Image
           width={67}
           height={67}
@@ -79,7 +75,7 @@ const Header = () => {
         <Flex ml="auto">
           <HStack>
             <Text>Harmônica</Text>
-            <Avatar size="md" name="Harmônica" bg="#FF2178"/>
+            <Avatar size="md" name="Harmônica" bg="#FF2178" />
           </HStack>
         </Flex>
       </Flex>

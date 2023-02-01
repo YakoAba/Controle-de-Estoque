@@ -1,3 +1,4 @@
+'use client'
 import {
   Box,
   Drawer,
@@ -7,7 +8,6 @@ import {
   DrawerHeader,
   DrawerOverlay,
   useBreakpointValue,
-  useDisclosure,
 } from "@chakra-ui/react";
 import React from "react";
 import { useSidebarContext } from "../contexts/SidebarContext";
@@ -16,10 +16,12 @@ import SidebarNav from "./SidebarNav";
 const Sidebar = () => {
   const { isOpen, onClose } = useSidebarContext();
 
-  const isDrawerSidebar = useBreakpointValue({
-    base: true,
-    lg: false,
-  });
+  const isDrawerSidebar = useBreakpointValue(
+    {
+      base: true,
+      lg: true,
+    })
+
 
   if (isDrawerSidebar) {
     return (
@@ -37,11 +39,11 @@ const Sidebar = () => {
     );
   }
 
-  return (
-    <Box as="aside" w="64" mr="8">
+   return (
+   <Box as="aside" w="64" mr="8">
       <SidebarNav />
     </Box>
-  );
+   );
 };
 
 export default Sidebar;
