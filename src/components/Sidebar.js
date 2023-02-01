@@ -5,7 +5,7 @@ import {
   DrawerCloseButton,
   DrawerContent,
   DrawerHeader,
-  DrawerOverlay
+  DrawerOverlay,
 } from "@chakra-ui/react";
 import React from "react";
 import { useSidebarContext } from "../contexts/SidebarContext";
@@ -14,9 +14,7 @@ import SidebarNav from "./SidebarNav";
 
 const Sidebar = () => {
   const { isOpen, onClose } = useSidebarContext();
-  const isDrawerSidebar = useMedia("(max-width: 480px)");
-
-  if (isDrawerSidebar) {
+ 
     return (
       <Drawer isOpen={isOpen} placement="left" onClose={() => onClose()}>
         <DrawerOverlay>
@@ -30,13 +28,13 @@ const Sidebar = () => {
         </DrawerOverlay>
       </Drawer>
     );
-  }
 
-  return (
-    <Box as="aside" w="64" mr="8">
-      <SidebarNav />
-    </Box>
-  );
+
+  // return (
+  //   <Box as="aside" w="64" mr="8">
+  //     <SidebarNav />
+  //   </Box>
+  // );
 };
 
 export default Sidebar;

@@ -11,10 +11,9 @@ import React from "react";
 import { useSidebarContext } from "../contexts/SidebarContext";
 import { FiMenu } from "react-icons/fi";
 import Head from "next/head";
-import useMedia from "../contexts/useMedia";
 
 const Header = () => {
-  const isMobile = useMedia("(max-width: 480px)");
+
   const { onOpen } = useSidebarContext();
 
   return (
@@ -50,18 +49,18 @@ const Header = () => {
         align="center"
         boxShadow="0 1px 0 #ccc"
         color="black"
-        fontWeight="bold">
-        {isMobile && 
-          <IconButton
-            aria-label="menu"
-            id="menu"
-            icon={<Icon as={FiMenu} />}
-            onClick={onOpen}
-            variant="unstyled"
-            fontSize="20"
-            mr="2">
-          </IconButton>
-        }
+        fontWeight="bold"
+      >
+        <IconButton
+          aria-label="menu"
+          id="menu"
+          icon={<Icon as={FiMenu} />}
+          onClick={onOpen}
+          variant="unstyled"
+          fontSize="20"
+          mr="2"
+        ></IconButton>
+
         <Image
           width={67}
           height={67}
