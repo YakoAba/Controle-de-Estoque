@@ -6,14 +6,12 @@ import {
   Icon,
   IconButton,
   Text,
-  Image,
-  useBreakpointValue,
+  Image
 } from "@chakra-ui/react";
 import React from "react";
 import { useSidebarContext } from "../contexts/SidebarContext";
 import { FiMenu } from "react-icons/fi";
 import Head from "next/head";
-import useMedia from "../contexts/useMedia";
 
 const Header = () => {
   // const isMobile = useMedia("(max-width: 480px)");
@@ -54,17 +52,15 @@ const Header = () => {
         color="black"
         fontWeight="bold"
       >
-       
-          <IconButton
-            aria-label="menu"
-            id="menu"
-            icon={<Icon as={FiMenu} />}
-            onClick={onOpen}
-            variant="unstyled"
-            fontSize="20"
-            mr="2"
-          ></IconButton>
-      
+        <IconButton
+          aria-label="menu"
+          id="menu"
+          icon={<Icon as={FiMenu} />}
+          onClick={onOpen}
+          variant="unstyled"
+          fontSize="20"
+          mr="2"
+        ></IconButton>
         <Image
           width={67}
           height={67}

@@ -1,15 +1,16 @@
 import React from "react";
-import { Box, Link as ChakraLink, Stack, Text } from "@chakra-ui/react";
+import { Link as ChakraLink, Stack, Text } from "@chakra-ui/react";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import sections from "./navLinks";
 const SidebarNav = () => {
   const { asPath } = useRouter();
-  const links = sections.reduce((acc, { links }) => [...acc, ...links], []);
+  //const links = sections.reduce((acc, { links }) => [...acc, ...links], []);
 
   const renderLinks = (links) =>
     links.map(({ label, href = "#" }) => (
       <ChakraLink
+        as={Link}
         key={label}
         _hover={{ bg: "gray.100" }}
         px="4"
@@ -18,11 +19,6 @@ const SidebarNav = () => {
         bg={asPath === href ? "gray.200" : ""}
         href={href}
       >
-        <Link href={href}>
-          <Text fontSize="md" fontWeight="medium" color="black">
-            {label}
-          </Text>
-        </Link>
       </ChakraLink>
     ));
 

@@ -2,7 +2,6 @@ import {
   Box,
   Button,
   Flex,
-  Input,
   Select,
   SimpleGrid,
   Table,
