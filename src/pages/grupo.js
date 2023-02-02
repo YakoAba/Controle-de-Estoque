@@ -10,64 +10,50 @@ import {
   Th,
   Thead,
   Tr,
-  useToast,
 } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import Header from "../components/Header";
 import Sidebar from "../components/Sidebar";
 
-const Groups = () => {
+const Grupos = () => {
   const [name, setName] = useState("");
-  const [listGroups, setListGroups] = useState([]);
-  const toast = useToast();
+  const [listProducts, setListProducts] = useState([]);
 
   useEffect(() => {
-    const db_groups = localStorage.getItem("db_groups")
-      ? JSON.parse(localStorage.getItem("db_groups"))
+    const db_grupos = localStorage.getItem("db_grupos")
+      ? JSON.parse(localStorage.getItem("db_grupos"))
       : [];
 
-    setListGroups(db_groups);
+    setListProducts(db_grupos);
   }, []);
 
-  const handleNewGroup = () => {
-    const errorMessage = !name
-      ? "Group name is required"
-      : verifyGroupName()
-      ? "Group already registered"
-      : null;
-
-    if (errorMessage) {
-      toast({
-        position: "top",
-        title: "Validation",
-        description: errorMessage,
-        status: "warning",
-        duration: 5000,
-        isClosable: true,
-      });
+  const handleNewProduct = () => {
+    if (!name) return;
+    if (verifyProductName()) {
+      alert("Produto já cadastrado!");
       return;
     }
 
     const id = Math.random().toString(36).substring(2);
-    const newGroups = [...listGroups, { id, name }];
 
-    localStorage.setItem("db_gruops", JSON.stringify(newGroups));
-    setListGroups(newGroups);
+    if (listProducts && listProducts.length) {
+      localStorage.setItem(
+        "db_grupos",
+        JSON.stringify([...listProducts, { id, name }])
+      );
+
+      setListProducts([...listProducts, { id, name }]);
+    } else {
+      localStorage.setItem("db_grupos", JSON.stringify([{ id, name }]));
+
+      setListProducts([{ id, name }]);
+    }
+
     setName("");
-
-    toast({
-      position: "top",
-      title: "Success",
-      description: "Group created successfully",
-      status: "success",
-      duration: 5000,
-      isClosable: true,
-    });
-    return;
   };
 
-  const verifyGroupName = () => {
-    return !!listGroups.find((prod) => prod.name === name);
+  const verifyProductName = () => {
+    return !!listProducts.find((prod) => prod.name === name);
   };
 
   const removeProduct = (id) => {
@@ -87,23 +73,15 @@ const Groups = () => {
     ).length;
 
     if (hasEntries || hasOutputs) {
-      alert("This group has movements!!");
+      alert("Esse produto possuí movimentações!");
       return;
     }
 
-    const newArray = listGroups.filter((prod) => prod.id !== id);
+    const newArray = listProducts.filter((prod) => prod.id !== id);
 
-    localStorage.setItem("db_gruops", JSON.stringify(newArray));
+    localStorage.setItem("db_grupos", JSON.stringify(newArray));
 
-    setListGroups(newArray);
-    toast({
-      position: "top",
-      title: "Success",
-      description: "Group removed successfully",
-      status: "success",
-      duration: 5000,
-      isClosable: true,
-    });
+    setListProducts(newArray);
   };
 
   return (
@@ -118,11 +96,11 @@ const Groups = () => {
             <Input
               value={name}
               onChange={(e) => setName(e.target.value)}
-              placeholder="Name of group"
-              maxLength={20}
+              placeholder="Nome do produto"
+              maxLength={30}
             />
-            <Button id="cadastrar" w="40" onClick={handleNewGroup}>
-              REGISTER
+            <Button id="cadastrar" w="40" onClick={handleNewProduct}>
+              CADASTRAR
             </Button>
           </SimpleGrid>
 
@@ -131,13 +109,13 @@ const Groups = () => {
               <Thead>
                 <Tr>
                   <Th fontWeight="bold" fontSize="14px">
-                    NAME
+                    Nome
                   </Th>
                   <Th></Th>
                 </Tr>
               </Thead>
               <Tbody>
-                {listGroups.map((item, i) => (
+                {listProducts.map((item, i) => (
                   <Tr key={i}>
                     <Td color="gray.500">{item.name}</Td>
                     <Td textAlign="end">
@@ -150,7 +128,7 @@ const Groups = () => {
                         fontWeight="bold"
                         onClick={() => removeProduct(item.id)}
                       >
-                        DELETE
+                        DELETAR
                       </Button>
                     </Td>
                   </Tr>
@@ -163,4 +141,4 @@ const Groups = () => {
     </Flex>
   );
 };
-export default Groups;
+export default Grupos;
