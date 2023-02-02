@@ -17,7 +17,7 @@ import { useEffect, useState } from "react";
 import Header from "../components/Header";
 import Sidebar from "../components/Sidebar";
 
-const Produtos = () => {
+const Produtos = ({data}) => {
   const [name, setName] = useState("");
   const [url, setUrl] = useState("");
   const [titulo, setTitulo] = useState("");
@@ -32,18 +32,18 @@ const Produtos = () => {
   //   setListProducts(db_products);
   // }, []);
 
-  useEffect(() => {
-    // const db_grupos = localStorage.getItem("db_grupos")
-    //   ? JSON.parse(localStorage.getItem("db_grupos"))
-    //   : [];
-    fetch(`api/produtos`)
-      .then((res) => res.json())
-      .then((data) => {
-        // setData(data)
-        // setLoading(false)
-        setListProducts(data);
-      });
-  }, [category]);
+  // useEffect(() => {
+  //   // const db_grupos = localStorage.getItem("db_grupos")
+  //   //   ? JSON.parse(localStorage.getItem("db_grupos"))
+  //   //   : [];
+  //   fetch(`api/produtos`)
+  //     .then((res) => res.json())
+  //     .then((data) => {
+  //       // setData(data)
+  //       // setLoading(false)
+  //       setListProducts(data);
+  //     });
+  // }, [category]);
 
   const handleNewProduct = () => {
     if (!name) return;
@@ -170,7 +170,7 @@ const Produtos = () => {
                 </Tr>
               </Thead>
               <Tbody>
-                {listProducts.map((item, i) => (
+                {data.map((item, i) => (
                   <Tr key={i}>
                     <Td color="black">{item.title}</Td>
                     <Td color="black">{item.price}</Td>
@@ -198,3 +198,11 @@ const Produtos = () => {
   );
 };
 export default Produtos;
+
+export async function getServerSideProps() {
+  // Fetch data from external API
+  const res = await fetch(`http://localhost:3000/api/produtos`)
+  const data = await res.json()
+  // Pass data to the page via props
+  return { props: { data } }
+}

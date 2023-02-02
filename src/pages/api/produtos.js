@@ -36,7 +36,7 @@ export default async function handler(req, res) {
                
                 try {
                     const { categoria } = req.query
-                    console.log(categoria);
+                    
                   if(categoria !== undefined){ 
                     const filtro = (categoria === "Ofertas") ? { offer: true } : { categoria: categoria }
                      produtos = await db.collection("produtos").find(filtro).toArray()
@@ -64,12 +64,10 @@ export default async function handler(req, res) {
             case 'PATCH':
                 try {
                     const { id } = req.query
-                    console.log(req.body)
                     await db.collection("produtos").updateOne({ id: Number(id) }, req.body)
                     /* create a new model in the database */
                     res.status(201).json({ success: true })
                 } catch (error) {
-                    console.log(error)
                     res.status(400).json({ success: false })
 
                 }

@@ -36,7 +36,6 @@ const Grupos = () => {
       // setData(data)
       // setLoading(false)
       setlistaGrupos(data);
-      console.log(data);
     })
    
 

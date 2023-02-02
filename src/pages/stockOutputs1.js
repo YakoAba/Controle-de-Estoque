@@ -23,69 +23,70 @@ const StockOutputs = () => {
   const [listProducts, setListProducts] = useState([]);
   const [listVendas, setListVendas] = useState([]);
 
-  // useEffect(() => {
-  //   const db_stock_outputs = localStorage.getItem("db_stock_outputs")
-  //     ? JSON.parse(localStorage.getItem("db_stock_outputs"))
-  //     : [];
+  useEffect(() => {
+    const db_stock_outputs = localStorage.getItem("db_stock_outputs")
+      ? JSON.parse(localStorage.getItem("db_stock_outputs"))
+      : [];
 
-  //   setStockOutputs(db_stock_outputs);
+    setStockOutputs(db_stock_outputs);
 
-  //   const db_products = localStorage.getItem("db_products")
-  //     ? JSON.parse(localStorage.getItem("db_products"))
-  //     : [];
+    const db_products = localStorage.getItem("db_products")
+      ? JSON.parse(localStorage.getItem("db_products"))
+      : [];
 
-  //   setListProducts(db_products);
-  // }, []);
+    setListProducts(db_products);
+  }, []);
 
 
-  // const handleNewOutput = () => {
-  //   if (!amount | (product_id === "0")) {
-  //     return alert("Selecione o produto e a quantidade!");
-  //   }
+  const handleNewOutput = () => {
+    if (!amount | (product_id === "0")) {
+      return alert("Selecione o produto e a quantidade!");
+    }
 
-  //   const id = Math.random().toString(36).substring(2);
+    const id = Math.random().toString(36).substring(2);
 
-  //   if (listStockOutputs && listStockOutputs.length) {
-  //     localStorage.setItem(
-  //       "db_stock_outputs",
-  //       JSON.stringify([...listStockOutputs, { id, amount, product_id }])
-  //     );
+    if (listStockOutputs && listStockOutputs.length) {
+      localStorage.setItem(
+        "db_stock_outputs",
+        JSON.stringify([...listStockOutputs, { id, amount, product_id }])
+      );
 
-  //     setStockOutputs([...listStockOutputs, { id, amount, product_id }]);
-  //   } else {
-  //     localStorage.setItem(
-  //       "db_stock_outputs",
-  //       JSON.stringify([{ id, amount, product_id }])
-  //     );
+      setStockOutputs([...listStockOutputs, { id, amount, product_id }]);
+    } else {
+      localStorage.setItem(
+        "db_stock_outputs",
+        JSON.stringify([{ id, amount, product_id }])
+      );
 
-  //     setStockOutputs([{ id, amount, product_id }]);
-  //   }
+      setStockOutputs([{ id, amount, product_id }]);
+    }
 
-  //   setAmount("");
-  //   setProduct_id("0");
-  // };
+    setAmount("");
+    setProduct_id("0");
+  };
 
-  // const removeOutput = (id) => {
-  //   const newArray = listStockOutputs.filter((item) => item.id !== id);
+  const removeOutput = (id) => {
+    const newArray = listStockOutputs.filter((item) => item.id !== id);
 
-  //   localStorage.setItem("db_stock_outputs", JSON.stringify(newArray));
+    localStorage.setItem("db_stock_outputs", JSON.stringify(newArray));
 
-  //   setStockOutputs(newArray);
-  // };
+    setStockOutputs(newArray);
+  };
 
   useEffect(() => {
-    // const db_grupos = localStorage.getItem("db_grupos")
-    //   ? JSON.parse(localStorage.getItem("db_grupos"))
-    //   : [];
-    fetch(`api/pedido`)
-      .then((res) => res.json())
-      .then((data) => {
-        // setData(data)
-        // setLoading(false)
-        // console.log(data.pedidos);
-        setListVendas(data.pedidos);
-     
-      });
+    const db_grupos = localStorage.getItem("db_grupos")
+      ? JSON.parse(localStorage.getItem("db_grupos"))
+      : [];
+    // fetch(`api/pedido`)
+    //   .then((res) => res.json())
+    //   .then((data) => {
+    //     // setData(data)
+    //     // setLoading(false)
+    //     // console.log(data.pedidos);
+    setListProducts(db_grupos);
+        // setListVendas(data.pedidos);
+      //  console.log(data.pedidos)
+      // });
   }, []);
 
   const getProductById = (id) => {
@@ -135,16 +136,16 @@ const StockOutputs = () => {
                     Nome
                   </Th>
                   <Th fontWeight="bold" fontSize="14px">
-                    Total
+                    QTD
                   </Th>
                   <Th></Th>
                 </Tr>
               </Thead>
               <Tbody>
-                {listVendas.map((item, i) => (
+                {listProducts.map((item, i) => (
                   <Tr key={i}>
-                    <Td color="gray.500">{item.Cliente.nome}</Td>
-                    <Td color="gray.500">{item.valortotal.toLocaleString('pt-br',{style: 'currency', currency: 'BRL'})}</Td>
+                    <Td color="gray.500">{getProductById(item.product_id)}</Td>
+                    <Td color="gray.500">{item.amount}</Td>
                     <Td textAlign="end">
                       <Button
                       id="deletar"
@@ -153,7 +154,7 @@ const StockOutputs = () => {
                         fontSize={11}
                         color="red.500"
                         fontWeight="bold"
-                      //  onClick={() => removeOutput(item.id)}
+                        onClick={() => removeOutput(item.id)}
                       >
                         DELETAR
                       </Button>
