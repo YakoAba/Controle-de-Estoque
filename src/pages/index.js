@@ -115,7 +115,7 @@ const Produtos = ({ data }) => {
                     <Td color="black">{item.price}</Td>
                     <Td textAlign="end">
                       <Button
-                        id="deletar"
+                        id={`deletar${i}`}
                         p="2"
                         h="auto"
                         fontSize={11}
