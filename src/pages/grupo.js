@@ -21,12 +21,25 @@ const Grupos = () => {
   const [url, setUrl] = useState("");
   const [listaGrupos, setlistaGrupos] = useState([]);
 
-  useEffect(() => {
-    const db_grupos = localStorage.getItem("db_grupos")
-      ? JSON.parse(localStorage.getItem("db_grupos"))
-      : [];
+  async function getListaGrupos() {
+    const response = await fetch("http://localhost:3000/api/categorias");
+    return await response.json();
+  }
 
-    setlistaGrupos(db_grupos);
+  useEffect(() => {
+    // const db_grupos = localStorage.getItem("db_grupos")
+    //   ? JSON.parse(localStorage.getItem("db_grupos"))
+    //   : [];
+    fetch('/api/categorias')
+    .then((res) => res.json())
+    .then((data) => {
+      // setData(data)
+      // setLoading(false)
+      setlistaGrupos(data);
+      console.log(data);
+    })
+   
+
   }, []);
 
   const handleNewProduct = () => {
@@ -138,7 +151,7 @@ const Grupos = () => {
               <Tbody>
                 {listaGrupos.map((item, i) => (
                   <Tr key={i}>
-                    <Td color="black">{item.name}</Td>
+                    <Td color="black">{item.categoria}</Td>
                     <Td textAlign="end">
                       <Button
                         id="deletar"
@@ -163,3 +176,5 @@ const Grupos = () => {
   );
 };
 export default Grupos;
+
+

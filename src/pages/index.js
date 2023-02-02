@@ -23,13 +23,27 @@ const Produtos = () => {
   const [titulo, setTitulo] = useState("");
   const [descricao, setDescricao] = useState("");
   const [listProducts, setListProducts] = useState([]);
+  const [category, setCategory] = useState("");
+
+  // useEffect(() => {
+  //   const db_products = localStorage.getItem("db_products")
+  //     ? JSON.parse(localStorage.getItem("db_products"))
+  //     : [];
+  //   setListProducts(db_products);
+  // }, []);
 
   useEffect(() => {
-    const db_products = localStorage.getItem("db_products")
-      ? JSON.parse(localStorage.getItem("db_products"))
-      : [];
-    setListProducts(db_products);
-  }, []);
+    // const db_grupos = localStorage.getItem("db_grupos")
+    //   ? JSON.parse(localStorage.getItem("db_grupos"))
+    //   : [];
+    fetch(`api/produtos`)
+      .then((res) => res.json())
+      .then((data) => {
+        // setData(data)
+        // setLoading(false)
+        setListProducts(data);
+      });
+  }, [category]);
 
   const handleNewProduct = () => {
     if (!name) return;
@@ -149,17 +163,17 @@ const Produtos = () => {
               <Thead>
                 <Tr>
                   <Th fontWeight="bold" fontSize="14px">
-                    Nome
+                  TÍTULO
                   </Th>
-                  <Th>TÍTULO</Th>
+                  <Th>VALOR</Th>
                   <Th></Th>
                 </Tr>
               </Thead>
               <Tbody>
                 {listProducts.map((item, i) => (
                   <Tr key={i}>
-                    <Td color="black">{item.name}</Td>
-                    <Td color="black">{item.titulo}</Td>
+                    <Td color="black">{item.title}</Td>
+                    <Td color="black">{item.price}</Td>
                     <Td textAlign="end">
                       <Button
                         id="deletar"
