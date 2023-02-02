@@ -16,27 +16,9 @@ import React, { useEffect, useState } from "react";
 import Header from "../components/Header";
 import Sidebar from "../components/Sidebar";
 
-const StockOutputs = () => {
+const StockOutputs = ({data}) => {
   const [amount, setAmount] = useState("");
   const [product_id, setProduct_id] = useState("0");
-  const [listStockOutputs, setStockOutputs] = useState([]);
-  const [listProducts, setListProducts] = useState([]);
-  const [listVendas, setListVendas] = useState([]);
-
-  // useEffect(() => {
-  //   const db_stock_outputs = localStorage.getItem("db_stock_outputs")
-  //     ? JSON.parse(localStorage.getItem("db_stock_outputs"))
-  //     : [];
-
-  //   setStockOutputs(db_stock_outputs);
-
-  //   const db_products = localStorage.getItem("db_products")
-  //     ? JSON.parse(localStorage.getItem("db_products"))
-  //     : [];
-
-  //   setListProducts(db_products);
-  // }, []);
-
 
   // const handleNewOutput = () => {
   //   if (!amount | (product_id === "0")) {
@@ -73,24 +55,10 @@ const StockOutputs = () => {
   //   setStockOutputs(newArray);
   // };
 
-  useEffect(() => {
-    // const db_grupos = localStorage.getItem("db_grupos")
-    //   ? JSON.parse(localStorage.getItem("db_grupos"))
-    //   : [];
-    fetch(`api/pedido`)
-      .then((res) => res.json())
-      .then((data) => {
-        // setData(data)
-        // setLoading(false)
-        // console.log(data.pedidos);
-        setListVendas(data.pedidos);
-     
-      });
-  }, []);
 
-  const getProductById = (id) => {
-    return listProducts.filter((item) => item.id === id)[0]?.name;
-  };
+  // const getProductById = (id) => {
+  //   return listProducts.filter((item) => item.id === id)[0]?.name;
+  // };
 
   return (
     <Flex h="100vh" flexDirection="column">
@@ -105,14 +73,14 @@ const StockOutputs = () => {
               value={product_id}
               onChange={(e) => setProduct_id(e.target.value)}
             >
-              <option value="0">Selecione um item</option>
+              {/* <option value="0">Selecione um item</option>
               {listProducts &&
                 listProducts.length > 0 &&
                 listProducts.map((item, i) => (
                   <option key={i} value={item.id}>
                     {item.name}
                   </option>
-                ))}
+                ))} */}
             </Select>
             <Input
               placeholder="Quantidade"
@@ -141,7 +109,7 @@ const StockOutputs = () => {
                 </Tr>
               </Thead>
               <Tbody>
-                {listVendas.map((item, i) => (
+                {data.map((item, i) => (
                   <Tr key={i}>
                     <Td color="gray.500">{item.Cliente.nome}</Td>
                     <Td color="gray.500">{item.valortotal.toLocaleString('pt-br',{style: 'currency', currency: 'BRL'})}</Td>
@@ -170,3 +138,11 @@ const StockOutputs = () => {
 };
 
 export default StockOutputs;
+
+export async function getServerSideProps() {
+  // Fetch data from external API
+  const res = await fetch(`https://harmonicaestoque.vercel.app//api/produtos`);
+  const data = await res.json();
+  // Pass data to the page via props
+  return { props: { data } };
+}
