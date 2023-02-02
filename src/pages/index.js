@@ -2,11 +2,13 @@ import {
   Box,
   Button,
   Flex,
+  Image,
   Input,
   SimpleGrid,
   Table,
   Tbody,
   Td,
+  Textarea,
   Th,
   Thead,
   Tr,
@@ -17,13 +19,15 @@ import Sidebar from "../components/Sidebar";
 
 const Produtos = () => {
   const [name, setName] = useState("");
+  const [url, setUrl] = useState("");
+  const [titulo, setTitulo] = useState("");
+  const [descricao, setDescricao] = useState("");
   const [listProducts, setListProducts] = useState([]);
 
   useEffect(() => {
     const db_products = localStorage.getItem("db_products")
       ? JSON.parse(localStorage.getItem("db_products"))
       : [];
-
     setListProducts(db_products);
   }, []);
 
@@ -39,17 +43,23 @@ const Produtos = () => {
     if (listProducts && listProducts.length) {
       localStorage.setItem(
         "db_products",
-        JSON.stringify([...listProducts, { id, name }])
+        JSON.stringify([...listProducts, { id, name, url, titulo, descricao }])
       );
 
-      setListProducts([...listProducts, { id, name }]);
+      setListProducts([...listProducts, { id, name, url, titulo, descricao }]);
     } else {
-      localStorage.setItem("db_products", JSON.stringify([{ id, name }]));
+      localStorage.setItem(
+        "db_products",
+        JSON.stringify([{ id, name, url, titulo, descricao }])
+      );
 
-      setListProducts([{ id, name }]);
+      setListProducts([{ id, name, url, titulo, descricao }]);
     }
 
     setName("");
+    setUrl("");
+    setTitulo("");
+    setDescricao("");
   };
 
   const verifyProductName = () => {
@@ -87,17 +97,47 @@ const Produtos = () => {
   return (
     <Flex h="100vh" flexDirection="column">
       <Header />
-
       <Flex w="100%" my="6" maxW={1120} mx="auto" px="6" h="100vh">
         <Sidebar />
-
         <Box w="100%">
-          <SimpleGrid minChildWidth={240} h="fit-content" spacing="6">
+          {url !== "" ? (
+            <SimpleGrid m="4">
+              <Image
+                width="67"
+                height="50"
+                objectFit="fill"
+                src={url}
+                alt="LOGO"
+              />
+            </SimpleGrid>
+          ) : null}
+          <SimpleGrid h="fit-content" spacing="6">
+            <Input
+              value={url}
+              onChange={(e) => setUrl(e.target.value)}
+              placeholder="Url da imagem"
+              _placeholder={{ color: "black" }}
+            />
             <Input
               value={name}
               onChange={(e) => setName(e.target.value)}
               placeholder="Nome do produto"
               maxLength={30}
+              _placeholder={{ color: "black" }}
+            />
+            <Input
+              value={titulo}
+              onChange={(e) => setTitulo(e.target.value)}
+              placeholder="titulo do produto"
+              maxLength={20}
+              _placeholder={{ color: "black" }}
+            />
+            <Textarea
+              value={descricao}
+              onChange={(e) => setDescricao(e.target.value)}
+              placeholder="descrição do produto"
+              _placeholder={{ color: "black" }}
+              h="100px"
             />
             <Button id="cadastrar" w="40" onClick={handleNewProduct}>
               CADASTRAR
@@ -111,20 +151,22 @@ const Produtos = () => {
                   <Th fontWeight="bold" fontSize="14px">
                     Nome
                   </Th>
+                  <Th>TÍTULO</Th>
                   <Th></Th>
                 </Tr>
               </Thead>
               <Tbody>
                 {listProducts.map((item, i) => (
                   <Tr key={i}>
-                    <Td color="gray.500">{item.name}</Td>
+                    <Td color="black">{item.name}</Td>
+                    <Td color="black">{item.titulo}</Td>
                     <Td textAlign="end">
                       <Button
-                      id="deletar"
+                        id="deletar"
                         p="2"
                         h="auto"
                         fontSize={11}
-                        color="red.500"
+                        color="black"
                         fontWeight="bold"
                         onClick={() => removeProduct(item.id)}
                       >

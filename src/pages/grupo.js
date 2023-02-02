@@ -94,8 +94,8 @@ const Grupos = () => {
       <Flex w="100%" my="6" maxW={1120} mx="auto" px="6" h="100vh">
         <Sidebar />
         <Box w="100%">
-          <SimpleGrid m="4">
-            {url !== "" ? (
+          {url !== "" ? (
+            <SimpleGrid m="4">
               <Image
                 width="67"
                 height="50"
@@ -103,22 +103,22 @@ const Grupos = () => {
                 src={url}
                 alt="LOGO"
               />
-            ) : (
-              <></>
-            )}
-          </SimpleGrid>
+            </SimpleGrid>
+          ) : null}
 
           <SimpleGrid minChildWidth={240} h="fit-content" spacing="5">
             <Input
               value={url}
               onChange={(e) => setUrl(e.target.value)}
               placeholder="Url da imagem"
+              _placeholder={{ color: "black" }}
             />
             <Input
               value={name}
               onChange={(e) => setName(e.target.value)}
               placeholder="Nome do grupo"
               maxLength={30}
+              _placeholder={{ color: "black" }}
             />
             <Button id="cadastrar" w="40" onClick={handleNewProduct}>
               CADASTRAR
@@ -138,14 +138,14 @@ const Grupos = () => {
               <Tbody>
                 {listaGrupos.map((item, i) => (
                   <Tr key={i}>
-                    <Td color="gray.500">{item.name}</Td>
+                    <Td color="black">{item.name}</Td>
                     <Td textAlign="end">
                       <Button
                         id="deletar"
                         p="2"
                         h="auto"
                         fontSize={11}
-                        color="red.500"
+                        color="black"
                         fontWeight="bold"
                         onClick={() => removeProduct(item.id)}
                       >
