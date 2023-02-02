@@ -125,7 +125,7 @@ const Grupos = ({data}) => {
                     <Td color="black">{item.categoria}</Td>
                     <Td textAlign="end">
                       <Button
-                        id="deletar"
+                        id={`deletar${i}`}
                         p="2"
                         h="auto"
                         fontSize={11}
