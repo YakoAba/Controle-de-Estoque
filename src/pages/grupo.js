@@ -97,13 +97,13 @@ const Groups = () => {
 
     setListGroups(newArray);
     toast({
-        position: "top",
-        title: "Success",
-        description: "Group removed successfully",
-        status: "success",
-        duration: 5000,
-        isClosable: true,
-      });
+      position: "top",
+      title: "Success",
+      description: "Group removed successfully",
+      status: "success",
+      duration: 5000,
+      isClosable: true,
+    });
   };
 
   return (
@@ -119,6 +119,7 @@ const Groups = () => {
               value={name}
               onChange={(e) => setName(e.target.value)}
               placeholder="Name of group"
+              maxLength={20}
             />
             <Button id="cadastrar" w="40" onClick={handleNewGroup}>
               REGISTER

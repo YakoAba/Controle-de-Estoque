@@ -99,6 +99,7 @@ const Produtos = () => {
               value={name}
               onChange={(e) => setName(e.target.value)}
               placeholder="Nome do produto"
+              maxLength={30}
             />
             <Button id="cadastrar" w="40" onClick={handleNewProduct}>
               CADASTRAR
