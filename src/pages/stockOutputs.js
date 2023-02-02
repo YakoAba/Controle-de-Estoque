@@ -109,7 +109,7 @@ const StockOutputs = ({data}) => {
                 </Tr>
               </Thead>
               <Tbody>
-                {data.map((item, i) => (
+                {data.pedidos.map((item, i) => (
                   <Tr key={i}>
                     <Td color="gray.500">{item.Cliente.nome}</Td>
                     <Td color="gray.500">{item.valortotal.toLocaleString('pt-br',{style: 'currency', currency: 'BRL'})}</Td>
