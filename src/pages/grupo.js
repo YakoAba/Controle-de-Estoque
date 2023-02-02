@@ -2,6 +2,7 @@ import {
   Box,
   Button,
   Flex,
+  Image,
   Input,
   SimpleGrid,
   Table,
@@ -17,43 +18,45 @@ import Sidebar from "../components/Sidebar";
 
 const Grupos = () => {
   const [name, setName] = useState("");
-  const [listProducts, setListProducts] = useState([]);
+  const [url, setUrl] = useState("");
+  const [listaGrupos, setlistaGrupos] = useState([]);
 
   useEffect(() => {
     const db_grupos = localStorage.getItem("db_grupos")
       ? JSON.parse(localStorage.getItem("db_grupos"))
       : [];
 
-    setListProducts(db_grupos);
+    setlistaGrupos(db_grupos);
   }, []);
 
   const handleNewProduct = () => {
     if (!name) return;
     if (verifyProductName()) {
-      alert("Produto já cadastrado!");
+      alert("Grupo já cadastrado!");
       return;
     }
 
     const id = Math.random().toString(36).substring(2);
 
-    if (listProducts && listProducts.length) {
+    if (listaGrupos && listaGrupos.length) {
       localStorage.setItem(
         "db_grupos",
-        JSON.stringify([...listProducts, { id, name }])
+        JSON.stringify([...listaGrupos, { id, name, url }])
       );
 
-      setListProducts([...listProducts, { id, name }]);
+      setlistaGrupos([...listaGrupos, { id, name, url }]);
     } else {
-      localStorage.setItem("db_grupos", JSON.stringify([{ id, name }]));
+      localStorage.setItem("db_grupos", JSON.stringify([{ id, name, url }]));
 
-      setListProducts([{ id, name }]);
+      setlistaGrupos([{ id, name, url }]);
     }
 
     setName("");
+    setUrl("");
   };
 
   const verifyProductName = () => {
-    return !!listProducts.find((prod) => prod.name === name);
+    return !!listaGrupos.find((prod) => prod.name === name);
   };
 
   const removeProduct = (id) => {
@@ -73,15 +76,15 @@ const Grupos = () => {
     ).length;
 
     if (hasEntries || hasOutputs) {
-      alert("Esse produto possuí movimentações!");
+      alert("Esse grupo possuí movimentações!");
       return;
     }
 
-    const newArray = listProducts.filter((prod) => prod.id !== id);
+    const newArray = listaGrupos.filter((prod) => prod.id !== id);
 
     localStorage.setItem("db_grupos", JSON.stringify(newArray));
 
-    setListProducts(newArray);
+    setlistaGrupos(newArray);
   };
 
   return (
@@ -90,13 +93,31 @@ const Grupos = () => {
 
       <Flex w="100%" my="6" maxW={1120} mx="auto" px="6" h="100vh">
         <Sidebar />
-
         <Box w="100%">
-          <SimpleGrid minChildWidth={240} h="fit-content" spacing="6">
+          <SimpleGrid m="4">
+            {url !== "" ? (
+              <Image
+                width="67"
+                height="50"
+                objectFit="fill"
+                src={url}
+                alt="LOGO"
+              />
+            ) : (
+              <></>
+            )}
+          </SimpleGrid>
+
+          <SimpleGrid minChildWidth={240} h="fit-content" spacing="5">
+            <Input
+              value={url}
+              onChange={(e) => setUrl(e.target.value)}
+              placeholder="Url da imagem"
+            />
             <Input
               value={name}
               onChange={(e) => setName(e.target.value)}
-              placeholder="Nome do produto"
+              placeholder="Nome do grupo"
               maxLength={30}
             />
             <Button id="cadastrar" w="40" onClick={handleNewProduct}>
@@ -115,7 +136,7 @@ const Grupos = () => {
                 </Tr>
               </Thead>
               <Tbody>
-                {listProducts.map((item, i) => (
+                {listaGrupos.map((item, i) => (
                   <Tr key={i}>
                     <Td color="gray.500">{item.name}</Td>
                     <Td textAlign="end">
