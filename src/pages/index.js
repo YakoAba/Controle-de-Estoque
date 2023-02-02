@@ -201,7 +201,7 @@ export default Produtos;
 
 export async function getServerSideProps() {
   // Fetch data from external API
-  const res = await fetch(`http://localhost:3000/api/produtos`)
+  const res = await fetch(`https://harmonicaestoque.vercel.app//api/produtos`)
   const data = await res.json()
   // Pass data to the page via props
   return { props: { data } }
