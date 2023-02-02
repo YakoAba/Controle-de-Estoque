@@ -13,37 +13,15 @@ import {
   Thead,
   Tr,
 } from "@chakra-ui/react";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Header from "../components/Header";
 import Sidebar from "../components/Sidebar";
 
-const Produtos = ({data}) => {
+const Produtos = ({ data }) => {
   const [name, setName] = useState("");
   const [url, setUrl] = useState("");
   const [titulo, setTitulo] = useState("");
   const [descricao, setDescricao] = useState("");
-  const [listProducts, setListProducts] = useState([]);
-  const [category, setCategory] = useState("");
-
-  // useEffect(() => {
-  //   const db_products = localStorage.getItem("db_products")
-  //     ? JSON.parse(localStorage.getItem("db_products"))
-  //     : [];
-  //   setListProducts(db_products);
-  // }, []);
-
-  // useEffect(() => {
-  //   // const db_grupos = localStorage.getItem("db_grupos")
-  //   //   ? JSON.parse(localStorage.getItem("db_grupos"))
-  //   //   : [];
-  //   fetch(`api/produtos`)
-  //     .then((res) => res.json())
-  //     .then((data) => {
-  //       // setData(data)
-  //       // setLoading(false)
-  //       setListProducts(data);
-  //     });
-  // }, [category]);
 
   const handleNewProduct = () => {
     if (!name) return;
@@ -53,22 +31,7 @@ const Produtos = ({data}) => {
     }
 
     const id = Math.random().toString(36).substring(2);
-
-    if (listProducts && listProducts.length) {
-      localStorage.setItem(
-        "db_products",
-        JSON.stringify([...listProducts, { id, name, url, titulo, descricao }])
-      );
-
-      setListProducts([...listProducts, { id, name, url, titulo, descricao }]);
-    } else {
-      localStorage.setItem(
-        "db_products",
-        JSON.stringify([{ id, name, url, titulo, descricao }])
-      );
-
-      setListProducts([{ id, name, url, titulo, descricao }]);
-    }
+    // JSON.stringify([{ id, name, url, titulo, descricao }])
 
     setName("");
     setUrl("");
@@ -76,37 +39,13 @@ const Produtos = ({data}) => {
     setDescricao("");
   };
 
-  const verifyProductName = () => {
-    return !!listProducts.find((prod) => prod.name === name);
-  };
+  // const verifyProductName = () => {
+  //   return !!listProducts.find((prod) => prod.name === name);
+  // };
 
-  const removeProduct = (id) => {
-    const db_stock_outputs = localStorage.getItem("db_stock_outputs")
-      ? JSON.parse(localStorage.getItem("db_stock_outputs"))
-      : [];
+  // const removeProduct = (id) => {
 
-    const db_stock_entries = localStorage.getItem("db_stock_entries")
-      ? JSON.parse(localStorage.getItem("db_stock_entries"))
-      : [];
-
-    const hasOutputs = db_stock_outputs.filter(
-      (item) => item.product_id === id
-    ).length;
-    const hasEntries = db_stock_entries.filter(
-      (item) => item.product_id === id
-    ).length;
-
-    if (hasEntries || hasOutputs) {
-      alert("Esse produto possuí movimentações!");
-      return;
-    }
-
-    const newArray = listProducts.filter((prod) => prod.id !== id);
-
-    localStorage.setItem("db_products", JSON.stringify(newArray));
-
-    setListProducts(newArray);
-  };
+  // };
 
   return (
     <Flex h="100vh" flexDirection="column">
@@ -163,7 +102,7 @@ const Produtos = ({data}) => {
               <Thead>
                 <Tr>
                   <Th fontWeight="bold" fontSize="14px">
-                  TÍTULO
+                    TÍTULO
                   </Th>
                   <Th>VALOR</Th>
                   <Th></Th>
@@ -201,8 +140,8 @@ export default Produtos;
 
 export async function getServerSideProps() {
   // Fetch data from external API
-  const res = await fetch(`https://harmonicaestoque.vercel.app//api/produtos`)
-  const data = await res.json()
+  const res = await fetch(`https://harmonicaestoque.vercel.app//api/produtos`);
+  const data = await res.json();
   // Pass data to the page via props
-  return { props: { data } }
+  return { props: { data } };
 }

@@ -16,7 +16,7 @@ import { useEffect, useState } from "react";
 import Header from "../components/Header";
 import Sidebar from "../components/Sidebar";
 
-const Grupos = () => {
+const Grupos = ({data}) => {
   const [name, setName] = useState("");
   const [url, setUrl] = useState("");
   const [listaGrupos, setlistaGrupos] = useState([]);
@@ -25,21 +25,6 @@ const Grupos = () => {
     const response = await fetch("http://localhost:3000/api/categorias");
     return await response.json();
   }
-
-  useEffect(() => {
-    // const db_grupos = localStorage.getItem("db_grupos")
-    //   ? JSON.parse(localStorage.getItem("db_grupos"))
-    //   : [];
-    fetch('/api/categorias')
-    .then((res) => res.json())
-    .then((data) => {
-      // setData(data)
-      // setLoading(false)
-      setlistaGrupos(data);
-    })
-   
-
-  }, []);
 
   const handleNewProduct = () => {
     if (!name) return;
@@ -50,18 +35,18 @@ const Grupos = () => {
 
     const id = Math.random().toString(36).substring(2);
 
-    if (listaGrupos && listaGrupos.length) {
-      localStorage.setItem(
-        "db_grupos",
-        JSON.stringify([...listaGrupos, { id, name, url }])
-      );
+    // if (listaGrupos && listaGrupos.length) {
+    //   localStorage.setItem(
+    //     "db_grupos",
+    //     JSON.stringify([...listaGrupos, { id, name, url }])
+    //   );
 
-      setlistaGrupos([...listaGrupos, { id, name, url }]);
-    } else {
-      localStorage.setItem("db_grupos", JSON.stringify([{ id, name, url }]));
+    //   setlistaGrupos([...listaGrupos, { id, name, url }]);
+    // } else {
+    //   localStorage.setItem("db_grupos", JSON.stringify([{ id, name, url }]));
 
-      setlistaGrupos([{ id, name, url }]);
-    }
+    //   setlistaGrupos([{ id, name, url }]);
+    // }
 
     setName("");
     setUrl("");
@@ -71,33 +56,20 @@ const Grupos = () => {
     return !!listaGrupos.find((prod) => prod.name === name);
   };
 
-  const removeProduct = (id) => {
-    const db_stock_outputs = localStorage.getItem("db_stock_outputs")
-      ? JSON.parse(localStorage.getItem("db_stock_outputs"))
-      : [];
+  // const removeProduct = (id) => {
+  
 
-    const db_stock_entries = localStorage.getItem("db_stock_entries")
-      ? JSON.parse(localStorage.getItem("db_stock_entries"))
-      : [];
+  //   if (hasEntries || hasOutputs) {
+  //     alert("Esse grupo possuí movimentações!");
+  //     return;
+  //   }
 
-    const hasOutputs = db_stock_outputs.filter(
-      (item) => item.product_id === id
-    ).length;
-    const hasEntries = db_stock_entries.filter(
-      (item) => item.product_id === id
-    ).length;
+  //   const newArray = listaGrupos.filter((prod) => prod.id !== id);
 
-    if (hasEntries || hasOutputs) {
-      alert("Esse grupo possuí movimentações!");
-      return;
-    }
+  //   localStorage.setItem("db_grupos", JSON.stringify(newArray));
 
-    const newArray = listaGrupos.filter((prod) => prod.id !== id);
-
-    localStorage.setItem("db_grupos", JSON.stringify(newArray));
-
-    setlistaGrupos(newArray);
-  };
+  //   setlistaGrupos(newArray);
+  // };
 
   return (
     <Flex h="100vh" flexDirection="column">
@@ -148,7 +120,7 @@ const Grupos = () => {
                 </Tr>
               </Thead>
               <Tbody>
-                {listaGrupos.map((item, i) => (
+                {data.map((item, i) => (
                   <Tr key={i}>
                     <Td color="black">{item.categoria}</Td>
                     <Td textAlign="end">
@@ -176,4 +148,10 @@ const Grupos = () => {
 };
 export default Grupos;
 
-
+export async function getServerSideProps() {
+  // Fetch data from external API
+  const res = await fetch(`https://harmonicaestoque.vercel.app//api/categorias`);
+  const data = await res.json();
+  // Pass data to the page via props
+  return { props: { data } };
+}
