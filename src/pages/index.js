@@ -16,23 +16,18 @@ import {
 import { useEffect, useState } from "react";
 import Header from "../components/Header";
 import Sidebar from "../components/Sidebar";
+import useSWR from "swr";
 
 const Produtos = () => {
   const [name, setName] = useState("");
   const [url, setUrl] = useState("");
   const [titulo, setTitulo] = useState("");
   const [descricao, setDescricao] = useState("");
-  const [listaProdutos, setlistaProdutos] = useState([]);
 
-  useEffect(() => {
-    fetch('/api/produtos')
-    .then((res) => res.json())
-    .then((data) => {
-      // setData(data)
-      // setLoading(false)
-      setlistaProdutos(data);
-    })
-  }, []);
+  const { data, error, isLoading } = useSWR("api/produtos", async (url) => {
+    const res = await fetch(url);
+    return res.json();
+  });
 
   const handleNewProduct = () => {
     if (!name) return;
@@ -109,6 +104,9 @@ const Produtos = () => {
           </SimpleGrid>
 
           <Box overflowY="auto" height="80vh">
+          {isLoading? 
+                <div>carregando...</div>
+                : 
             <Table mt="6">
               <Thead>
                 <Tr>
@@ -120,7 +118,7 @@ const Produtos = () => {
                 </Tr>
               </Thead>
               <Tbody>
-                {listaProdutos.map((item, i) => (
+                {data.map((item, i) => (
                   <Tr key={i}>
                     <Td color="black">{item.title}</Td>
                     <Td color="black">{item.price}</Td>
@@ -140,7 +138,7 @@ const Produtos = () => {
                   </Tr>
                 ))}
               </Tbody>
-            </Table>
+            </Table>}
           </Box>
         </Box>
       </Flex>
