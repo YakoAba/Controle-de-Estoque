@@ -50,7 +50,6 @@ const Header = () => {
         boxShadow="0 1px 0 #ccc"
         color="black"
         fontWeight="bold" 
-
       >
         <IconButton
           aria-label="menu"

@@ -51,18 +51,17 @@ const Produtos = () => {
     display: block;
     margin: 0 auto;
     border-color: red;
-    margin-top: 30px;
   `;
 
   return (
-    <Flex h="100vh" flexDirection="column" >
+    <Flex flexDirection="column" >
       <Box w="100%" position="fixed" >
       <Header />
       </Box>
-      <Box w="100%">
-      <Flex w="100%" my="6" maxW={1120} mx="auto" px="6" h="100vh" overflow={"auto"} marginTop="90px">
+      <Box w="100%" position="fixed">
+      <Flex w="100%" my="6" maxW="90%" maxHeight="30%"  mx="auto" px="6" h="100vh" overflow= "auto" marginTop="90px">
         <Sidebar/>
-        <Box w="100%">
+        <Box w="90%">
           {url !== "" ? (
             <SimpleGrid m="4">
               <Image
@@ -113,10 +112,10 @@ const Produtos = () => {
             </Button>
           </SimpleGrid>
 
-          <Box>
+          
             {isLoading ? (
-              <Box  marginTop="2" display="flex" justifyContent="center">
-                <PacmanLoader color={"#FF2153"} css={override} size={80} />
+              <Box  marginTop="3" display="flex" justifyContent="center">
+                <PacmanLoader color={"#FF2153"} css={override} size={70} />
               </Box>
             ) : (
               <Table mt="6">
@@ -158,7 +157,7 @@ const Produtos = () => {
                 </Tbody>
               </Table>
             )}
-          </Box>
+
         </Box>
       </Flex>
       </Box>
