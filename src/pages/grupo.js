@@ -16,6 +16,7 @@ import { useEffect, useState } from "react";
 import Header from "../components/Header";
 import Sidebar from "../components/Sidebar";
 import useSWR from "swr";
+import { PacmanLoader } from "react-spinners";
 
 const Grupos = () => {
   const [name, setName] = useState("");
@@ -27,20 +28,6 @@ const Grupos = () => {
     return res.json();
   });
 
-  // useEffect(() => {
-  //   fetch('/api/categorias')
-  //   .then((res) => res.json())
-  //   .then((data) => {
-  //     // setData(data)
-  //     // setLoading(false)
-  //     setlistaGrupos(data);
-  //   })
-  // }, []);
-
-  const grid = () => {
-    return;
-  };
-
   const handleNewProduct = () => {
     if (!name) return;
     if (verifyProductName()) {
@@ -51,6 +38,14 @@ const Grupos = () => {
     setName("");
     setUrl("");
   };
+
+  // Custom css for loader
+  const override = `
+   display: block;
+   margin: 0 auto;
+   border-color: red;
+   margin-top: 30px;
+ `;
 
   return (
     <Flex h="100vh" flexDirection="column">
@@ -90,40 +85,53 @@ const Grupos = () => {
             </Button>
           </SimpleGrid>
 
-          <Box overflowY="auto" height="80vh">
-          {isLoading? 
-                <div>carregando...</div>
-                : 
-            <Table mt="6">
-              <Thead>
-                <Tr>
-                  <Th fontWeight="bold" fontSize="14px">
-                    Nome
-                  </Th>
-                  <Th></Th>
-                </Tr>
-              </Thead>
-              <Tbody>
-                {data.map((item, i) => (
-                  <Tr key={i}>
-                    <Td color="black">{item.categoria}</Td>
-                    <Td textAlign="end">
-                      <Button
-                        id={`deletar${i}`}
-                        p="2"
-                        h="auto"
-                        fontSize={11}
-                        color="black"
-                        fontWeight="bold"
-                        onClick={() => removeProduct(item.id)}
-                      >
-                        DELETAR
-                      </Button>
-                    </Td>
+          <Box>
+            {isLoading ? (
+              <Box display="flex" justifyContent="center" marginTop="2">
+                <PacmanLoader
+                  color={"#FF2153"}
+                  css={override}
+                  size={80}
+                />
+              </Box>
+            ) : (
+              <Table mt="6">
+                <Thead>
+                  <Tr>
+                    <Th fontWeight="bold" fontSize="14px">
+                      Nome
+                    </Th>
+                    <Th></Th>
                   </Tr>
-                ))}
-              </Tbody>
-            </Table>}
+                </Thead>
+                <Tbody>
+                  {data.success ? (
+                    data.categorias.map((item, i) => (
+                      <Tr key={i}>
+                        <Td color="black">{item.categoria}</Td>
+                        <Td textAlign="end">
+                          <Button
+                            id={`deletar${i}`}
+                            p="2"
+                            h="auto"
+                            fontSize={11}
+                            color="black"
+                            fontWeight="bold"
+                            onClick={() => removeProduct(item.id)}
+                          >
+                            DELETAR
+                          </Button>
+                        </Td>
+                      </Tr>
+                    ))
+                  ) : (
+                    <Tr>
+                      <Td>erro na conexõa, volte em um minuto!</Td>
+                    </Tr>
+                  )}
+                </Tbody>
+              </Table>
+            )}
           </Box>
         </Box>
       </Flex>

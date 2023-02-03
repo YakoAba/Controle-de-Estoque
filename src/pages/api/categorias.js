@@ -11,7 +11,7 @@ export default async function handler(req, res) {
     case "GET":
       try {
         const categorias = await db.collection("categorias").find().toArray();
-        res.status(200).json(categorias);
+        res.status(200).json({...mensagemSucesso, categorias});
       } catch (error) {
         res.status(400).json(mensagemErro);
       }

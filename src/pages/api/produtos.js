@@ -33,10 +33,8 @@ export default async function handler(req, res) {
         switch (method) {
             case 'GET':
                 var produtos;
-               
                 try {
                     const { categoria } = req.query
-                    
                   if(categoria !== undefined){ 
                     const filtro = (categoria === "Ofertas") ? { offer: true } : { categoria: categoria }
                      produtos = await db.collection("produtos").find(filtro).toArray()
@@ -44,7 +42,7 @@ export default async function handler(req, res) {
                         produtos = await db.collection("produtos").find().toArray();
                 }
                     //var categorias = JSON.parse(sites);
-                    res.status(200).json(produtos)
+                    res.status(200).json({success: true, produtos})
                 } catch (error) {
                     res.status(400).json({ success: false })
                 }
@@ -52,7 +50,6 @@ export default async function handler(req, res) {
 
             case 'POST':
                 try {
-                    await db.collection("produtos").deleteMany({});
                     await db.collection("produtos").insertMany(req.body)
                     /* create a new model in the database */
                     res.status(201).json({ success: true })

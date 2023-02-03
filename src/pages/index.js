@@ -13,7 +13,7 @@ import {
   Thead,
   Tr,
 } from "@chakra-ui/react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Header from "../components/Header";
 import Sidebar from "../components/Sidebar";
 import useSWR from "swr";
@@ -25,7 +25,7 @@ const Produtos = () => {
   const [titulo, setTitulo] = useState("");
   const [descricao, setDescricao] = useState("");
 
-  const { data, error, isLoading } = useSWR("api/produtos", async (url) => {
+  const { data, isLoading } = useSWR("api/produtos", async (url) => {
     const res = await fetch(url);
     return res.json();
   });
@@ -51,6 +51,7 @@ const Produtos = () => {
     display: block;
     margin: 0 auto;
     border-color: red;
+    margin-top: 30px;
   `;
 
   return (
@@ -70,7 +71,12 @@ const Produtos = () => {
               />
             </SimpleGrid>
           ) : null}
-          <SimpleGrid h="fit-content" spacing="6">
+          <SimpleGrid
+            minChildWidth={500}
+            h="fit-content"
+            spacing="6"
+            columns={2}
+          >
             <Input
               value={url}
               onChange={(e) => setUrl(e.target.value)}
@@ -96,52 +102,55 @@ const Produtos = () => {
               onChange={(e) => setDescricao(e.target.value)}
               placeholder="descrição do produto"
               _placeholder={{ color: "black" }}
-              h="100px"
+              h="60px"
             />
             <Button id="cadastrar" w="40" onClick={handleNewProduct}>
               CADASTRAR
             </Button>
           </SimpleGrid>
 
-          <Box overflowY="auto" height="80vh">
+          <Box>
             {isLoading ? (
-              <PacmanLoader
-                color={"#FF2153"}
-                isLoading={isLoading}
-                css={override}
-                size={100}
-              />
+              <Box  marginTop="2" display="flex" justifyContent="center">
+                <PacmanLoader color={"#FF2153"} css={override} size={80} />
+              </Box>
             ) : (
               <Table mt="6">
                 <Thead>
                   <Tr>
                     <Th fontWeight="bold" fontSize="14px">
-                      TÍTULO
+                      TÌTULO
                     </Th>
                     <Th>VALOR</Th>
                     <Th></Th>
                   </Tr>
                 </Thead>
                 <Tbody>
-                  {data.map((item, i) => (
-                    <Tr key={i}>
-                      <Td color="black">{item.title}</Td>
-                      <Td color="black">{item.price}</Td>
-                      <Td textAlign="end">
-                        <Button
-                          id={`deletar${i}`}
-                          p="2"
-                          h="auto"
-                          fontSize={11}
-                          color="black"
-                          fontWeight="bold"
-                          onClick={() => removeProduct(item.id)}
-                        >
-                          DELETAR
-                        </Button>
-                      </Td>
+                  {data.success ? (
+                    data.produtos.map((item, i) => (
+                      <Tr key={i}>
+                        <Td color="black">{item.title}</Td>
+                        <Td color="black">{item.price}</Td>
+                        <Td textAlign="end">
+                          <Button
+                            id={`deletar${i}`}
+                            p="2"
+                            h="auto"
+                            fontSize={11}
+                            color="black"
+                            fontWeight="bold"
+                            onClick={() => removeProduct(item.id)}
+                          >
+                            DELETAR
+                          </Button>
+                        </Td>
+                      </Tr>
+                    ))
+                  ) : (
+                    <Tr>
+                      <Td>erro na conexõa, volte em um minuto!</Td>
                     </Tr>
-                  ))}
+                  )}
                 </Tbody>
               </Table>
             )}
