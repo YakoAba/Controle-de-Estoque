@@ -13,10 +13,11 @@ import {
   Thead,
   Tr,
 } from "@chakra-ui/react";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Header from "../components/Header";
 import Sidebar from "../components/Sidebar";
 import useSWR from "swr";
+import PacmanLoader from "react-spinners/PacmanLoader";
 
 const Produtos = () => {
   const [name, setName] = useState("");
@@ -45,13 +46,12 @@ const Produtos = () => {
     setDescricao("");
   };
 
-  // const verifyProductName = () => {
-  //   return !!listProducts.find((prod) => prod.name === name);
-  // };
-
-  // const removeProduct = (id) => {
-
-  // };
+  // Custom css for loader
+  const override = `
+    display: block;
+    margin: 0 auto;
+    border-color: red;
+  `;
 
   return (
     <Flex h="100vh" flexDirection="column">
@@ -104,41 +104,47 @@ const Produtos = () => {
           </SimpleGrid>
 
           <Box overflowY="auto" height="80vh">
-          {isLoading? 
-                <div>carregando...</div>
-                : 
-            <Table mt="6">
-              <Thead>
-                <Tr>
-                  <Th fontWeight="bold" fontSize="14px">
-                    TÍTULO
-                  </Th>
-                  <Th>VALOR</Th>
-                  <Th></Th>
-                </Tr>
-              </Thead>
-              <Tbody>
-                {data.map((item, i) => (
-                  <Tr key={i}>
-                    <Td color="black">{item.title}</Td>
-                    <Td color="black">{item.price}</Td>
-                    <Td textAlign="end">
-                      <Button
-                        id={`deletar${i}`}
-                        p="2"
-                        h="auto"
-                        fontSize={11}
-                        color="black"
-                        fontWeight="bold"
-                        onClick={() => removeProduct(item.id)}
-                      >
-                        DELETAR
-                      </Button>
-                    </Td>
+            {isLoading ? (
+              <PacmanLoader
+                color={"#FF2153"}
+                isLoading={isLoading}
+                css={override}
+                size={100}
+              />
+            ) : (
+              <Table mt="6">
+                <Thead>
+                  <Tr>
+                    <Th fontWeight="bold" fontSize="14px">
+                      TÍTULO
+                    </Th>
+                    <Th>VALOR</Th>
+                    <Th></Th>
                   </Tr>
-                ))}
-              </Tbody>
-            </Table>}
+                </Thead>
+                <Tbody>
+                  {data.map((item, i) => (
+                    <Tr key={i}>
+                      <Td color="black">{item.title}</Td>
+                      <Td color="black">{item.price}</Td>
+                      <Td textAlign="end">
+                        <Button
+                          id={`deletar${i}`}
+                          p="2"
+                          h="auto"
+                          fontSize={11}
+                          color="black"
+                          fontWeight="bold"
+                          onClick={() => removeProduct(item.id)}
+                        >
+                          DELETAR
+                        </Button>
+                      </Td>
+                    </Tr>
+                  ))}
+                </Tbody>
+              </Table>
+            )}
           </Box>
         </Box>
       </Flex>
