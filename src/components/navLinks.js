@@ -8,7 +8,7 @@ const sections = [
       },
       {
         label: "PRODUTOS",
-        href: "/",
+        href: "/produto",
       },
     ],
   },

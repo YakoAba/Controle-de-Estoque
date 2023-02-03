@@ -38,7 +38,7 @@ const Header = () => {
           content="Controle de estoque para lojas - Mantenha o seu estoque organizado e garanta o sucesso do seu negócio."
         />
       </Head>
-      <Flex
+      <Flex 
         as="header"
         w="100%"
         maxW={1120}
@@ -49,7 +49,8 @@ const Header = () => {
         align="center"
         boxShadow="0 1px 0 #ccc"
         color="black"
-        fontWeight="bold"
+        fontWeight="bold" 
+
       >
         <IconButton
           aria-label="menu"
