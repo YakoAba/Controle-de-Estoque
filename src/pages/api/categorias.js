@@ -1,72 +1,53 @@
-import clientPromise from '../../../lib/mongodb'
-
-
-export const config = {
-  api: {
-    bodyParser: {
-      sizeLimit: '4mb' // Set desired value here
-    }
-  }
-}
+import clientPromise from "../../../lib/mongodb";
 
 export default async function handler(req, res) {
-  const { method } = req
+  const { method } = req;
+  const client = await clientPromise;
+  const db = client.db(process.env.MONGODB_DB);
+  const mensagemErro = {success : false};
+  const mensagemSucesso = {success : true}
 
-  try {
-    //await clientPromise
-    // `await clientPromise` will use the default database passed in the MONGODB_URI
-    // However you can use another database (e.g. myDatabase) by replacing the `await clientPromise` with the following code:
-    //
-    const client = await clientPromise
-    const db = client.db(process.env.MONGODB_DB)
-    //
-    // Then you can execute queries against your database like so:
+  switch (method) {
+    case "GET":
+      try {
+        const categorias = await db.collection("categorias").find().toArray();
+        res.status(200).json(categorias);
+      } catch (error) {
+        res.status(400).json(mensagemErro);
+      }
+      break;
 
-    // {
-    //   props: { isConnected: true, data: sites.site }
-    switch (method) {
-      case 'GET':
-        try {
-          const categorias = await db.collection("categorias").find().toArray();
-          res.status(200).json(categorias)
-        } catch (error) {
-          res.status(400).json({ success: false })
-        }
-        break
+    case "POST":
+      try {
+        await db.collection("categorias").insertMany(req.body);
+        res.status(201).json(mensagemSucesso);
+      } catch (error) {
+        res.status(400).json(mensagemErro);
+      }
+      break;
 
-      case 'POST':
-        try {
-          await db.collection("categorias").deleteMany({});
-          await db.collection("categorias").insertMany(req.body)
-          /* create a new model in the database */
-          res.status(201).json({ success: true })
-        } catch (error) {
-          res.status(400).json({ success: false })
-        }
-        break
+    case "PUT":
+      try {
+        const { id } = req.query;
+        await db.collection("categorias").updateOne({ _id: id }, { $set: req.body });
+        res.status(200).json(mensagemSucesso);
+      } catch (error) {
+        res.status(400).json(mensagemErro);
+      }
+      break;
 
-      //   case 'DELETE':
-      //     try {
-      //       const alunos = await Aluno.deleteOne({
-      //           _id: req.body._id,
-      //       }) /* find all the data in our database */
-      //       res.status(200).json({ success: true, data: alunos })
-      //     } catch (error) {
-      //       res.status(400).json({ success: false })
-      //     }
-      //     break
+    case "DELETE":
+      try {
+        const { id } = req.query;
+        await db.collection("categorias").deleteOne({ _id: id });
+        res.status(200).json(mensagemSucesso);
+      } catch (error) {
+        res.status(400).json(mensagemErro);
+      }
+      break;
 
-      //  
-
-      default: res.status(400).json({ success: false })
-        break
-    }
-    // }
-  } catch (e) {
-    //  {
-    //   props: { isConnected: false }
-    // }
+    default:
+      res.status(400).json(mensagemErro);
+      break;
   }
-
-
 }

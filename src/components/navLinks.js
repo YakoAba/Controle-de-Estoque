@@ -16,14 +16,6 @@ const sections = [
     title: "ESTOQUE",
     links: [
       {
-        label: "SALDO",
-        href: "/balance",
-      },
-      {
-        label: "ENTRADAS",
-        href: "/stockEntries",
-      },
-      {
         label: "SAÍDAS",
         href: "/stockOutputs",
       },

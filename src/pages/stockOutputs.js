@@ -16,49 +16,20 @@ import React, { useEffect, useState } from "react";
 import Header from "../components/Header";
 import Sidebar from "../components/Sidebar";
 
-const StockOutputs = ({data}) => {
+const StockOutputs = () => {
   const [amount, setAmount] = useState("");
   const [product_id, setProduct_id] = useState("0");
+  const [listaPedidos, setlistaPedidos] = useState([]);
 
-  // const handleNewOutput = () => {
-  //   if (!amount | (product_id === "0")) {
-  //     return alert("Selecione o produto e a quantidade!");
-  //   }
-
-  //   const id = Math.random().toString(36).substring(2);
-
-  //   if (listStockOutputs && listStockOutputs.length) {
-  //     localStorage.setItem(
-  //       "db_stock_outputs",
-  //       JSON.stringify([...listStockOutputs, { id, amount, product_id }])
-  //     );
-
-  //     setStockOutputs([...listStockOutputs, { id, amount, product_id }]);
-  //   } else {
-  //     localStorage.setItem(
-  //       "db_stock_outputs",
-  //       JSON.stringify([{ id, amount, product_id }])
-  //     );
-
-  //     setStockOutputs([{ id, amount, product_id }]);
-  //   }
-
-  //   setAmount("");
-  //   setProduct_id("0");
-  // };
-
-  // const removeOutput = (id) => {
-  //   const newArray = listStockOutputs.filter((item) => item.id !== id);
-
-  //   localStorage.setItem("db_stock_outputs", JSON.stringify(newArray));
-
-  //   setStockOutputs(newArray);
-  // };
-
-
-  // const getProductById = (id) => {
-  //   return listProducts.filter((item) => item.id === id)[0]?.name;
-  // };
+  useEffect(() => {
+    fetch('/api/pedido')
+    .then((res) => res.json())
+    .then((data) => {
+      // setData(data)
+      // setLoading(false)
+      setlistaPedidos(data.pedidos);
+    })
+  }, []);
 
   return (
     <Flex h="100vh" flexDirection="column">
@@ -72,24 +43,17 @@ const StockOutputs = ({data}) => {
             <Select
               value={product_id}
               onChange={(e) => setProduct_id(e.target.value)}
-            >
-              {/* <option value="0">Selecione um item</option>
-              {listProducts &&
-                listProducts.length > 0 &&
-                listProducts.map((item, i) => (
-                  <option key={i} value={item.id}>
-                    {item.name}
-                  </option>
-                ))} */}
-            </Select>
+            ></Select>
             <Input
               placeholder="Quantidade"
               type="number"
               value={amount}
               onChange={(e) => setAmount(e.target.value)}
             />
-            <Button id="salvar" w="40" 
-           // onClick={handleNewOutput}
+            <Button
+              id="salvar"
+              w="40"
+              // onClick={handleNewOutput}
             >
               SALVAR
             </Button>
@@ -109,19 +73,24 @@ const StockOutputs = ({data}) => {
                 </Tr>
               </Thead>
               <Tbody>
-                {data.pedidos.map((item, i) => (
+                {listaPedidos.map((item, i) => (
                   <Tr key={i}>
                     <Td color="gray.500">{item.Cliente.nome}</Td>
-                    <Td color="gray.500">{item.valortotal.toLocaleString('pt-br',{style: 'currency', currency: 'BRL'})}</Td>
+                    <Td color="gray.500">
+                      {item.valortotal.toLocaleString("pt-br", {
+                        style: "currency",
+                        currency: "BRL",
+                      })}
+                    </Td>
                     <Td textAlign="end">
                       <Button
-                      id="deletar"
+                        id="deletar"
                         p="2"
                         h="auto"
                         fontSize={11}
                         color="red.500"
                         fontWeight="bold"
-                      //  onClick={() => removeOutput(item.id)}
+                        //  onClick={() => removeOutput(item.id)}
                       >
                         DELETAR
                       </Button>
@@ -138,11 +107,3 @@ const StockOutputs = ({data}) => {
 };
 
 export default StockOutputs;
-
-export async function getServerSideProps() {
-  // Fetch data from external API
-  const res = await fetch(`https://harmonicaestoque.vercel.app//api/pedido`);
-  const data = await res.json();
-  // Pass data to the page via props
-  return { props: { data } };
-}

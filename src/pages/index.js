@@ -13,15 +13,26 @@ import {
   Thead,
   Tr,
 } from "@chakra-ui/react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Header from "../components/Header";
 import Sidebar from "../components/Sidebar";
 
-const Produtos = ({ data }) => {
+const Produtos = () => {
   const [name, setName] = useState("");
   const [url, setUrl] = useState("");
   const [titulo, setTitulo] = useState("");
   const [descricao, setDescricao] = useState("");
+  const [listaProdutos, setlistaProdutos] = useState([]);
+
+  useEffect(() => {
+    fetch('/api/produtos')
+    .then((res) => res.json())
+    .then((data) => {
+      // setData(data)
+      // setLoading(false)
+      setlistaProdutos(data);
+    })
+  }, []);
 
   const handleNewProduct = () => {
     if (!name) return;
@@ -109,7 +120,7 @@ const Produtos = ({ data }) => {
                 </Tr>
               </Thead>
               <Tbody>
-                {data.map((item, i) => (
+                {listaProdutos.map((item, i) => (
                   <Tr key={i}>
                     <Td color="black">{item.title}</Td>
                     <Td color="black">{item.price}</Td>
@@ -137,11 +148,3 @@ const Produtos = ({ data }) => {
   );
 };
 export default Produtos;
-
-export async function getServerSideProps() {
-  // Fetch data from external API
-  const res = await fetch(`https://harmonicaestoque.vercel.app//api/produtos`);
-  const data = await res.json();
-  // Pass data to the page via props
-  return { props: { data } };
-}
