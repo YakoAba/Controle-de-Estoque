@@ -51,13 +51,13 @@ const Produtos = () => {
       <Box id="header" w="100%" position="fixed" zIndex={1} >
         <Header />
       </Box>
-      <Box w="100%" position="fixed" h="100vh" mt={"55px"}>
+      <Box w="100%" position="fixed" h="calc(100% - 90px)" mt={"55px"}>
         <Flex
           w="100%"
           my="6"
           mx="auto"
           px="6"
-          h="85vh"
+          h="100%"
         >
           <Sidebar />
           <Box
