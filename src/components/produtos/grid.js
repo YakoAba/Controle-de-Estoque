@@ -1,13 +1,15 @@
 import { Button, Table, Tbody, Td, Th, Thead, Tr } from "@chakra-ui/react";
+import PacMan from "../pacman";
+import { DeleteIcon } from "@chakra-ui/icons";
 
-const GridProdutos = ({ data }) => {
-  return (
+const GridProdutos = ({ data, isLoading }) => {
+  return isLoading ? (
+    <PacMan />
+  ) : (
     <Table marginTop={"30px"} colorScheme="black">
       <Thead>
         <Tr>
-          <Th fontWeight="bold" fontSize="14px">
-            TÌTULO
-          </Th>
+          <Th fontWeight="bold" fontSize="14px">TÌTULO</Th>
           <Th>VALOR</Th>
           <Th></Th>
         </Tr>
@@ -24,9 +26,11 @@ const GridProdutos = ({ data }) => {
                   p="2"
                   h="auto"
                   fontSize={11}
-                  color="black"
-                  fontWeight="bold"
                   onClick={() => removeProduct(item.id)}
+                  leftIcon={<DeleteIcon />}
+                  colorScheme="red"
+                  variant="solid"
+
                 >
                   DELETAR
                 </Button>
@@ -35,7 +39,7 @@ const GridProdutos = ({ data }) => {
           ))
         ) : (
           <Tr>
-            <Td>erro na conexõa, volte em um minuto!</Td>
+            <Td>erro na conexão, volte em um minuto!</Td>
           </Tr>
         )}
       </Tbody>

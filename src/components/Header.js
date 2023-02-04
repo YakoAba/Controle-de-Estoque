@@ -71,7 +71,7 @@ const Header = () => {
         <Flex ml="auto">
           <HStack>
             <Text>Harmônica</Text>
-            <Avatar size="md" name="Harmônica" bg="#FF2153" />
+            <Avatar bg='red.500' color="white" size="md" name="Harmônica"  colorScheme="red" />
           </HStack>
         </Flex>
       </Flex>
