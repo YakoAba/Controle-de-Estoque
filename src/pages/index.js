@@ -57,7 +57,7 @@ const Produtos = () => {
           my="6"
           mx="auto"
           px="6"
-          h="calc(100vh - 150px)"
+          h="85vh"
         >
           <Sidebar />
           <Box
