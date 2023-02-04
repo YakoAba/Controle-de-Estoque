@@ -41,8 +41,8 @@ const Header = () => {
       <Flex 
         as="header"
         w="100%"
-        maxW={1120}
-        h="20"
+        maxW={"90%"}
+        h="70px"
         mx="auto"
         px="2"
         py="2"

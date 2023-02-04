@@ -13,7 +13,7 @@ import {
   Thead,
   Tr,
 } from "@chakra-ui/react";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Header from "../components/Header";
 import Sidebar from "../components/Sidebar";
 import useSWR from "swr";
@@ -46,80 +46,96 @@ const Produtos = () => {
     setDescricao("");
   };
 
-  // Custom css for loader
-  const override = `
-    display: block;
-    margin: 0 auto;
-    border-color: red;
-  `;
-
   return (
-    <Flex flexDirection="column" >
-      <Box w="100%" position="fixed" >
-      <Header />
+    <Flex flexDirection="column">
+      <Box id="header" w="100%" position="fixed" zIndex={1}>
+        <Header />
       </Box>
-      <Box w="100%" position="fixed">
-      <Flex w="100%" my="6" maxW="90%" maxHeight="30%"  mx="auto" px="6" h="100vh" overflow= "auto" marginTop="90px">
-        <Sidebar/>
-        <Box w="90%">
-          {url !== "" ? (
-            <SimpleGrid m="4">
-              <Image
-                width="67"
-                height="50"
-                objectFit="fill"
-                src={url}
-                alt="LOGO"
-              />
-            </SimpleGrid>
-          ) : null}
-          <SimpleGrid
-            h="fit-content"
-            spacing="6"
-            columns={1}
-           // marginTop="80px"
-           w="100%"
+      <Box w="100%" position="fixed" h="100vh">
+        <Flex
+          w="100%"
+          my="6"
+          maxW="94%"
+          mx="auto"
+          px="6"
+          marginTop="90px"
+          h="calc(100vh - 90px)"
+        >
+          <Sidebar />
+          <Box
+            w="100%"
+            maxW="100%"
+            overflowY="auto"
+            sx={{
+              "::-webkit-scrollbar": {
+                display: "none",
+              },
+            }}
           >
-            <Input
-              value={url}
-              onChange={(e) => setUrl(e.target.value)}
-              placeholder="Url da imagem"
-              _placeholder={{ color: "black" }}
-            />
-            <Input
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-              placeholder="Nome do produto"
-              maxLength={30}
-              _placeholder={{ color: "black" }}
-            />
-            <Input
-              value={titulo}
-              onChange={(e) => setTitulo(e.target.value)}
-              placeholder="titulo do produto"
-              maxLength={20}
-              _placeholder={{ color: "black" }}
-            />
-            <Textarea
-              value={descricao}
-              onChange={(e) => setDescricao(e.target.value)}
-              placeholder="descrição do produto"
-              _placeholder={{ color: "black" }}
-              h="60px"
-            />
-            <Button id="cadastrar" w="40" onClick={handleNewProduct}>
-              CADASTRAR
-            </Button>
-          </SimpleGrid>
-
-          
+            {url !== "" ? (
+              <SimpleGrid m="4">
+                <Image
+                  width="67"
+                  height="50"
+                  objectFit="fill"
+                  src={url}
+                  alt="LOGO"
+                />
+              </SimpleGrid>
+            ) : null}
+            <SimpleGrid
+              h="fit-content"
+              spacing="6"
+              columns={1}
+              // marginTop="80px"
+              w="100%"
+            >
+              <Input
+                value={url}
+                onChange={(e) => setUrl(e.target.value)}
+                placeholder="Url da imagem"
+                _placeholder={{ color: "black" }}
+                borderColor="black"
+                focusBorderColor='#FF2153'
+              />
+              <Input
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                placeholder="Nome do produto"
+                maxLength={30}
+                _placeholder={{ color: "black" }}
+                borderColor="black"
+                focusBorderColor='#FF2153'
+              />
+              <Input
+                value={titulo}
+                onChange={(e) => setTitulo(e.target.value)}
+                placeholder="titulo do produto"
+                maxLength={20}
+                _placeholder={{ color: "black" }}
+                borderColor="black"
+                focusBorderColor='#FF2153'
+              />
+              <Textarea
+                value={descricao}
+                onChange={(e) => setDescricao(e.target.value)}
+                placeholder="descrição do produto"
+                _placeholder={{ color: "black" }}
+                h="60px"
+                borderColor="black"
+                focusBorderColor='#FF2153'
+              />
+              <Button id="cadastrar" w="40" onClick={handleNewProduct}>
+                CADASTRAR
+              </Button>
+            </SimpleGrid>
             {isLoading ? (
-              <Box  marginTop="3" display="flex" justifyContent="center">
-                <PacmanLoader color={"#FF2153"} css={override} size={70} />
+              <Box marginTop="3" display="flex" justifyContent="center">
+                <PacmanLoader color={"#FF2153"} size={70} />
               </Box>
             ) : (
-              <Table mt="6">
-                <Thead>
+              <Table marginTop={"30px"} colorScheme="black">
+                <Thead > 
                   <Tr>
                     <Th fontWeight="bold" fontSize="14px">
                       TÌTULO
@@ -128,7 +144,7 @@ const Produtos = () => {
                     <Th></Th>
                   </Tr>
                 </Thead>
-                <Tbody>
+                <Tbody >
                   {data.success ? (
                     data.produtos.map((item, i) => (
                       <Tr key={i}>
@@ -157,11 +173,11 @@ const Produtos = () => {
                 </Tbody>
               </Table>
             )}
-
-        </Box>
-      </Flex>
+          </Box>
+        </Flex>
       </Box>
     </Flex>
   );
 };
+
 export default Produtos;
