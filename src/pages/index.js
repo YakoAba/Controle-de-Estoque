@@ -48,18 +48,16 @@ const Produtos = () => {
 
   return (
     <Flex flexDirection="column">
-      <Box id="header" w="100%" position="fixed" zIndex={1}>
+      <Box id="header" w="100%" position="fixed" zIndex={1} >
         <Header />
       </Box>
-      <Box w="100%" position="fixed" h="100vh">
+      <Box w="100%" position="fixed" h="100vh" mt={"55px"}>
         <Flex
           w="100%"
           my="6"
-          maxW="94%"
           mx="auto"
           px="6"
-          marginTop="90px"
-          h="calc(100vh - 100px)"
+          h="calc(100vh - 95px)"
         >
           <Sidebar />
           <Box
@@ -87,8 +85,6 @@ const Produtos = () => {
               h="fit-content"
               spacing="6"
               columns={1}
-              // marginTop="80px"
-              w="100%"
             >
               <Input
                 value={url}
@@ -97,6 +93,8 @@ const Produtos = () => {
                 _placeholder={{ color: "black" }}
                 borderColor="black"
                 focusBorderColor='#FF2153'
+               _hover={{ borderColor: "#FF2153" }}
+               mt={"10px"}
               />
               <Input
                 value={name}
@@ -106,6 +104,7 @@ const Produtos = () => {
                 _placeholder={{ color: "black" }}
                 borderColor="black"
                 focusBorderColor='#FF2153'
+                _hover={{ borderColor: "#FF2153" }}
               />
               <Input
                 value={titulo}
@@ -115,17 +114,19 @@ const Produtos = () => {
                 _placeholder={{ color: "black" }}
                 borderColor="black"
                 focusBorderColor='#FF2153'
+                _hover={{ borderColor: "#FF2153" }}
               />
               <Textarea
                 value={descricao}
                 onChange={(e) => setDescricao(e.target.value)}
                 placeholder="descrição do produto"
                 _placeholder={{ color: "black" }}
-                h="60px"
+                h="50px"
                 borderColor="black"
                 focusBorderColor='#FF2153'
+                _hover={{ borderColor: "#FF2153" }}
               />
-              <Button id="cadastrar" w="40" onClick={handleNewProduct}>
+              <Button id="cadastrar"  onClick={handleNewProduct}>
                 CADASTRAR
               </Button>
             </SimpleGrid>
