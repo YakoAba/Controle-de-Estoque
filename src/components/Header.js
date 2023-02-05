@@ -68,7 +68,7 @@ const Header = () => {
           src="harmonica_cozinha.png"
           alt="LOGO"
         />
-        <Flex ml="auto">
+        <Flex ml="auto" >
           <HStack>
             <Text>Harmônica</Text>
             <Avatar bg='red.500' color="white" size="md" name="Harmônica"  colorScheme="red" />
