@@ -36,8 +36,8 @@ const FormularioGrupos = () => {
           placeholder="Url da imagem"
           _placeholder={{ color: "black" }}
           borderColor="black"
-          focusBorderColor="#FF2153"
-          _hover={{ borderColor: "#FF2153" }}
+          focusBorderColor="red"
+          _hover={{ borderColor: "red" }}
           mt="10px"
           name="url"
           id="url"
@@ -49,8 +49,8 @@ const FormularioGrupos = () => {
           maxLength={30}
           _placeholder={{ color: "black" }}
           borderColor="black"
-          focusBorderColor="#FF2153"
-          _hover={{ borderColor: "#FF2153" }}
+          focusBorderColor="red"
+          _hover={{ borderColor: "red" }}
           name="name"
           id="name"
         />

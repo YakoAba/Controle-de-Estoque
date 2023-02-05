@@ -12,7 +12,6 @@ import {
 import { useState } from "react";
 
 const FormularioProdutos = () => {
-
   const [produto, setProduto] = useState({
     id: "",
     img: "",
@@ -58,7 +57,9 @@ const FormularioProdutos = () => {
         </HStack>
         <HStack>
           <Checkbox colorScheme="red">Oferta</Checkbox>
+        
           <Input
+          
             value={produto.price}
             onChange={handleChange}
             placeholder="Preço do produto"
