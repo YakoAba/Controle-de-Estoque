@@ -48,8 +48,8 @@ const FormularioProdutos = () => {
             placeholder="Url da imagem"
             _placeholder={{ color: "black" }}
             borderColor="black"
-            focusBorderColor="#FF2153"
-            _hover={{ borderColor: "#FF2153" }}
+            focusBorderColor="red"
+            _hover={{ borderColor: "red" }}
             mt="10px"
             name="img"
             id="img"
@@ -57,17 +57,15 @@ const FormularioProdutos = () => {
         </HStack>
         <HStack>
           <Checkbox colorScheme="red">Oferta</Checkbox>
-        
           <Input
-          
             value={produto.price}
             onChange={handleChange}
             placeholder="Preço do produto"
             maxLength={20}
             _placeholder={{ color: "black" }}
             borderColor="black"
-            focusBorderColor="#FF2153"
-            _hover={{ borderColor: "#FF2153" }}
+            focusBorderColor="red"
+            _hover={{ borderColor: "red" }}
             name="nameprice"
             id="price"
             type="number"
@@ -80,8 +78,8 @@ const FormularioProdutos = () => {
           maxLength={30}
           _placeholder={{ color: "black" }}
           borderColor="black"
-          focusBorderColor="#FF2153"
-          _hover={{ borderColor: "#FF2153" }}
+          focusBorderColor="red"
+          _hover={{ borderColor: "red" }}
           name="title"
           id="title"
         />
@@ -92,8 +90,8 @@ const FormularioProdutos = () => {
           _placeholder={{ color: "black" }}
           h="50px"
           borderColor="black"
-          focusBorderColor="#FF2153"
-          _hover={{ borderColor: "#FF2153" }}
+          focusBorderColor="red"
+          _hover={{ borderColor: "red" }}
           id="descricao"
           name="descricao"
         />
