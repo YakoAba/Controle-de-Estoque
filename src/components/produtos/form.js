@@ -6,11 +6,6 @@ import {
   HStack,
   Image,
   Input,
-  NumberDecrementStepper,
-  NumberIncrementStepper,
-  NumberInput,
-  NumberInputField,
-  NumberInputStepper,
   SimpleGrid,
   Textarea,
 } from "@chakra-ui/react";
@@ -26,11 +21,16 @@ import { useState } from "react";
 //   '"price":{"$numberInt":"37"},' +
 //   '"categoria":"Pizzas"}';
 
+const currencyFormat = new Intl.NumberFormat("pt-BR", {
+  style: "currency",
+  currency: "BRL",
+});
+
 const FormularioProdutos = () => {
   const [produto, setProduto] = useState({
     id: "",
     img: "",
-    offer: "",
+    offer: false,
     title: "",
     description: "",
     price: "",
@@ -38,11 +38,43 @@ const FormularioProdutos = () => {
   });
 
   const handleChange = (e) => {
+    let inputValue = e.target.value;
+    let commaCount = (inputValue.match(/,/g) || []).length;
+    if(commaCount > 1) return;
+    inputValue = inputValue.replace(/[^0-9,]+/g, "");
     setProduto({
       ...produto,
-      [e.target.id]: e.target.value,
+      [e.target.id]: inputValue,
     });
   };
+
+  const handleBlur = (e) => {
+    let inputValue = e.target.value;
+    inputValue = inputValue.replace(",", ".");
+    let newValue = new Intl.NumberFormat("pt-BR", {
+      style: "currency",
+      currency: "BRL",
+    }).format(inputValue);
+    setProduto({
+      ...produto,
+      price: newValue,
+    });
+  };
+
+  const handleFocus = (e) => {
+    let inputValue = e.target.value;
+    inputValue = inputValue.replace(/[^0-9,]+/g, "");
+    inputValue = inputValue.replace(".00", "");
+    setProduto({
+      ...produto,
+      [e.target.id]: inputValue,
+    });
+  };
+
+  const formatter = new Intl.NumberFormat("pt-BR", {
+    style: "currency",
+    currency: "BRL",
+  });
 
   return (
     <Box>
@@ -75,6 +107,8 @@ const FormularioProdutos = () => {
           <Input
             value={produto.price}
             onChange={handleChange}
+            onBlur={handleBlur}
+            onFocus={handleFocus}
             placeholder="Preço do produto"
             maxLength={20}
             _placeholder={{ color: "black" }}
