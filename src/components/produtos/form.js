@@ -11,22 +11,8 @@ import {
 } from "@chakra-ui/react";
 import { useState } from "react";
 
-// const modelo =
-//   '{"_id":{"$oid":"62a44d910b453292365eeb65"},' +
-//   '"id":{"$numberInt":"25"},' +
-//   '"img":"https://i.imgur.com/WAxO3sQ.png",' +
-//   '"offer":true,' +
-//   '"title":"Pizza 01",' +
-//   '"description":"Pão, maionese, 2 carnes de 180g, alface, tomate, bacon e cebola roxa",' +
-//   '"price":{"$numberInt":"37"},' +
-//   '"categoria":"Pizzas"}';
-
-const currencyFormat = new Intl.NumberFormat("pt-BR", {
-  style: "currency",
-  currency: "BRL",
-});
-
 const FormularioProdutos = () => {
+
   const [produto, setProduto] = useState({
     id: "",
     img: "",
@@ -37,50 +23,12 @@ const FormularioProdutos = () => {
     categoria: "",
   });
 
-  const handleChangePrice = (e) => {
-    let inputValue = e.target.value;
-    let commaCount = (inputValue.match(/,/g) || []).length;
-    if(commaCount > 1) return;
-    inputValue = inputValue.replace(/[^0-9,]+/g, "");
-    setProduto({
-      ...produto,
-      [e.target.id]: inputValue,
-    });
-  };
   const handleChange = (e) => {
-    let inputValue = e.target.value;
     setProduto({
       ...produto,
-      [e.target.id]: inputValue,
+      [e.target.id]: e.target.value,
     });
   };
-  const handleBlur = (e) => {
-    let inputValue = e.target.value;
-    inputValue = inputValue.replace(",", ".");
-    let newValue = new Intl.NumberFormat("pt-BR", {
-      style: "currency",
-      currency: "BRL",
-    }).format(inputValue);
-    setProduto({
-      ...produto,
-      price: newValue,
-    });
-  };
-
-  const handleFocus = (e) => {
-    let inputValue = e.target.value;
-    inputValue = inputValue.replace(/[^0-9,]+/g, "");
-    inputValue = inputValue.replace(".00", "");
-    setProduto({
-      ...produto,
-      [e.target.id]: inputValue,
-    });
-  };
-
-  const formatter = new Intl.NumberFormat("pt-BR", {
-    style: "currency",
-    currency: "BRL",
-  });
 
   return (
     <Box>
@@ -112,9 +60,7 @@ const FormularioProdutos = () => {
           <Checkbox colorScheme="red">Oferta</Checkbox>
           <Input
             value={produto.price}
-            onChange={handleChangePrice}
-            onBlur={handleBlur}
-            onFocus={handleFocus}
+            onChange={handleChange}
             placeholder="Preço do produto"
             maxLength={20}
             _placeholder={{ color: "black" }}
@@ -123,7 +69,7 @@ const FormularioProdutos = () => {
             _hover={{ borderColor: "#FF2153" }}
             name="nameprice"
             id="price"
-            type="number" 
+            type="number"
           />
         </HStack>
         <Input
