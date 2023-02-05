@@ -2,72 +2,100 @@ import { AddIcon } from "@chakra-ui/icons";
 import {
   Box,
   Button,
+  Checkbox,
+  HStack,
   Image,
   Input,
+  NumberDecrementStepper,
+  NumberIncrementStepper,
+  NumberInput,
+  NumberInputField,
+  NumberInputStepper,
   SimpleGrid,
   Textarea,
 } from "@chakra-ui/react";
 import { useState } from "react";
 
+// const modelo =
+//   '{"_id":{"$oid":"62a44d910b453292365eeb65"},' +
+//   '"id":{"$numberInt":"25"},' +
+//   '"img":"https://i.imgur.com/WAxO3sQ.png",' +
+//   '"offer":true,' +
+//   '"title":"Pizza 01",' +
+//   '"description":"Pão, maionese, 2 carnes de 180g, alface, tomate, bacon e cebola roxa",' +
+//   '"price":{"$numberInt":"37"},' +
+//   '"categoria":"Pizzas"}';
+
 const FormularioProdutos = () => {
   const [produto, setProduto] = useState({
-    name: "",
-    url: "",
-    titulo: "",
-    descricao: "",
+    id: "",
+    img: "",
+    offer: "",
+    title: "",
+    description: "",
+    price: "",
+    categoria: "",
   });
 
   const handleChange = (e) => {
     setProduto({
       ...produto,
-      [e.target.name]: e.target.value,
+      [e.target.id]: e.target.value,
     });
   };
 
   return (
     <Box>
-      {produto.url ? (
-        <SimpleGrid m="4">
-          <Image width="67" height="50" objectFit="fill" src={url} alt="LOGO" />
-        </SimpleGrid>
-      ) : null}
-
       <SimpleGrid h="fit-content" spacing="6" columns={1}>
+        <HStack>
+          {produto.img ? (
+            <Image
+              width="67"
+              height="50"
+              objectFit="fill"
+              src={produto.img}
+              alt="LOGO"
+            />
+          ) : null}
+          <Input
+            value={produto.img}
+            onChange={handleChange}
+            placeholder="Url da imagem"
+            _placeholder={{ color: "black" }}
+            borderColor="black"
+            focusBorderColor="#FF2153"
+            _hover={{ borderColor: "#FF2153" }}
+            mt="10px"
+            name="img"
+            id="img"
+          />
+        </HStack>
+        <HStack>
+          <Checkbox colorScheme="red">Oferta</Checkbox>
+          <Input
+            value={produto.price}
+            onChange={handleChange}
+            placeholder="Preço do produto"
+            maxLength={20}
+            _placeholder={{ color: "black" }}
+            borderColor="black"
+            focusBorderColor="#FF2153"
+            _hover={{ borderColor: "#FF2153" }}
+            name="nameprice"
+            id="price"
+          />
+        </HStack>
         <Input
-          value={produto.url}
+          value={produto.title}
           onChange={handleChange}
-          placeholder="Url da imagem"
-          _placeholder={{ color: "black" }}
-          borderColor="black"
-          focusBorderColor="#FF2153"
-          _hover={{ borderColor: "#FF2153" }}
-          mt="10px"
-          name="url"
-          id="url"
-        />
-        <Input
-          value={produto.name}
-          onChange={handleChange}
-          placeholder="Nome do produto"
+          placeholder="Titulo do produto"
           maxLength={30}
           _placeholder={{ color: "black" }}
           borderColor="black"
           focusBorderColor="#FF2153"
           _hover={{ borderColor: "#FF2153" }}
-          name="name"
-          id="name"
-        />
-        <Input
-          value={produto.titulo}
-          onChange={handleChange}
-          placeholder="Título do produto"
-          maxLength={20}
-          _placeholder={{ color: "black" }}
-          borderColor="black"
-          focusBorderColor="#FF2153"
-          _hover={{ borderColor: "#FF2153" }}
-          name="titulo"
-          id="titulo"
+          name="title"
+          id="title"
         />
         <Textarea
           value={produto.descricao}
