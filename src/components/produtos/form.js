@@ -117,6 +117,7 @@ const FormularioProdutos = () => {
             _hover={{ borderColor: "#FF2153" }}
             name="nameprice"
             id="price"
+            type="number" 
           />
         </HStack>
         <Input
