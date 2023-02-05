@@ -37,7 +37,7 @@ const FormularioProdutos = () => {
     categoria: "",
   });
 
-  const handleChange = (e) => {
+  const handleChangePrice = (e) => {
     let inputValue = e.target.value;
     let commaCount = (inputValue.match(/,/g) || []).length;
     if(commaCount > 1) return;
@@ -47,7 +47,13 @@ const FormularioProdutos = () => {
       [e.target.id]: inputValue,
     });
   };
-
+  const handleChange = (e) => {
+    let inputValue = e.target.value;
+    setProduto({
+      ...produto,
+      [e.target.id]: inputValue,
+    });
+  };
   const handleBlur = (e) => {
     let inputValue = e.target.value;
     inputValue = inputValue.replace(",", ".");
@@ -106,7 +112,7 @@ const FormularioProdutos = () => {
           <Checkbox colorScheme="red">Oferta</Checkbox>
           <Input
             value={produto.price}
-            onChange={handleChange}
+            onChange={handleChangePrice}
             onBlur={handleBlur}
             onFocus={handleFocus}
             placeholder="Preço do produto"
