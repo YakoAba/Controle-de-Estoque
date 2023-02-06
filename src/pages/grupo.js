@@ -4,6 +4,7 @@ import Header from "../components/Header";
 import Sidebar from "../components/Sidebar";
 import Form from "../components/grupos/form";
 import Grid from "../components/grupos/grid";
+import { useEffect } from "react";
 
 const Grupos = () => {
   const { data, isLoading } = useSWR("api/categorias", async (url) => {

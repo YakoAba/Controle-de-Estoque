@@ -16,7 +16,6 @@ const Produtos = () => {
 
   return (
     <Flex height="100vh">
- 
       <Sidebar />
       <Box sx={{ position: "fixed", top: 0, left: 0, right: 0 }}>
         <Header />
