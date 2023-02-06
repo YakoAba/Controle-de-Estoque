@@ -10,6 +10,10 @@ const sections = [
         label: "PRODUTOS",
         href: "/",
       },
+      {
+        label: "NORIFICACAO",
+        href: "/notificacao",
+      },
     ],
   },
   {

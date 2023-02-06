@@ -5,17 +5,21 @@ import Sidebar from "../components/Sidebar";
 import Form from "../components/produtos/form";
 import Grid from "../components/produtos/grid";
 
+
+const API_PRODUTOS = "api/produtos";
+
 const Produtos = () => {
-  const { data, isLoading } = useSWR("api/produtos", async (url) => {
+  const { data, isLoading } = useSWR(API_PRODUTOS, async (url) => {
     const res = await fetch(url);
     return res.json();
   });
 
   return (
     <Flex height="100vh">
+ 
       <Sidebar />
-      <Box sx={{ position: "fixed", top: 0, left: 0, right: 0 }} >
-      <Header />
+      <Box sx={{ position: "fixed", top: 0, left: 0, right: 0 }}>
+        <Header />
       </Box>
       <Box
         overflowY="auto"

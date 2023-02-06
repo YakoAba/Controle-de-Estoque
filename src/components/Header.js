@@ -60,7 +60,6 @@ const Header = () => {
           fontSize="20"
           mr="2"
         ></IconButton>
-
         <Image
           width="67"
           height="50"
