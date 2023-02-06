@@ -1,5 +1,4 @@
 import clientPromise from "../../../lib/mongodb";
-import NextCors from "nextjs-cors";
 
 export default async function handler(req, res) {
   const { method } = req;
