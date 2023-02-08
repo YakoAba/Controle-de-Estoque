@@ -26,8 +26,8 @@ const Grupos = () => {
         marginTop={20}
         marginLeft="auto"
         marginRight="auto"
-        paddingLeft="5"
-        paddingRight="5"
+        paddingLeft="6"
+        paddingRight="6"
       >
         <Form />
         <Grid data={data} isLoading={isLoading} />
