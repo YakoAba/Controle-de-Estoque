@@ -6,6 +6,8 @@ import {
   DrawerContent,
   DrawerHeader,
   DrawerOverlay,
+  Hide,
+  Show,
 } from "@chakra-ui/react";
 import React from "react";
 import { useSidebarContext } from "../contexts/SidebarContext";
@@ -26,14 +28,11 @@ const Sidebar = () => {
         </DrawerContent>
       </DrawerOverlay>
     </Drawer>
-  );
 
-//   if (isMobile)
-//     return (
-//       <Box as="aside" w="64" mr="8">
-//         <SidebarNav />
-//       </Box>
-//     );
- };
+    // <Box as="aside" w="64" mr="8">
+    //   <SidebarNav />
+    // </Box>
+  );
+};
 
 export default Sidebar;

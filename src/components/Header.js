@@ -6,6 +6,7 @@ import {
   IconButton,
   Text,
   Image,
+  Hide,
 } from "@chakra-ui/react";
 import React from "react";
 import { useSidebarContext } from "../contexts/SidebarContext";
@@ -13,7 +14,6 @@ import { FiMenu } from "react-icons/fi";
 import Head from "next/head";
 
 const Header = () => {
-
   const { onOpen } = useSidebarContext();
 
   return (
@@ -38,7 +38,7 @@ const Header = () => {
           content="Controle de estoque para lojas - Mantenha o seu estoque organizado e garanta o sucesso do seu negócio."
         />
       </Head>
-      <Flex 
+      <Flex
         as="header"
         w="100%"
         maxW={"98%"}
@@ -49,7 +49,7 @@ const Header = () => {
         align="center"
         boxShadow="0 1px 0 #ccc"
         color="black"
-        fontWeight="bold" 
+        fontWeight="bold"
       >
         <IconButton
           aria-label="menu"
@@ -60,6 +60,7 @@ const Header = () => {
           fontSize="20"
           mr="2"
         ></IconButton>
+
         <Image
           width="67"
           height="50"
@@ -67,10 +68,16 @@ const Header = () => {
           src="harmonica_cozinha.png"
           alt="LOGO"
         />
-        <Flex ml="auto" >
+        <Flex ml="auto">
           <HStack>
             <Text>Harmônica</Text>
-            <Avatar bg='red.500' color="white" size="md" name="Harmônica"  colorScheme="red" />
+            <Avatar
+              bg="red.500"
+              color="white"
+              size="md"
+              name="Harmônica"
+              colorScheme="red"
+            />
           </HStack>
         </Flex>
       </Flex>

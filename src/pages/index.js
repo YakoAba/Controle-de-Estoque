@@ -28,8 +28,8 @@ const Produtos = () => {
         marginTop={20}
         marginLeft="auto"
         marginRight="auto"
-        paddingLeft="6"
-        paddingRight="6"
+        paddingLeft="5"
+        paddingRight=""
       >
         <Form />
         <Grid data={data} isLoading={isLoading} />
