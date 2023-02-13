@@ -3,8 +3,8 @@
   "name": "Controle de Estoque",
   "icons": [
     {
-      "src": "appletouch.png",
-      "type": "image/png",
+      "src": "appletouch.webp",
+      "type": "image/webp",
       "sizes": " 512x512 180x180",
       "purpose": "any maskable"
     }

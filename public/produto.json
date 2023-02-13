@@ -1,0 +1,13 @@
+{
+  "id": "d3bafd86-01f3-4999-8161-bdc0332a8f7d",
+  "name": "Torta de Limão",
+  "description": "Massa de biscoito de maisena com manteiga, mousse de limão, coberta com chantilly, finalizada com raspas de limão.",
+  "image": "https://static-images.ifood.com.br/pratos/799b5203-981f-4b1b-96d0-b7122cc1a246/202302060327_1B58_i.jpg",
+  "serving": "SERVES_1",
+  "dietaryRestrictions": [],
+  "multipleImages": [],
+  "weight": {
+    "quantity": 200,
+    "unit": "g"
+  }
+}
