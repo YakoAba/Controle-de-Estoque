@@ -6,6 +6,7 @@ import clientPromise from "../../lib/mongodb";
 export class TokenApiResponseIfoodClass implements TokenApiResponseIfoodInterface {
     accessToken: string;
     type: string;
+    from: String;
     expiresIn: number;
     success: boolean;
     createdAt: Date;
@@ -13,47 +14,55 @@ export class TokenApiResponseIfoodClass implements TokenApiResponseIfoodInterfac
     client: any;
     db: any;
 
+    getHeaders() {
+        return { Authorization: `Bearer ${TokenApiResponseIfoodClass.instance.accessToken}`, Accept: "application/json" }
+
+    }
+
     private constructor() {
 
     };
 
-    static instance: TokenApiResponseIfoodClass = null;
+    private static instance: TokenApiResponseIfoodClass = null;
 
     static async createInstance(data: TokenApiResponseIfoodInterface = null): Promise<TokenApiResponseIfoodClass> {
         if (!TokenApiResponseIfoodClass.instance) {
             TokenApiResponseIfoodClass.instance = new TokenApiResponseIfoodClass();
-            TokenApiResponseIfoodClass.instance.client = await clientPromise;
-            TokenApiResponseIfoodClass.instance.db = TokenApiResponseIfoodClass.instance.client.db(MONGODB_DB);
             if (data) {
                 TokenApiResponseIfoodClass.instance.accessToken = data.accessToken;
                 TokenApiResponseIfoodClass.instance.type = data.type;
                 TokenApiResponseIfoodClass.instance.expiresIn = data.expiresIn;
                 TokenApiResponseIfoodClass.instance.success = data.success;
                 TokenApiResponseIfoodClass.instance.createdAt = data.createdAt;
+                TokenApiResponseIfoodClass.instance.expires = new Date(data.createdAt.getTime() + data.expiresIn * 1000);
             } else {
-                const tokenDb: TokenBdIfoodInterface = await TokenApiResponseIfoodClass.instance.db();
+                const tokenDb: TokenBdIfoodInterface = await TokenApiResponseIfoodClass.instance.Db();
                 if (tokenDb) {
+                    const client = await clientPromise;
+                    const db = await client.db(MONGODB_DB);
                     TokenApiResponseIfoodClass.instance.accessToken = tokenDb.accessToken;
                     TokenApiResponseIfoodClass.instance.expiresIn = tokenDb.expiresIn;
                     TokenApiResponseIfoodClass.instance.createdAt = tokenDb.createdAt;
                     TokenApiResponseIfoodClass.instance.type = tokenDb.type;
+                    TokenApiResponseIfoodClass.instance.expires = new Date(new Date(tokenDb.createdAt).getTime() + tokenDb.expiresIn * 1000);
                 }
             }
-            TokenApiResponseIfoodClass.instance.expires = new Date(TokenApiResponseIfoodClass.instance.createdAt.getTime() + TokenApiResponseIfoodClass.instance.expiresIn * 1000);
-            if (TokenApiResponseIfoodClass.instance.tokenInvalido()) {
-                const DataApi: TokenApiIfoodInterface = await TokenApiResponseIfoodClass.instance.obterTokenIfood();
-                TokenApiResponseIfoodClass.instance.accessToken = DataApi.accessToken;
-                TokenApiResponseIfoodClass.instance.expiresIn = DataApi.expiresIn;
-                TokenApiResponseIfoodClass.instance.createdAt = new Date();
-                TokenApiResponseIfoodClass.instance.type = DataApi.type;
-                TokenApiResponseIfoodClass.instance.expires = new Date(TokenApiResponseIfoodClass.instance.createdAt.getTime() + TokenApiResponseIfoodClass.instance.expiresIn * 1000);
-            }
+
+        }
+        if (TokenApiResponseIfoodClass.instance.tokenInvalido()) {
+            TokenApiResponseIfoodClass.instance.deleteDB();
+            const DataApi: TokenApiIfoodInterface = await TokenApiResponseIfoodClass.instance.obterTokenIfood();
+            TokenApiResponseIfoodClass.instance.accessToken = DataApi.accessToken;
+            TokenApiResponseIfoodClass.instance.expiresIn = DataApi.expiresIn;
+            TokenApiResponseIfoodClass.instance.createdAt = new Date();
+            TokenApiResponseIfoodClass.instance.type = DataApi.type;
+            TokenApiResponseIfoodClass.instance.expires = new Date(TokenApiResponseIfoodClass.instance.createdAt.getTime() + DataApi.expiresIn * 1000);
+            TokenApiResponseIfoodClass.instance.insertDB();
         }
         return TokenApiResponseIfoodClass.instance;
     }
 
     async obterTokenIfood(): Promise<TokenApiIfoodInterface> {
-
         const PARAMETROS_DA_REQUISICAO = new URLSearchParams();
         PARAMETROS_DA_REQUISICAO.append('grantType', 'client_credentials');
         PARAMETROS_DA_REQUISICAO.append('clientId', CLIENT_ID);
@@ -73,7 +82,6 @@ export class TokenApiResponseIfoodClass implements TokenApiResponseIfoodInterfac
 
         try {
             const resposta = await fetch(URL_DE_AUTENTICACAO, OPCOES_DE_CHAMADA);
-
             if (!resposta.ok) {
                 throw new Error(
                     `Erro ao obter token: ${resposta.statusText}`
@@ -92,13 +100,18 @@ export class TokenApiResponseIfoodClass implements TokenApiResponseIfoodInterfac
     }
 
     tokenInvalido(): boolean {
-        const horaAtual = new Date().getTime();
-        return horaAtual >= this.expires.getTime();
+        if (this.temTokenAtivo()) {
+            const horaAtual = new Date().getTime();
+            const _expiresIn = this.createdAt.getTime() + (this.expiresIn * 1000);
+            return horaAtual >= _expiresIn;
+        } else return true;
     }
 
     async Db(): Promise<TokenBdIfoodInterface> {
         try {
-            return await this.db.collection('token').findOne();
+            const client = await clientPromise;
+            const db = await client.db(MONGODB_DB);
+            return await db.collection('token').findOne();
         } catch (error) {
             console.error(`Erro ao obter token do banco de dados: ${error}`);
             throw error;
@@ -107,7 +120,9 @@ export class TokenApiResponseIfoodClass implements TokenApiResponseIfoodInterfac
 
     async insertDB(): Promise<any> {
         try {
-            return await this.db.collection('token').insertOne(this);
+            const client = await clientPromise;
+            const db = await client.db(MONGODB_DB);
+            return await db.collection('token').insertOne(this);
         } catch (error) {
             console.error(error);
             return error;
@@ -116,7 +131,9 @@ export class TokenApiResponseIfoodClass implements TokenApiResponseIfoodInterfac
 
     async deleteDB(): Promise<any> {
         try {
-            return await this.db.collection('token').deleteOne({ createdAt: this.createdAt });
+            const client = await clientPromise;
+            const db = await client.db(MONGODB_DB);
+            return await db.collection('token').deleteOne({ createdAt: this.createdAt });
         } catch (error) {
             console.error(error);
             return error;

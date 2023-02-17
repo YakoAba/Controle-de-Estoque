@@ -11,11 +11,11 @@ import { useGlobalContext } from "../contexts/GlobalContext";
 import SidebarNav from "./SidebarNav";
 
 function Sidebar() {
-  const { isOpen, onClose } = useGlobalContext();
+  const { disclosureMenu} = useGlobalContext();
   return (
-    <Drawer isOpen={isOpen} placement="left" onClose={() => onClose()}>
+    <Drawer isOpen={disclosureMenu.isOpen} placement="left" onClose={() => disclosureMenu.onClose()}>
       <DrawerOverlay>
-        <DrawerContent p="2" onClick={() => onClose()}>
+        <DrawerContent p="2" onClick={() => disclosureMenu.onClose()}>
           <DrawerCloseButton />
           <DrawerHeader />
           <DrawerBody>

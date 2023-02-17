@@ -6,27 +6,34 @@ export const CLIENT_ID = process.env.CLIENT_ID;
 export const CLIENT_SECRET = process.env.CLIENT_SECRET;
 export const MONGODB_DB = process.env.MONGODB_DB;
 
-export const SECOES = [
+export const mensagemErro = { success: false };
+export const mensagemSucesso = { success: true }
+
+export const Sections = [
     {
-        titulo: "CADASTRO",
+        title: "CADASTRO",
         links: [
             {
-                rotulo: "CATEGORIAS",
+                label: "CATEGORIAS",
                 href: "/categorias",
             },
             {
-                rotulo: "PRODUTOS",
+                label: "PRODUTOS",
                 href: "/produtos",
             },
         ],
     },
     {
-        titulo: "ESTOQUE",
+        title: "ESTOQUE",
         links: [
             {
-                rotulo: "SAÍDAS",
+                label: "SAÍDAS",
                 href: "/saidas-estoque",
             },
         ],
     },
 ];
+
+export const merchantId = "799b5203-981f-4b1b-96d0-b7122cc1a246";
+export const catalogId = "2f8f10f9-20ea-4634-9e09-1d74f04773a7";
+export const catalogURL = `https://merchant-api.ifood.com.br/catalog/v1.0/merchants/${merchantId}/products?page=1&limit=100`;

@@ -1,5 +1,6 @@
 import {
   Button,
+  Show,
   Table,
   Tbody,
   Td,
@@ -8,11 +9,9 @@ import {
   Tr,
   useToast,
 } from "@chakra-ui/react";
-import PacMan from "../pacman";
 import { DeleteIcon } from "@chakra-ui/icons";
-import { GridProdutosProps } from "../../interfaces/Produtos.Ifood.Interface";
-
-function GridProdutos({ data, isLoading }: GridProdutosProps): JSX.Element {
+import { PdvModule } from "../../interfaces/Pdv.interface";
+function GridProdutos({ data }): JSX.Element {
   const toast = useToast();
 
   function toastDeletar() {
@@ -26,47 +25,76 @@ function GridProdutos({ data, isLoading }: GridProdutosProps): JSX.Element {
     });
   }
 
-  return isLoading ? (
-    <PacMan />
-  ) : (
+  const renderGrid = () => {
+    const produtos = JSON.parse(data) as PdvModule.ProdutosInterface[];
+    return produtos.map((item, i) => (
+      <Tr key={i}>
+        <Td color="black">{item.nome}</Td>
+        <Show above={"sm"}>
+          <Td color="black" textAlign="end">
+            {item.venda.bruto.toLocaleString("pt-BR", {
+              minimumFractionDigits: 2,
+              style: "currency",
+              currency: "BRL",
+            })}
+          </Td>
+          <Td color="black" textAlign="end">
+            {item.venda.custo.toLocaleString("pt-BR", {
+              minimumFractionDigits: 2,
+              style: "currency",
+              currency: "BRL",
+            })}
+          </Td>
+          <Td color="black" textAlign="end">
+            {item.venda.lucro.toLocaleString("pt-BR", {
+              minimumFractionDigits: 2,
+              style: "currency",
+              currency: "BRL",
+            })}
+          </Td>
+          <Td color="black" textAlign="end">
+            {(
+              ((item.venda.bruto - item.venda.lucro) / item.venda.bruto) *
+              100
+            ).toFixed(2)}
+            %
+          </Td>
+        </Show>
+        <Td textAlign="end">
+          <Button
+            id={`deletar${i}`}
+            p="2"
+            h="auto"
+            fontSize={11}
+            onClick={toastDeletar}
+            leftIcon={<DeleteIcon />}
+            colorScheme="red"
+            variant="solid"
+          >
+            DELETAR
+          </Button>
+        </Td>
+      </Tr>
+    ));
+  };
+
+  return (
     <Table marginTop={"30px"} colorScheme="black">
       <Thead>
         <Tr>
           <Th fontWeight="bold" fontSize="14px">
             TÍTULO
           </Th>
-          <Th>VALOR</Th>
+          <Show above={"sm"}>
+            <Th color="black" textAlign="end">BRUTO</Th>
+            <Th color="black" textAlign="end">CUSTO</Th>
+            <Th color="black" textAlign="end">LUCRO</Th>
+            <Th color="black" textAlign="end">PORCENTAGEM</Th>
+          </Show>
           <Th></Th>
         </Tr>
       </Thead>
-      <Tbody>
-        {!data.success === true ? (
-          <Tr>
-            <Td>erro na conexão, volte em um minuto!</Td>
-          </Tr>
-        ) : (
-          data.produtos.map((item, i) => (
-            <Tr key={i}>
-              <Td color="black">{item.name}</Td>
-              <Td color="black">{item.name}</Td>
-              <Td textAlign="end">
-                <Button
-                  id={`deletar${i}`}
-                  p="2"
-                  h="auto"
-                  fontSize={11}
-                  onClick={toastDeletar}
-                  leftIcon={<DeleteIcon />}
-                  colorScheme="red"
-                  variant="solid"
-                >
-                  DELETAR
-                </Button>
-              </Td>
-            </Tr>
-          ))
-        )}
-      </Tbody>
+      <Tbody>{renderGrid()}</Tbody>
     </Table>
   );
 }

@@ -3,9 +3,8 @@
   "name": "Controle de Estoque",
   "icons": [
     {
-      "src": "appletouch.webp",
-      "type": "image/webp",
-      "sizes": " 512x512 180x180",
+      "src":"harmonica cozinha.svg",
+      "type": "svg",
       "purpose": "any maskable"
     }
   ],

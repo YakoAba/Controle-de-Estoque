@@ -11,6 +11,7 @@ export interface TokenBdIfoodInterface extends TokenApiIfoodInterface  {
 export interface ApiResponseInterface {
     success: boolean;
     createdAt: Date;
+    from: String;
 }
 
 

@@ -14,7 +14,7 @@ import Head from "next/head";
 import Sidebar from "./Sidebar";
 
 const Header = () => {
-  const { onOpen } = useGlobalContext();
+  const { disclosureMenu } = useGlobalContext();
 
   return (
     <>
@@ -57,17 +57,16 @@ const Header = () => {
           aria-label="menu"
           id="menu"
           icon={<Icon as={FiMenu} />}
-          onClick={onOpen}
+          onClick={disclosureMenu.onOpen}
           variant="unstyled"
           fontSize="20"
-          mr="2"
+     
         ></IconButton>
-
         <Image
           width="67"
           height="50"
           objectFit="fill"
-          src="harmonica_cozinha.png"
+          src="harmonica cozinha.svg"
           alt="LOGO"
         />
         <Flex ml="auto">
