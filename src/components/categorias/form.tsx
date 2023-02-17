@@ -5,7 +5,6 @@ import { useState } from "react";
 import { useGlobalContext } from "../../contexts/GlobalContext";
 
 const FormularioGrupos = () => {
-  const { listaCategorias, listaCategoriasIsLoading } = useGlobalContext();
 
   const [categoria, setCategoria] = useState({
     nome: "",
@@ -81,7 +80,7 @@ const FormularioGrupos = () => {
           ADICIONAR
         </Button>
       </SimpleGrid>
-      <Grid data={listaCategorias} isLoading={listaCategoriasIsLoading} />
+     {/* <Grid  /> */}
     </Box>
   );
 };

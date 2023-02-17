@@ -1,6 +1,5 @@
-import { AddIcon, CheckIcon } from "@chakra-ui/icons";
+import {  CheckIcon } from "@chakra-ui/icons";
 import {
-  Avatar,
   Button,
   Checkbox,
   Flex,
@@ -20,13 +19,14 @@ import {
 } from "@chakra-ui/react";
 import { useRef, useState } from "react";
 import { useGlobalContext } from "../../contexts/GlobalContext";
+import { PdvModule } from "../../interfaces/Pdv.interface";
 
 function ModalCadProd() {
   const { disclosureModalProdCad } = useGlobalContext();
 
   const initialRef = useRef(null);
   const finalRef = useRef(null);
-  const [item, setItem] = useState({ venda: {} } as ProdutosInterface);
+  const [item, setItem] = useState({ venda: {} } as PdvModule.ProdutosInterface);
 
   const handleChange = (e) => {
     setItem({
