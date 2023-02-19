@@ -11,6 +11,7 @@ import {
 } from "@chakra-ui/react";
 import { DeleteIcon } from "@chakra-ui/icons";
 import { PdvModule } from "../../interfaces/Pdv.interface";
+import { ProdutosClienteClass } from "../../classes/Pdv.class";
 function GridProdutos({ data }): JSX.Element {
   const toast = useToast();
 
@@ -26,9 +27,9 @@ function GridProdutos({ data }): JSX.Element {
   }
 
   const renderGrid = () => {
-    const produtos = JSON.parse(data) as PdvModule.ProdutosInterface[];
+    const produtos = JSON.parse(data) as PdvModule.ProdutosClienteInterface[];
     return produtos.map((item, i) => (
-      <Tr key={i}>
+      <Tr key={item._id}>
         <Td color="black">{item.nome}</Td>
         <Show above={"sm"}>
           <Td color="black" textAlign="end">
@@ -60,7 +61,7 @@ function GridProdutos({ data }): JSX.Element {
             %
           </Td>
         </Show>
-        <Td textAlign="end">
+        <Td color="black" textAlign="end">
           <Button
             id={`deletar${i}`}
             p="2"
@@ -86,10 +87,18 @@ function GridProdutos({ data }): JSX.Element {
             TÍTULO
           </Th>
           <Show above={"sm"}>
-            <Th color="black" textAlign="end">BRUTO</Th>
-            <Th color="black" textAlign="end">CUSTO</Th>
-            <Th color="black" textAlign="end">LUCRO</Th>
-            <Th color="black" textAlign="end">PORCENTAGEM</Th>
+            <Th color="black" textAlign="end">
+              BRUTO
+            </Th>
+            <Th color="black" textAlign="end">
+              CUSTO
+            </Th>
+            <Th color="black" textAlign="end">
+              LUCRO
+            </Th>
+            <Th color="black" textAlign="end">
+              PORCENTAGEM
+            </Th>
           </Show>
           <Th></Th>
         </Tr>

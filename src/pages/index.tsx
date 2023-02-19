@@ -1,19 +1,22 @@
-import { ProdutosPdvClass } from "../classes/Pdv.class";
+import { ProdutosServidorClass } from "../classes/Produtos.Cliente";
 import Header from "../components/Header";
 import Form from "../components/produtos/form";
 
-export default function Produtos({data}): JSX.Element {
-  
+export default function Produtos({ data }): JSX.Element {
   return (
     <>
       <Header />
-      <Form data={data} />
+      <Form data={data}/>
     </>
   );
 }
 
 export async function getServerSideProps() {
-  // Pass data to the page via props
-  const data = JSON.stringify(await new ProdutosPdvClass().DbAll());
-  return { props: { data } };
+  try {
+    // Pass data to the page via props
+    const data = await ProdutosServidorClass.DbAllJson();
+    return { props: { data } };
+  } catch (error) {
+    return { props: { error } };
+  }
 }

@@ -16,7 +16,6 @@ export class TokenApiResponseIfoodClass implements TokenApiResponseIfoodInterfac
 
     getHeaders() {
         return { Authorization: `Bearer ${TokenApiResponseIfoodClass.instance.accessToken}`, Accept: "application/json" }
-
     }
 
     private constructor() {

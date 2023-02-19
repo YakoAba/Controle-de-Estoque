@@ -60,7 +60,7 @@ const Header = () => {
           onClick={disclosureMenu.onOpen}
           variant="unstyled"
           fontSize="20"
-     
+          mr="2"
         ></IconButton>
         <Image
           width="67"

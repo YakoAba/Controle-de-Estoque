@@ -23,7 +23,7 @@ const FormularioProdutos = ({ data }) => {
         id={`cadastrar`}
         p="2"
         h="auto"
-        fontSize={18}
+        fontSize={14}
         leftIcon={<AddIcon />}
         colorScheme="red"
         variant="solid"

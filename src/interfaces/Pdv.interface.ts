@@ -27,14 +27,20 @@ export module PdvModule {
         porcentagem: number;
     }
 
-    export interface ProdutosInterface {
+    export interface ProdutosClienteInterface {
+        _id: string,
         nome: string,
         porcentagem: number,
         peso: number,
         image: string;
         venda: VendaInterface,
         ingredientes: IngredienteInteface[]
-        DbAll(): Promise<ProdutosInterface[]>
+        InsertDB();
+    }
+
+    export interface ProdutosServidorInteface extends ProdutosClienteInterface {
+        DbAll(): Promise<ProdutosClienteInterface[]>
+        InsertDB();
     }
 }
 

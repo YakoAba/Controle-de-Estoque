@@ -1,4 +1,4 @@
-import {  CheckIcon } from "@chakra-ui/icons";
+import { CheckIcon } from "@chakra-ui/icons";
 import {
   Button,
   Checkbox,
@@ -18,6 +18,7 @@ import {
   Textarea,
 } from "@chakra-ui/react";
 import { useRef, useState } from "react";
+import { ProdutosClienteClass } from "../../classes/Pdv.class";
 import { useGlobalContext } from "../../contexts/GlobalContext";
 import { PdvModule } from "../../interfaces/Pdv.interface";
 
@@ -26,7 +27,9 @@ function ModalCadProd() {
 
   const initialRef = useRef(null);
   const finalRef = useRef(null);
-  const [item, setItem] = useState({ venda: {} } as PdvModule.ProdutosInterface);
+  const [item, setItem] = useState({
+    venda: {},
+  } as PdvModule.ProdutosClienteInterface);
 
   const handleChange = (e) => {
     setItem({
@@ -37,6 +40,12 @@ function ModalCadProd() {
   const handleImage = (e) => {
     setItem({ ...item, image: e.target.value });
   };
+
+  const handleSave = async (e) => {
+    const json = (item as ProdutosClienteClass).InsertDB();
+    console.log(json);
+  };
+
   return (
     <>
       <Modal
@@ -58,19 +67,17 @@ function ModalCadProd() {
               boxShadow="0 1px 0 #ccc"
               color="black"
               fontWeight="bold"
-              //sx={{ position: "fixed", top: 0, left: 0, right: 0 }}
+              sx={{ position: "fixed", top: 0, left: 0, right: 0 }}
             >
               <Image
                 width="67"
                 height="50"
                 objectFit="fill"
-                src="harmonica_cozinha.png"
+                src="harmonica cozinha.svg"
                 alt="LOGO"
               />
               <Flex ml={5}>
-                <HStack>
-                  <Text>Cadastro de Produtos</Text>
-                </HStack>
+                <Text>Cadastro de Produtos</Text>
               </Flex>
             </Flex>
           </ModalHeader>
@@ -151,10 +158,8 @@ function ModalCadProd() {
               leftIcon={<CheckIcon />}
               colorScheme="red"
               variant="solid"
+              onClick={handleSave}
               fontWeight="bold"
-              onClick={() => {
-                alert(JSON.stringify(item));
-              }}
             >
               Salvar
             </Button>

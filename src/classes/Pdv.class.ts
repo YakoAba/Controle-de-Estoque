@@ -1,54 +1,41 @@
-import clientPromise from "../../lib/mongodb";
-import { MONGODB_DB } from "../config/constants";
 import { PdvModule } from "../interfaces/Pdv.interface";
-import { TokenApiResponseIfoodClass } from "./Token.class";
-import { catalogURL } from "../config/constants"
 
-export class ProdutosPdvClass implements PdvModule.ProdutosInterface {
+export class ProdutosClienteClass implements PdvModule.ProdutosClienteInterface {
+    _id: string
     porcentagem: number
     peso: number
-    venda: PdvModule.VendaInterface
     nome: string
     image: string
+    venda: PdvModule.VendaInterface
     ingredientes: PdvModule.IngredienteInteface[]
 
-    async DbAll(): Promise<PdvModule.ProdutosInterface[]> {
+    constructor() {
+        this.venda = { bruto: null, liquido: null, taxa: null, custo: null, lucro: null, porcentagem: null }
+    }
+
+    static async createInstance() {
+        return await new ProdutosClienteClass;
+    }
+
+    async InsertDB(): Promise<any> {
+        async function postData() {
+            const response = await fetch("\api\produtos", {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(this)
+            });
+
+            return response.json();
+        }
         try {
-            const client = await clientPromise;
-            const db = await client.db(MONGODB_DB);
-            const data = await db.collection('produtos').find().toArray();
-            return data
+            console.log(this);
+            return await postData();
         } catch (error) {
-            console.error(`Erro ao obter produto do banco de dados: ${error}`);
+            console.error(error);
+            return error;
         }
     }
-
-    async IFoodAll() {
-        const { getHeaders, temTokenAtivo } = await TokenApiResponseIfoodClass.createInstance();
-        const catalogDataResponse = await fetch(catalogURL, { headers: getHeaders() });
-        return await catalogDataResponse.json();
-    }
-
-    // async insertDB(): Promise<any> {
-    //     try {
-    //         const client = await clientPromise;
-    //         const db = await client.db(MONGODB_DB);
-    //         return await db.collection('produtos').insertOne(this);
-    //     } catch (error) {
-    //         console.error(error);
-    //         return error;
-    //     }
-    // }
-
-    // async deleteDB(): Promise<any> {
-    //     try {
-    //         const client = await clientPromise;
-    //         const db = await client.db(MONGODB_DB);
-    //         return await db.collection('produtos').deleteOne({ createdAt: this.createdAt });
-    //     } catch (error) {
-    //         console.error(error);
-    //         return error;
-    //     }
-    // }
 
 }
