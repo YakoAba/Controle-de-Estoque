@@ -41,7 +41,7 @@ const Header = () => {
       <Sidebar />
       <Flex
         as="header"
-        w="100%"
+        w="100vw"
         maxW={"98%"}
         h="70px"
         mx="auto"
@@ -60,7 +60,6 @@ const Header = () => {
           onClick={disclosureMenu.onOpen}
           variant="unstyled"
           fontSize="20"
-          mr="2"
         ></IconButton>
         <Image
           width="67"

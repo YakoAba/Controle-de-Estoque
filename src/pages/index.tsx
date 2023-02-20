@@ -1,4 +1,4 @@
-import { ProdutosServidorClass } from "../classes/Produtos.Cliente";
+import { ProdutosServidorClass } from "../classes/Produtos";
 import Header from "../components/Header";
 import Form from "../components/produtos/form";
 
@@ -6,7 +6,7 @@ export default function Produtos({ data }): JSX.Element {
   return (
     <>
       <Header />
-      <Form data={data}/>
+      <Form data={data} />
     </>
   );
 }

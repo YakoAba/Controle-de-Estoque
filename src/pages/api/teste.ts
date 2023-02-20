@@ -1,4 +1,4 @@
-import { ProdutosServidorClass } from "../../classes/Pdv.class";
+import { ProdutosServidorClass } from "../../classes/Produtos";
 import { mensagemErro, mensagemSucesso } from "../../config/constants";
 
 export default async function handler(req, res) {
@@ -17,4 +17,5 @@ export default async function handler(req, res) {
             res.status(400).json(mensagemErro);
             break;
     }
+
 }

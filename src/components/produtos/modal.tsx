@@ -18,7 +18,7 @@ import {
   Textarea,
 } from "@chakra-ui/react";
 import { useRef, useState } from "react";
-import { ProdutosClienteClass } from "../../classes/Pdv.class";
+import { ProdutosClienteClass } from "../../classes/Produtos";
 import { useGlobalContext } from "../../contexts/GlobalContext";
 import { PdvModule } from "../../interfaces/Pdv.interface";
 
@@ -67,7 +67,7 @@ function ModalCadProd() {
               boxShadow="0 1px 0 #ccc"
               color="black"
               fontWeight="bold"
-              sx={{ position: "fixed", top: 0, left: 0, right: 0 }}
+              //sx={{ position: "fixed", top: 0, left: 0, right: 0 }}
             >
               <Image
                 width="67"

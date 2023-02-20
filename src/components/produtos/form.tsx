@@ -3,6 +3,7 @@ import Grid from "./grid";
 import { Box, Button } from "@chakra-ui/react";
 import ModalCadProd from "./modal";
 import { useGlobalContext } from "../../contexts/GlobalContext";
+import ButtonAdicionar from "../Buttons/adicionar";
 const FormularioProdutos = ({ data }) => {
   const { disclosureModalProdCad } = useGlobalContext();
 
@@ -19,20 +20,7 @@ const FormularioProdutos = ({ data }) => {
       paddingRight="6"
     >
       <ModalCadProd />
-      <Button
-        id={`cadastrar`}
-        p="2"
-        h="auto"
-        fontSize={14}
-        leftIcon={<AddIcon />}
-        colorScheme="red"
-        variant="solid"
-        fontWeight="bold"
-        onClick={disclosureModalProdCad.onOpen}
-        mt={5}
-      >
-        ADICIONAR
-      </Button>
+      <ButtonAdicionar mt={5} onClick={disclosureModalProdCad.onOpen} />
       <Grid data={data} />
     </Box>
   );

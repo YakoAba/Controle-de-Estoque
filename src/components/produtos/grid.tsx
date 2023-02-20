@@ -1,5 +1,4 @@
 import {
-  Button,
   Show,
   Table,
   Tbody,
@@ -9,9 +8,11 @@ import {
   Tr,
   useToast,
 } from "@chakra-ui/react";
-import { DeleteIcon } from "@chakra-ui/icons";
+import { ProdutosClienteClass } from "../../classes/Produtos";
+
 import { PdvModule } from "../../interfaces/Pdv.interface";
-import { ProdutosClienteClass } from "../../classes/Pdv.class";
+import ButtonDeletar from "../Buttons/deletar";
+
 function GridProdutos({ data }): JSX.Element {
   const toast = useToast();
 
@@ -25,6 +26,10 @@ function GridProdutos({ data }): JSX.Element {
       position: "top",
     });
   }
+
+  //  function deletar({id}) {
+  //    return (new ProdutosClienteClass).deleteDB({id:id});
+  //  }
 
   const renderGrid = () => {
     const produtos = JSON.parse(data) as PdvModule.ProdutosClienteInterface[];
@@ -62,25 +67,14 @@ function GridProdutos({ data }): JSX.Element {
           </Td>
         </Show>
         <Td color="black" textAlign="end">
-          <Button
-            id={`deletar${i}`}
-            p="2"
-            h="auto"
-            fontSize={11}
-            onClick={toastDeletar}
-            leftIcon={<DeleteIcon />}
-            colorScheme="red"
-            variant="solid"
-          >
-            DELETAR
-          </Button>
+          <ButtonDeletar id={i} onClick={null}/>
         </Td>
       </Tr>
     ));
   };
 
   return (
-    <Table marginTop={"30px"} colorScheme="black">
+    <Table marginTop={"25px"} colorScheme="black">
       <Thead>
         <Tr>
           <Th fontWeight="bold" fontSize="14px">

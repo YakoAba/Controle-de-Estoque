@@ -1,26 +1,65 @@
-
+import clientPromise from "../../../lib/mongodb";
+import { ProdutosServidorClass } from "../../classes/Produtos";
 import { mensagemErro, mensagemSucesso } from "../../config/constants";
 
 export default async function handler(req, res) {
   const { method } = req;
+  const client = await clientPromise;
+  const db = client.db(process.env.MONGODB_DB);
+
 
   switch (method) {
-    // case "GET":
+    case "GET":
+      try {
+        // const { categoria } = req.query;
+        // let produtos;
+        // if (categoria === undefined) {
+        //   produtos = await db.collection("produtos").find().toArray();
+        // } else {
+        //   const filtro =
+        //     categoria === "Ofertas"
+        //       ? { offer: true }
+        //       : { categoria: categoria };
+        //   produtos = await db.collection("produtos").find(filtro).toArray();
+        // }
+        const json = await  ProdutosServidorClass.DbAll();
+        res.status(200).json({ ...mensagemSucesso, json });
+      } catch (error) {
+        res.status(400).json(mensagemErro);
+      }
+      break;
+
+    // case "POST":
     //   try {
-    //     const json = await (new ProdutosServidorClass).DbAll();;
-    //     res.status(200).json({ ...mensagemSucesso, json });
+    //     await db.collection("produtos").insertMany(req.body);
+    //     /* create a new model in the database */
+    //     res.status(201).json(mensagemSucesso);
     //   } catch (error) {
     //     res.status(400).json(mensagemErro);
     //   }
     //   break;
 
-    // case "POST":
+    // case "PATCH":
     //   try {
-    //     // const Produto = await JSON.parse(req.body) as ProdutosClienteClass;
-    //     // await Produto.InsertDB();
-    //     console.log(req.body);
+    //     const { id } = req.query;
+    //     await db
+    //       .collection("produtos")
+    //       .updateOne({ id: Number(id) }, req.body);
     //     /* create a new model in the database */
     //     res.status(201).json(mensagemSucesso);
+    //   } catch (error) {
+    //     res.status(400).json(mensagemErro);
+    //   }
+    //   break;
+
+    // case "DELETE":
+    //   try {
+    //     const { id } = req.query;
+    //     const alunos = await db
+    //       .collection("produtos")
+    //       .deleteMany({ id: Number(id) });
+    //     /* find all the data in our database */
+    //     res.status(200).json({ ...mensagemSucesso, data: alunos });
     //   } catch (error) {
     //     res.status(400).json(mensagemErro);
     //   }

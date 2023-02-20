@@ -1,11 +1,68 @@
 import clientPromise from "../../lib/mongodb";
 import { catalogURL, MONGODB_DB } from "../config/constants";
 import { PdvModule } from "../interfaces/Pdv.interface";
-import { ProdutosClienteClass } from "./Pdv.class";
 import { TokenApiResponseIfoodClass } from "./Token.class";
 
+export class ProdutosClienteClass implements PdvModule.ProdutosClienteInterface {
+    _id: string
+    porcentagem: number
+    peso: number
+    nome: string
+    image: string
+    venda: PdvModule.VendaInterface
+    ingredientes: PdvModule.IngredienteInteface[]
+
+    constructor() {
+        this.ingredientes = []
+        this.venda = { bruto: null, liquido: null, taxa: null, custo: null, lucro: null, porcentagem: null }
+    }
+
+    static async createInstance() {
+        return new ProdutosClienteClass;
+    }
+
+    async deleteDB({id}): Promise<any> {
+        async function postData() {
+            const response = await fetch(`http://localhost:3000/api/produtos?id=${id}`, {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            });
+
+            return response.json();
+        }
+        try {
+            console.log(this);
+            return await postData();
+        } catch (error) {
+            console.error(error);
+            return error;
+        }
+    }
+
+    async InsertDB(): Promise<any> {
+        async function postData() {
+            const response = await fetch("\api\produtos", {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(this)
+            });
+            return response.json();
+        }
+        try {
+            return await postData();
+        } catch (error) {
+            console.error(error);
+            return error;
+        }
+    }
+}
+
 export class ProdutosServidorClass extends ProdutosClienteClass {
-   static async DbAll(): Promise<PdvModule.ProdutosClienteInterface[]> {
+    static async DbAll(): Promise<PdvModule.ProdutosClienteInterface[]> {
         try {
             const client = await clientPromise;
             const db = await client.db(MONGODB_DB);
@@ -16,7 +73,7 @@ export class ProdutosServidorClass extends ProdutosClienteClass {
         }
     }
 
-  static  async DbAllJson(): Promise<string> {
+    static async DbAllJson(): Promise<string> {
         try {
             return JSON.stringify(await ProdutosServidorClass.DbAll())
         } catch (error) {
