@@ -1,4 +1,5 @@
-export const API_PRODUTOS = "api/listaProdutosIfood";
+export const API_PRODUTOS = "http://localhost:3000/api/produtos";
+export const API_PRODUTOS_IFOOD = "api/listaProdutosIfood";
 export const API_CATEGORIAS = "api/categorias";
 export const URL_DE_AUTENTICACAO = 'https://merchant-api.ifood.com.br/authentication/v1.0/oauth/token';
 

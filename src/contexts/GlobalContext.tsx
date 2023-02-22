@@ -1,9 +1,10 @@
 import { useDisclosure } from "@chakra-ui/react";
 import { createContext, useContext, useState } from "react";
-// import useSWR from "swr";
+import useSWR from "swr";
 import { GlobalContextInterface } from "../interfaces/GlobalContext.interface";
-// import { API_CATEGORIAS, API_PRODUTOS, Sections } from "../config/constants";
-import { Sections } from "../config/constants";
+import { API_PRODUTOS, Sections } from "../config/constants";
+import { ProdutosClienteClass } from "../classes/Produtos";
+
 const GlobalContext = createContext<GlobalContextInterface>(
   {} as GlobalContextInterface
 );
@@ -15,28 +16,29 @@ export const Provider = ({ children }) => {
   const [token, setToken] = useState("");
   const [sections] = useState(Sections);
 
-  // const { data: listaCategorias, isLoading: listaCategoriasIsLoading } = useSWR(
-  //   API_CATEGORIAS,
-  //   async (url) => {
-  //     const res = await fetch(url);
-  //     return res.json();
-  //   }
-  // );
-
-  // const { data: listaProdutos, isLoading: listaProdutosIsLoading } = useSWR(
-  //   API_PRODUTOS,
-  //   async (url) => {
-  //     const res = await fetch(url);
-  //     return res.json();
-  //   }
-  // );
+  const {
+    data: listaProdutos,
+    isLoading: listaProdutosIsLoading,
+    mutate,
+  } = useSWR(
+    API_PRODUTOS,
+    async (url) => {
+      return await ProdutosClienteClass.dbAll();
+    },
+    {
+      refreshInterval: 10000, // atualiza a cada 10 segundos
+    }
+  );
 
   const value = {
+    listaProdutos,
+    listaProdutosIsLoading,
     disclosureMenu,
     disclosureModalProdCad,
     token,
     setToken,
     sections,
+    mutate,
   };
 
   return (

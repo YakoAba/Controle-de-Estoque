@@ -1,7 +1,4 @@
-import clientPromise from "../../lib/mongodb";
-import { catalogURL, MONGODB_DB } from "../config/constants";
-import { PdvModule } from "../interfaces/Pdv.interface";
-import { TokenApiResponseIfoodClass } from "./Token.class";
+import { PdvModule, vendaModelo } from "../interfaces/Pdv.interface";
 
 export class ProdutosClienteClass implements PdvModule.ProdutosClienteInterface {
     _id: string
@@ -13,27 +10,50 @@ export class ProdutosClienteClass implements PdvModule.ProdutosClienteInterface 
     ingredientes: PdvModule.IngredienteInteface[]
 
     constructor() {
-        this.ingredientes = []
-        this.venda = { bruto: null, liquido: null, taxa: null, custo: null, lucro: null, porcentagem: null }
     }
 
-    static async createInstance() {
-        return new ProdutosClienteClass;
+    static async createInstance(item: PdvModule.ProdutosClienteInterface) {
+        const produto = new ProdutosClienteClass;
+
+        produto._id = item._id;
+        produto.nome = item.nome;
+        produto.porcentagem = item.porcentagem;
+        produto.peso = item.peso;
+        produto.image = item.image;
+
+        const bruto = item.venda.bruto;
+        const custo = item.venda.custo || 0;
+        const taxa = 0.27;
+        const liquido = bruto * (1 - taxa);
+        const lucro = liquido - custo;
+
+
+        produto.venda = {
+            bruto: bruto,
+            custo: custo,
+            liquido: liquido,
+            lucro: lucro,
+            taxa: taxa,
+        };
+
+        produto.ingredientes = [];
+        return produto;
     }
 
-    async deleteDB({id}): Promise<any> {
+
+
+    static async deleteDB(id): Promise<any> {
         async function postData() {
-            const response = await fetch(`http://localhost:3000/api/produtos?id=${id}`, {
+            const response = await fetch(`/api/produtos?id=${id}`, {
                 method: 'DELETE',
                 headers: {
                     'Content-Type': 'application/json'
                 }
             });
-
             return response.json();
         }
         try {
-            console.log(this);
+
             return await postData();
         } catch (error) {
             console.error(error);
@@ -41,14 +61,13 @@ export class ProdutosClienteClass implements PdvModule.ProdutosClienteInterface 
         }
     }
 
-    async InsertDB(): Promise<any> {
+    static async dbAll(): Promise<any> {
         async function postData() {
-            const response = await fetch("\api\produtos", {
-                method: 'POST',
+            const response = await fetch(`http://localhost:3000/api/produtos`, {
+                method: 'GET',
                 headers: {
                     'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(this)
+                }
             });
             return response.json();
         }
@@ -59,50 +78,22 @@ export class ProdutosClienteClass implements PdvModule.ProdutosClienteInterface 
             return error;
         }
     }
-}
 
-export class ProdutosServidorClass extends ProdutosClienteClass {
-    static async DbAll(): Promise<PdvModule.ProdutosClienteInterface[]> {
-        try {
-            const client = await clientPromise;
-            const db = await client.db(MONGODB_DB);
-            const data = await db.collection('produtos').find().toArray();
-            return await data
-        } catch (error) {
-            console.error(`Erro ao obter produto do banco de dados: ${error}`);
+
+    async InsertDB(data: any): Promise<any> {
+        console.log(data)
+        async function postData() {
+            const response = await fetch("/api/produtos", {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            });
+            return await response.json();
         }
-    }
-
-    static async DbAllJson(): Promise<string> {
         try {
-            return JSON.stringify(await ProdutosServidorClass.DbAll())
-        } catch (error) {
-            console.error(`Erro ao obter produto json do banco de dados: ${error}`);
-        }
-    }
-
-    async IFoodAll() {
-        const { getHeaders } = await TokenApiResponseIfoodClass.createInstance();
-        const catalogDataResponse = await fetch(catalogURL, { headers: getHeaders() });
-        return await catalogDataResponse.json();
-    }
-
-    async InsertDB(): Promise<any> {
-        try {
-            const client = await clientPromise;
-            const db = await client.db(MONGODB_DB);
-            return await db.collection('produtos').insertOne(this);
-        } catch (error) {
-            console.error(error);
-            return error;
-        }
-    }
-
-    async deleteDB(): Promise<any> {
-        try {
-            const client = await clientPromise;
-            const db = await client.db(MONGODB_DB);
-            return await db.collection('produtos').deleteOne({ nome: this.nome });
+            return await postData();
         } catch (error) {
             console.error(error);
             return error;

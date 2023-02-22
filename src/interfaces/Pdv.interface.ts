@@ -24,7 +24,6 @@ export module PdvModule {
         liquido: number;
         custo: number;
         lucro: number;
-        porcentagem: number;
     }
 
     export interface ProdutosClienteInterface {
@@ -35,12 +34,47 @@ export module PdvModule {
         image: string;
         venda: VendaInterface,
         ingredientes: IngredienteInteface[]
-        InsertDB();
+        InsertDB(data: any): Promise<any>;
     }
 
     export interface ProdutosServidorInteface extends ProdutosClienteInterface {
         DbAll(): Promise<ProdutosClienteInterface[]>
-        InsertDB();
+        InsertDB(data: any): Promise<any>;
     }
 }
 
+export const ingredientesModelo: PdvModule.IngredienteInteface = {
+    quantidade: 0,
+    valor: 0,
+    produto: {
+        nome: '',
+        unidade: '',
+        valor: 0,
+        quantidades: {
+            quantidade: 0,
+            peso: 0,
+            valor: 0
+        }
+    }
+}
+
+export const vendaModelo: PdvModule.VendaInterface = {
+    bruto: 0,
+    taxa: 0,
+    liquido: 0,
+    custo: 0,
+    lucro: 0,
+}
+
+export const produtoModelo: PdvModule.ProdutosClienteInterface = {
+    _id: null,
+    nome: '',
+    porcentagem: 0,
+    peso: 0,
+    image: '',
+    venda: vendaModelo,
+    ingredientes: [
+        ingredientesModelo
+    ],
+    InsertDB: null
+};

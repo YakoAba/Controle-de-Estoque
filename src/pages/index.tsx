@@ -1,22 +1,16 @@
-import { ProdutosServidorClass } from "../classes/Produtos";
+import { ProdutosServidorClass } from "../classes/produto.servidor.class";
+import { ProdutosClienteClass } from "../classes/Produtos";
 import Header from "../components/Header";
 import Form from "../components/produtos/form";
+import useSWR from "swr";
 
-export default function Produtos({ data }): JSX.Element {
+export default function Produtos(): JSX.Element {
+
+
   return (
     <>
       <Header />
-      <Form data={data} />
+      <Form/>
     </>
   );
-}
-
-export async function getServerSideProps() {
-  try {
-    // Pass data to the page via props
-    const data = await ProdutosServidorClass.DbAllJson();
-    return { props: { data } };
-  } catch (error) {
-    return { props: { error } };
-  }
 }
