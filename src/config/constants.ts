@@ -18,21 +18,21 @@ export const Sections = [
                 label: "CATEGORIAS",
                 href: "/categorias",
             },
-            {
-                label: "PRODUTOS",
-                href: "/produtos",
-            },
+            // {
+            //     label: "PRODUTOS",
+            //     href: "/produtos",
+            // },
         ],
     },
-    {
-        title: "ESTOQUE",
-        links: [
-            {
-                label: "SAÍDAS",
-                href: "/saidas-estoque",
-            },
-        ],
-    },
+    // {
+    //     title: "ESTOQUE",
+    //     links: [
+    //         {
+    //             label: "SAÍDAS",
+    //             href: "/saidas-estoque",
+    //         },
+    //     ],
+    // },
 ];
 
 export const merchantId = "799b5203-981f-4b1b-96d0-b7122cc1a246";

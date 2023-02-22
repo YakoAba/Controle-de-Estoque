@@ -1,12 +1,8 @@
 import { CheckIcon } from "@chakra-ui/icons";
 import {
   Button,
-  calc,
-  Checkbox,
   Flex,
-  HStack,
   Image,
-  Input,
   Modal,
   ModalBody,
   ModalCloseButton,
@@ -14,19 +10,19 @@ import {
   ModalFooter,
   ModalHeader,
   ModalOverlay,
-  SimpleGrid,
   Tab,
   TabList,
   TabPanel,
   TabPanels,
   Tabs,
   Text,
-  Textarea,
 } from "@chakra-ui/react";
 import { useRef, useState } from "react";
 import { ProdutosClienteClass } from "../../classes/Produtos";
 import { useGlobalContext } from "../../contexts/GlobalContext";
 import { PdvModule, produtoModelo } from "../../interfaces/Pdv.interface";
+import Tab1 from "./tab1";
+import Tab2 from "./tab2";
 
 function ModalCadProd() {
   const { disclosureModalProdCad } = useGlobalContext();
@@ -34,6 +30,7 @@ function ModalCadProd() {
   const finalRef = useRef(null);
   const [item, setItem] =
     useState<PdvModule.ProdutosClienteInterface>(produtoModelo);
+  const { mutate } = useGlobalContext();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { id, value } = e.target;
@@ -53,7 +50,10 @@ function ModalCadProd() {
 
   const handleSave = async () => {
     const produto = await ProdutosClienteClass.createInstance(item);
-    return await produto.InsertDB(produto);
+    await produto.InsertDB(produto);
+    mutate();
+    disclosureModalProdCad.onClose();
+    return { success: true };
   };
 
   return (
@@ -81,14 +81,14 @@ function ModalCadProd() {
               fontWeight="bold"
             >
               <Image
-                width="54"
-                height="41"
+                width="46"
+                height="37"
                 objectFit="fill"
                 src="harmonica cozinha.svg"
                 alt="LOGO"
               />
-              <Flex ml={-54} justifyContent={"center"} w={"100vw"}>
-              <Text >Cadastro de Produtos</Text>
+              <Flex ml={-46} justifyContent={"center"} w={"100vw"}>
+                <Text>Cadastro de Produtos</Text>
               </Flex>
             </Flex>
           </ModalHeader>
@@ -102,74 +102,10 @@ function ModalCadProd() {
               </TabList>
               <TabPanels>
                 <TabPanel>
-                  <SimpleGrid h="fit-content" spacing="6" columns={1}>
-                    <HStack>
-                      {item.image ? (
-                        <Image
-                          width="67"
-                          height="50"
-                          objectFit="fill"
-                          src={item.image}
-                          alt="LOGO"
-                        />
-                      ) : null}
-                      <Input
-                        onChange={handleImage}
-                        value={item.image}
-                        placeholder="Url da imagem"
-                        _placeholder={{ color: "black" }}
-                        borderColor="black"
-                        focusBorderColor="red"
-                        _hover={{ borderColor: "red" }}
-                        mt="10px"
-                        name="img"
-                        id="img"
-                      />
-                    </HStack>
-                    <HStack>
-                      <Checkbox colorScheme="red">Oferta</Checkbox>
-                      <Input
-                        value={item.venda.bruto}
-                        onChange={handleChange}
-                        placeholder="Preço do produto"
-                        maxLength={20}
-                        _placeholder={{ color: "black" }}
-                        borderColor="black"
-                        focusBorderColor="red"
-                        _hover={{ borderColor: "red" }}
-                        name="venda.bruto"
-                        id="venda.bruto"
-                        type="number"
-                      />
-                    </HStack>
-                    <Input
-                      value={item.nome}
-                      onChange={handleChange}
-                      placeholder="Titulo do produto"
-                      maxLength={30}
-                      _placeholder={{ color: "black" }}
-                      borderColor="black"
-                      focusBorderColor="red"
-                      _hover={{ borderColor: "red" }}
-                      name="nome"
-                      id="nome"
-                    />
-                    <Textarea
-                      //value={produto.description}
-                      // onChange={handleChange}
-                      placeholder="Descrição do produto"
-                      _placeholder={{ color: "black" }}
-                      h="50px"
-                      borderColor="black"
-                      focusBorderColor="red"
-                      _hover={{ borderColor: "red" }}
-                      id="descricao"
-                      name="descricao"
-                    />
-                  </SimpleGrid>
+                  <Tab1 />
                 </TabPanel>
                 <TabPanel>
-                  <p>two!</p>
+                  <Tab2 />
                 </TabPanel>
                 <TabPanel>
                   <p>three!</p>
