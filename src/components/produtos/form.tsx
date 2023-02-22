@@ -16,8 +16,8 @@ const FormularioProdutos = () => {
       marginTop={20}
       marginLeft="auto"
       marginRight="auto"
-      paddingLeft="6"
-      paddingRight="6"
+      paddingLeft="3"
+      paddingRight="3"
     >
       <ModalCadProd />
       <ButtonAdicionar mt={5} onClick={disclosureModalProdCad.onOpen} />
