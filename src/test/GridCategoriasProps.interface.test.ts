@@ -3,7 +3,7 @@ import { PriceInterface } from "../interfaces/Categorias.interface"
 describe('PriceInterface', () => {
     
     it('Deve retornar 200 ao fazer GET em /items', async () => {
-        const response = await fetch('http://localhost:3000/api/listaProdutosIfood');
+        const response = await fetch('/api/listaProdutosIfood');
         expect(response.status).toBe(200);
     });
 
