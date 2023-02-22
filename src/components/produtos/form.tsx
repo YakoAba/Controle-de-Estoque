@@ -10,7 +10,7 @@ const FormularioProdutos = () => {
   return (
     <Box
       overflowY="auto"
-      width="100vw"
+      width="100%"
       sx={{ "::-webkit-scrollbar": { display: "none" } }}
       height="calc(100vh - 90px)"
       marginTop={20}
