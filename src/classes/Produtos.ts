@@ -1,4 +1,4 @@
-import { PdvModule, vendaModelo } from "../interfaces/Pdv.interface";
+import { PdvModule } from "../interfaces/Pdv.interface";
 
 export class ProdutosClienteClass implements PdvModule.ProdutosClienteInterface {
     _id: string
