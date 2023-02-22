@@ -69,13 +69,13 @@ function GridProdutos(): JSX.Element {
                 currency: "BRL",
               })}
             </Td>
-            <Td color="black" textAlign="end">
+            {/* <Td color="black" textAlign="end">
               {(item.venda.custo !== 0
                 ? (item.venda.lucro / item.venda.custo) * 100
                 : 100
               ).toFixed(2)}
               %
-            </Td>
+            </Td> */}
           </Show>
           <Td color="black" textAlign="end">
             <ButtonDeletar id={i} onClick={() => deletar(item._id)} />
@@ -88,7 +88,7 @@ function GridProdutos(): JSX.Element {
   return listaProdutosIsLoading ? (
     <PacMan />
   ) : (
-    <Table marginTop={"25px"} colorScheme="black">
+    <Table marginTop={"25px"} colorScheme="black" maxW={"100%"}>
       <Thead>
         <Tr>
           <Th fontWeight="bold" fontSize="14px">
@@ -106,9 +106,6 @@ function GridProdutos(): JSX.Element {
             </Th>
             <Th color="black" textAlign="end">
               LUCRO
-            </Th>
-            <Th color="black" textAlign="end">
-              PORCENTAGEM
             </Th>
           </Show>
           <Th></Th>
