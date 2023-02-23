@@ -33,7 +33,7 @@ const Tab1 = ({ item, setItem }: Tab1Props) => {
         <InputImage value={item.image} onChance={(e) => setItem({...item, image: e.target.value})} id={"image"} />
       </Stack>
       <Stack>
-        <InputKg value={item.peso} onChange={(valor) => setItem({...item,peso:valor})} id={"peso"} />
+        <InputKg value={item.peso} onChange={(valor : string) => setItem({...item,peso:parseFloat(valor)})} id={"peso"} />
       </Stack>
     </Stack>
   );

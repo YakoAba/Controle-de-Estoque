@@ -11,7 +11,13 @@ import {
   Text,
 } from "@chakra-ui/react";
 
-export default function InputKg({ value, onChange, id }) {
+type InputKgProps = {
+  value : number;
+  onChange: any,
+  id:string;
+}
+
+export default function InputKg({ value , onChange, id }) {
 
   return (
     <>
