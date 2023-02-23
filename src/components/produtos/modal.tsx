@@ -32,22 +32,6 @@ function ModalCadProd() {
     useState<PdvModule.ProdutosClienteInterface>(produtoModelo);
   const { mutate } = useGlobalContext();
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { id, value } = e.target;
-    if (id.includes("venda")) {
-      setItem((item) => ({
-        ...item,
-        venda: { ...item.venda, [id.replace("venda.", "")]: parseFloat(value) },
-      }));
-    } else {
-      setItem((item) => ({ ...item, [id]: value }));
-    }
-  };
-
-  const handleImage = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setItem((item) => ({ ...item, image: e.target.value }));
-  };
-
   const handleSave = async () => {
     const produto = await ProdutosClienteClass.createInstance(item);
     await produto.InsertDB(produto);
@@ -99,13 +83,15 @@ function ModalCadProd() {
                 <Tab>Produto</Tab>
                 <Tab>Venda</Tab>
                 <Tab>Ingredientes</Tab>
+                <Tab>Tamanho</Tab>
               </TabList>
               <TabPanels>
                 <TabPanel>
-                  <Tab1 />
+                  
+                  <Tab1 item={item} setItem={setItem} />
                 </TabPanel>
                 <TabPanel>
-                  <Tab2 />
+                  <Tab2 item={item} setItem={setItem} />
                 </TabPanel>
                 <TabPanel>
                   <p>three!</p>

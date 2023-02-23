@@ -1,25 +1,56 @@
-import { Flex, HStack, SimpleGrid, Stack, Text } from "@chakra-ui/react";
+import { Stack, Text } from "@chakra-ui/react";
+import { Dispatch, SetStateAction } from "react";
+import { PdvModule } from "../../interfaces/Pdv.interface";
 import InputRealBrasil from "../input.realBrasil";
-import SliderInput from "../input.taxa";
 
-const Tab2 = () => {
+type Tab2Props = {
+  item: PdvModule.ProdutosClienteInterface;
+  setItem: Dispatch<SetStateAction<PdvModule.ProdutosClienteInterface>>;
+};
+
+const Tab2 = ({ item, setItem }: Tab2Props) => {
   return (
     <Stack>
-      <Stack >
+      <Stack>
         <Text>Bruto:</Text>
-        <InputRealBrasil />
+        <InputRealBrasil
+          value={item.venda.bruto}
+          onChange={(valor) =>
+            setItem({ ...item, venda: { ...item.venda, bruto: valor } })
+          }
+          id={"bruto"}
+        />
       </Stack>
-      <Stack >
+      <Stack>
         <Text>Taxa:</Text>
-        <InputRealBrasil />
+        <InputRealBrasil
+          value={item.venda.taxa}
+          onChange={(valor) =>
+            setItem({ ...item, venda: { ...item.venda, taxa: valor } })
+          }
+          id={"taxa"}
+        />
       </Stack>
-      <Stack >
+
+      <Stack>
         <Text>Liquido:</Text>
-        <InputRealBrasil />
+        <InputRealBrasil
+          value={item.venda.liquido}
+          onChange={(valor) =>
+            setItem({ ...item, venda: { ...item.venda, liquido: valor } })
+          }
+          id={"liquido"}
+        />
       </Stack>
-      <Stack >
+      <Stack>
         <Text>Custo:</Text>
-        <InputRealBrasil />
+        <InputRealBrasil
+          value={item.venda.custo}
+          onChange={(valor) =>
+            setItem({ ...item, venda: { ...item.venda, custo: valor } })
+          }
+          id={"custo"}
+        />
       </Stack>
     </Stack>
   );

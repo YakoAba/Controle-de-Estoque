@@ -1,36 +1,34 @@
-import { Box, Flex, HStack, Image, Input, Stack, Text } from "@chakra-ui/react";
-import { useState } from "react";
+import { Flex, HStack, Image, Input, Text } from "@chakra-ui/react";
 
-const InputImage = () => {
-  const [image, setImage] = useState("");
+const InputImage = ({ value, onChance, id }) => {
   return (
     <Flex flexDirection="column" alignItems="start">
-      <Text  >
+      <Text mb={-1} mt={2}>
         Foto:
       </Text>
-     <HStack w={"100%"}>
-        {image ? (
+      <HStack w={"100%"}>
+        {value ? (
           <Image
             width="41"
             height="33"
             objectFit="fill"
-            src={image}
+            src={value}
             alt="LOGO"
           />
         ) : null}
         <Input
-          value={image}
-          onChange={(event) => setImage(event.target.value)}
+          value={value}
+          onChange={onChance}
           placeholder="Url da imagem"
           _placeholder={{ color: "black" }}
           borderColor="black"
-          focusBorderColor="red"
+          focusBorderColor="red.200"
           _hover={{ borderColor: "red" }}
           mt="2"
           name="img"
-          id="img"
+          id={id}
         />
-     </HStack>
+      </HStack>
     </Flex>
   );
 };

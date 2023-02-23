@@ -10,27 +10,32 @@ import {
   Stack,
   Text,
 } from "@chakra-ui/react";
-import { useState } from "react";
 
-export default function InputKg() {
-  const [value, setValue] = useState("0");
+export default function InputKg({ value, onChange, id }) {
 
   return (
     <>
       <Stack>
-        <Text>Peso:</Text>
+        <Text mb={-1} mt={2}>
+          Peso:
+        </Text>
         <InputGroup>
           <InputLeftAddon children="kg" />
           <NumberInput
-            onChange={(valueString) => setValue(valueString)}
             value={value}
             precision={2}
             step={0.1}
             w="100vw"
             name="peso"
-            id="peso"
+            focusBorderColor="red.200"
+            id={id}
+            onChange={onChange}
           >
-            <NumberInputField />
+            <NumberInputField
+              _placeholder={{ color: "red" }}
+              borderColor="black"
+              _hover={{ borderColor: "red" }}
+            />
             <NumberInputStepper>
               <NumberIncrementStepper />
               <NumberDecrementStepper />

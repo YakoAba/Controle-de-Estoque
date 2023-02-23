@@ -31,7 +31,7 @@ function GridProdutos(): JSX.Element {
 
   async function deletar(id) {
     const response = await ProdutosClienteClass.deleteDB(id);
-    mutate();
+    await mutate();
     return response;
   }
 

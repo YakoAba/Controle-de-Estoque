@@ -19,7 +19,6 @@
 // import { useState } from "react";
 
 import {
-  Flex,
   InputGroup,
   InputLeftAddon,
   NumberDecrementStepper,
@@ -32,12 +31,8 @@ import {
   SliderThumb,
   SliderTrack,
 } from "@chakra-ui/react";
-import { useState } from "react";
 
-export default function SliderInput() {
-  const [value, setValue] = useState(0);
-  const handleChange = (value) => setValue(value);
-
+export default function SliderInput({ value, onChange, id }) {
   return (
     <InputGroup>
       <InputLeftAddon children="R$" />
@@ -47,7 +42,8 @@ export default function SliderInput() {
         maxW="130px"
         mr="2rem"
         value={value}
-        onChange={handleChange}
+        onChange={onChange}
+        id={id}
       >
         <NumberInputField />
         <NumberInputStepper>
@@ -58,8 +54,8 @@ export default function SliderInput() {
       <Slider
         flex="1"
         focusThumbOnChange={false}
-        value={value}
-        onChange={handleChange}
+        value={value[id]}
+        onChange={onChange}
       >
         <SliderTrack>
           <SliderFilledTrack />
