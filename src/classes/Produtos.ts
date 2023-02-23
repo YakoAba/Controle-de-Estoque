@@ -21,8 +21,8 @@ export class ProdutosClienteClass implements PdvModule.ProdutosClienteInterface 
         produto.peso = item.peso;
         produto.image = item.image;
 
-        const bruto = item.venda.bruto || 0;
-        const custo = item.venda.custo || 0;
+        const bruto: number = item.venda.bruto || 0;
+        const custo: number = item.venda.custo || 0;
         const taxa = 0.27;
         const liquido = bruto * (1 - taxa);
         const lucro = liquido - custo;
