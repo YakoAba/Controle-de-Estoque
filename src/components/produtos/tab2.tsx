@@ -37,7 +37,7 @@ const Tab2 = ({ item, setItem }: Tab2Props) => {
         <InputRealBrasil
           value={item.venda.liquido}
           onChange={(valor) =>
-            setItem({ ...item, venda: { ...item.venda, liquido: valor } })
+            setItem({ ...item, venda: { ...item.venda, liquido: parseFloat(valor) } })
           }
           id={"liquido"}
         />
@@ -47,7 +47,7 @@ const Tab2 = ({ item, setItem }: Tab2Props) => {
         <InputRealBrasil
           value={item.venda.custo}
           onChange={(valor) =>
-            setItem({ ...item, venda: { ...item.venda, custo: valor } })
+            setItem({ ...item, venda: { ...item.venda, custo: parseFloat(valor) } })
           }
           id={"custo"}
         />
