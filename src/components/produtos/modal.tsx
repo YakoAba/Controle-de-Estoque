@@ -17,19 +17,18 @@ import {
   Tabs,
   Text,
 } from "@chakra-ui/react";
-import { useRef, useState } from "react";
+import { useRef } from "react";
 import { ProdutosClienteClass } from "../../classes/Produtos";
 import { useGlobalContext } from "../../contexts/GlobalContext";
-import { PdvModule, produtoModelo } from "../../interfaces/Pdv.interface";
 import Tab1 from "./tab1";
 import Tab2 from "./tab2";
+import Tab3 from "./tab3";
 
 function ModalCadProd() {
-  const { disclosureModalProdCad } = useGlobalContext();
+  const { disclosureModalProdCad, item } = useGlobalContext();
   const initialRef = useRef(null);
   const finalRef = useRef(null);
-  const [item, setItem] =
-    useState<PdvModule.ProdutosClienteInterface>(produtoModelo);
+
   const { mutate } = useGlobalContext();
 
   const handleSave = async () => {
@@ -43,6 +42,7 @@ function ModalCadProd() {
   return (
     <>
       <Modal
+        isCentered
         scrollBehavior={"outside"}
         blockScrollOnMount={false}
         closeOnOverlayClick={false}
@@ -78,23 +78,21 @@ function ModalCadProd() {
           </ModalHeader>
           <ModalCloseButton />
           <ModalBody>
-            <Tabs>
-              <TabList>
+            <Tabs maxHeight={"65vh"}  minHeight={"65vh"} >
+              <TabList >
                 <Tab>Produto</Tab>
                 <Tab>Venda</Tab>
                 <Tab>Ingredientes</Tab>
-                <Tab>Tamanho</Tab>
               </TabList>
-              <TabPanels>
-                <TabPanel>
-                  
-                  <Tab1 item={item} setItem={setItem} />
+              <TabPanels >
+                <TabPanel >
+                  <Tab1 />
                 </TabPanel>
                 <TabPanel>
-                  <Tab2 item={item} setItem={setItem} />
+                  <Tab2 />
                 </TabPanel>
-                <TabPanel>
-                  <p>three!</p>
+                <TabPanel >
+                  <Tab3 />
                 </TabPanel>
               </TabPanels>
             </Tabs>
@@ -110,10 +108,21 @@ function ModalCadProd() {
               variant="solid"
               onClick={handleSave}
               fontWeight="bold"
+              padding="10px 10px"
+              mr="10px"
             >
               Salvar
             </Button>
-            <Button onClick={disclosureModalProdCad.onClose}>Cancel</Button>
+            <Button
+              border="2px solid red"
+              bgColor="white"
+              color={"red"}
+              variant="solid"
+              padding="8px 16px"
+              onClick={disclosureModalProdCad.onClose}
+            >
+              Cancel
+            </Button>
           </ModalFooter>
         </ModalContent>
       </Modal>

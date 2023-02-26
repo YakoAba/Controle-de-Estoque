@@ -3,7 +3,7 @@ import { Flex, HStack, Image, Input, Text } from "@chakra-ui/react";
 const InputImage = ({ value, onChance, id }) => {
   return (
     <Flex flexDirection="column" alignItems="start">
-      <Text mb={-1} mt={2}>
+      <Text mb={-2} mt={1}>
         Foto:
       </Text>
       <HStack w={"100%"}>

@@ -11,22 +11,16 @@ import {
   Text,
 } from "@chakra-ui/react";
 
-type InputKgProps = {
-  value : number;
-  onChange: any,
-  id:string;
-}
-
 export default function InputKg({ value , onChange, id }) {
 
   return (
     <>
       <Stack>
-        <Text mb={-1} mt={2}>
+        <Text mb={-2} mt={1}>
           Peso:
         </Text>
         <InputGroup>
-          <InputLeftAddon children="kg" />
+          <InputLeftAddon children="KG" />
           <NumberInput
             value={value}
             precision={2}

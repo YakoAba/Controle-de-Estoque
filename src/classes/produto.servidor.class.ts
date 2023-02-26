@@ -4,7 +4,19 @@ import { PdvModule } from "../interfaces/Pdv.interface";
 import { ProdutosClienteClass } from "./Produtos";
 import { TokenApiResponseIfoodClass } from "./Token.class";
 
-export class ProdutosServidorClass extends ProdutosClienteClass  {
+export class ProdutosServidorClass extends ProdutosClienteClass {
+
+    static async DbOne({id}): Promise<PdvModule.ProdutosClienteInterface[]> {
+        try {
+            const client = await clientPromise;
+            const db = await client.db(MONGODB_DB);
+            const data  = await db.collection("produtos").findOne({ _id:`ObjectId(${id})` });
+            return await data
+        } catch (error) {
+            console.error(`Erro ao obter produto do banco de dados: ${error}`);
+        }
+    }
+
     static async DbAll(): Promise<PdvModule.ProdutosClienteInterface[]> {
         try {
             const client = await clientPromise;
@@ -15,6 +27,8 @@ export class ProdutosServidorClass extends ProdutosClienteClass  {
             console.error(`Erro ao obter produto do banco de dados: ${error}`);
         }
     }
+
+
 
     static async DbAllJson(): Promise<string> {
         try {
@@ -40,6 +54,19 @@ export class ProdutosServidorClass extends ProdutosClienteClass  {
             return error;
         }
     }
+
+
+    // async editDB(): Promise<PdvModule.ProdutosClienteInterface> {
+    //     try {
+    //         const client = await clientPromise;
+    //         const db = await client.db(MONGODB_DB);
+    //         const data  = await db.collection("produtos").findOne({ _id: new ObjectId(id) });
+ 
+    //         return await data
+    //     } catch (error) {
+    //         console.error(`Erro ao obter produto do banco de dados: ${error}`);
+    //     }
+    // }
 
     async deleteDB(): Promise<any> {
         try {

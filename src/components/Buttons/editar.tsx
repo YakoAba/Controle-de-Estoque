@@ -24,22 +24,24 @@ const ButtonDeletar = ({ onClick, id }) => {
         fontSize={11}
         onClick={() => setIsConfirmationOpen(true)}
         leftIcon={<DeleteIcon />}
-        colorScheme="red"
+        ml={2}
+        border="2px solid red"
+        bgColor="white"
+        color={"red"}
         variant="solid"
-        ml={3}
-        padding="10px"
+        padding= "8px 14px"
       >
-        DELETAR
+        EDITAR
       </Button>
       <ConfirmationBox
         isOpen={isConfirmationOpen}
         onConfirm={handleConfirm}
         onCancel={handleCancel}
-        title="Confirmar exclusão"
+        title="Confirmar edição"
         confirmButtonText="Sim"
         cancelButtonText="Não"
       >
-        <p>Deseja realmente excluir este item?</p>
+        <p>{`Deseja realmente editar este item? id:"${id}"`}</p>
       </ConfirmationBox>
     </>
   );

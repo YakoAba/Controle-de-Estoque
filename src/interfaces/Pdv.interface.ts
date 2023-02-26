@@ -15,6 +15,7 @@ export module PdvModule {
     export interface IngredienteInteface {
         quantidade: number,
         valor: number,
+        nome: string,
         produto: ItensInterface
     }
 
@@ -29,7 +30,7 @@ export module PdvModule {
     export interface ProdutosClienteInterface {
         _id: string,
         nome: string,
-        porcentagem: number,
+        descricao: string,
         peso: number,
         image: string;
         venda: VendaInterface,
@@ -46,6 +47,7 @@ export module PdvModule {
 export const ingredientesModelo: PdvModule.IngredienteInteface = {
     quantidade: 0,
     valor: 0,
+    nome: "",
     produto: {
         nome: '',
         unidade: '',
@@ -69,7 +71,7 @@ export const vendaModelo: PdvModule.VendaInterface = {
 export const produtoModelo: PdvModule.ProdutosClienteInterface = {
     _id: null,
     nome: '',
-    porcentagem: 0,
+    descricao: "",
     peso: 0,
     image: '',
     venda: vendaModelo,

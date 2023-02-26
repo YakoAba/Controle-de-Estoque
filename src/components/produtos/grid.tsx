@@ -1,5 +1,7 @@
 import {
+  HStack,
   Show,
+  Stack,
   Table,
   Tbody,
   Td,
@@ -12,6 +14,7 @@ import { ProdutosClienteClass } from "../../classes/Produtos";
 import { useGlobalContext } from "../../contexts/GlobalContext";
 import { PdvModule } from "../../interfaces/Pdv.interface";
 import ButtonDeletar from "../Buttons/deletar";
+import ButtonEditar from "../Buttons/editar";
 import PacMan from "../pacman";
 
 function GridProdutos(): JSX.Element {
@@ -33,6 +36,12 @@ function GridProdutos(): JSX.Element {
     const response = await ProdutosClienteClass.deleteDB(id);
     await mutate();
     return response;
+  }
+
+  async function editar(id) {
+    const produto = await ProdutosClienteClass.deleteDB(id);
+    await mutate();
+    return produto;
   }
 
   const renderGrid = () => {
@@ -69,16 +78,10 @@ function GridProdutos(): JSX.Element {
                 currency: "BRL",
               })}
             </Td>
-            {/* <Td color="black" textAlign="end">
-              {(item.venda.custo !== 0
-                ? (item.venda.lucro / item.venda.custo) * 100
-                : 100
-              ).toFixed(2)}
-              %
-            </Td> */}
           </Show>
           <Td color="black" textAlign="end">
-            <ButtonDeletar id={i} onClick={() => deletar(item._id)} />
+            <ButtonEditar id={item._id} onClick={() => deletar(item._id)} />
+            <ButtonDeletar id={item._id} onClick={() => deletar(item._id)} />
           </Td>
         </Tr>
       )

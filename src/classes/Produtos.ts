@@ -8,6 +8,7 @@ export class ProdutosClienteClass implements PdvModule.ProdutosClienteInterface 
     image: string
     venda: PdvModule.VendaInterface
     ingredientes: PdvModule.IngredienteInteface[]
+    descricao: string;
 
     constructor() {
     }
@@ -17,7 +18,6 @@ export class ProdutosClienteClass implements PdvModule.ProdutosClienteInterface 
 
         produto._id = item._id;
         produto.nome = item.nome;
-        produto.porcentagem = item.porcentagem;
         produto.peso = item.peso;
         produto.image = item.image;
 
@@ -26,7 +26,6 @@ export class ProdutosClienteClass implements PdvModule.ProdutosClienteInterface 
         const taxa = 0.27;
         const liquido = bruto * (1 - taxa);
         const lucro = liquido - custo;
-
 
         produto.venda = {
             bruto: bruto,
@@ -40,9 +39,7 @@ export class ProdutosClienteClass implements PdvModule.ProdutosClienteInterface 
         return produto;
     }
 
-
-
-    static async deleteDB(id): Promise<any> {
+    static async deleteDB({ id }): Promise<any> {
         async function postData() {
             const response = await fetch(`/api/produtos?id=${id}`, {
                 method: 'DELETE',
@@ -54,6 +51,24 @@ export class ProdutosClienteClass implements PdvModule.ProdutosClienteInterface 
         }
         try {
 
+            return await postData();
+        } catch (error) {
+            console.error(error);
+            return error;
+        }
+    }
+
+    static async dbOne({ id }): Promise<any> {
+        async function postData() {
+            const response = await fetch(`/api/produtos?id=${id}`, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            });
+            return response.json();
+        }
+        try {
             return await postData();
         } catch (error) {
             console.error(error);

@@ -18,9 +18,7 @@ export class TokenApiResponseIfoodClass implements TokenApiResponseIfoodInterfac
         return { Authorization: `Bearer ${TokenApiResponseIfoodClass.instance.accessToken}`, Accept: "application/json" }
     }
 
-    private constructor() {
-
-    };
+    private constructor() { };
 
     private static instance: TokenApiResponseIfoodClass = null;
 

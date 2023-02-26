@@ -1,32 +1,33 @@
 import { Stack, Text } from "@chakra-ui/react";
-import { Dispatch, SetStateAction } from "react";
-import { PdvModule } from "../../interfaces/Pdv.interface";
-import InputRealBrasil from "../input.realBrasil";
+import { useGlobalContext } from "../../contexts/GlobalContext";
+import BrazilianRealInput from "../BrazilianRealInput";
 
-type Tab2Props = {
-  item: PdvModule.ProdutosClienteInterface;
-  setItem: Dispatch<SetStateAction<PdvModule.ProdutosClienteInterface>>;
-};
-
-const Tab2 = ({ item, setItem }: Tab2Props) => {
+const Tab2 = () => {
+  const { item, setItem } = useGlobalContext();
   return (
     <Stack>
       <Stack>
         <Text>Bruto:</Text>
-        <InputRealBrasil
+        <BrazilianRealInput
           value={item.venda.bruto}
           onChange={(valor) =>
-            setItem({ ...item, venda: { ...item.venda, bruto: parseFloat(valor) } })
+            setItem({
+              ...item,
+              venda: { ...item.venda, bruto: parseFloat(valor) },
+            })
           }
           id={"bruto"}
         />
       </Stack>
       <Stack>
         <Text>Taxa:</Text>
-        <InputRealBrasil
+        <BrazilianRealInput
           value={item.venda.taxa}
           onChange={(valor) =>
-            setItem({ ...item, venda: { ...item.venda, taxa: parseFloat(valor) } })
+            setItem({
+              ...item,
+              venda: { ...item.venda, taxa: parseFloat(valor) },
+            })
           }
           id={"taxa"}
         />
@@ -34,20 +35,26 @@ const Tab2 = ({ item, setItem }: Tab2Props) => {
 
       <Stack>
         <Text>Liquido:</Text>
-        <InputRealBrasil
+        <BrazilianRealInput
           value={item.venda.liquido}
           onChange={(valor) =>
-            setItem({ ...item, venda: { ...item.venda, liquido: parseFloat(valor) } })
+            setItem({
+              ...item,
+              venda: { ...item.venda, liquido: parseFloat(valor) },
+            })
           }
           id={"liquido"}
         />
       </Stack>
       <Stack>
         <Text>Custo:</Text>
-        <InputRealBrasil
+        <BrazilianRealInput
           value={item.venda.custo}
           onChange={(valor) =>
-            setItem({ ...item, venda: { ...item.venda, custo: parseFloat(valor) } })
+            setItem({
+              ...item,
+              venda: { ...item.venda, custo: parseFloat(valor)  },
+            })
           }
           id={"custo"}
         />

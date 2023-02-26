@@ -15,13 +15,13 @@ export const Sections = [
         title: "CADASTRO",
         links: [
             {
-                label: "CATEGORIAS",
-                href: "/categorias",
+                label: "PRODUTOS",
+                href: "/",
             },
-            // {
-            //     label: "PRODUTOS",
-            //     href: "/produtos",
-            // },
+            {
+                label: "INGREDIENTES",
+                href: "/ingredientes",
+            },
         ],
     },
     // {

@@ -1,39 +1,56 @@
 /* eslint-disable react/no-children-prop */
-import { Input, Stack, Text } from "@chakra-ui/react";
-// import InputImage from "../editImage";
-// import InputKg from "../inputKg";
-import { PdvModule } from "../../interfaces/Pdv.interface";
-import { Dispatch, SetStateAction } from "react";
+import { Input, Stack, Text, Textarea } from "@chakra-ui/react";
 import InputImage from "../editImage";
 import InputKg from "../inputKg";
+import { useGlobalContext } from "../../contexts/GlobalContext";
 
-type Tab1Props = {
-  item: PdvModule.ProdutosClienteInterface;
-  setItem: Dispatch<SetStateAction<PdvModule.ProdutosClienteInterface>>;
-};
-
-const Tab1 = ({ item, setItem }: Tab1Props) => {
+const Tab1 = () => {
+  const { item, setItem } = useGlobalContext();
   return (
     <Stack>
       <Stack>
-        <Text mb={-1} mt={2}>
+        <Text mb={-2} mt={1}>
           Nome:
         </Text>
         <Input
           value={item.nome}
-          _placeholder={{ color: "red" }}
+          _placeholder={{ color: "red.200" }}
           borderColor="black"
           focusBorderColor="red.200"
-          _hover={{ borderColor: "red" }}
-          onChange={(e) => setItem({ ...item, nome: e.target.value})}
+          _hover={{ borderColor: "red.200" }}
+          onChange={(e) => setItem({ ...item, nome: e.target.value })}
           id="nome"
         ></Input>
       </Stack>
       <Stack>
-        <InputImage value={item.image} onChance={(e) => setItem({...item, image: e.target.value})} id={"image"} />
+        <InputImage
+          value={item.image}
+          onChance={(e) => setItem({ ...item, image: e.target.value })}
+          id={"image"}
+        />
       </Stack>
       <Stack>
-        <InputKg value={item.peso} onChange={(valor : string) => setItem({...item,peso:parseFloat(valor)})} id={"peso"} />
+        <InputKg
+          value={item.peso}
+          onChange={(valor: string) =>
+            setItem({ ...item, peso: parseFloat(valor) })
+          }
+          id={"peso"}
+        />
+      </Stack>
+      <Stack>
+        <Text mb={-2} mt={1}>
+          Descrição:
+        </Text>
+        <Textarea
+          value={item.descricao}
+          onChange={(e) => setItem({ ...item, descricao: e.target.value })}
+          id={"descricao"}
+          _placeholder={{ color: "red.200" }}
+          borderColor="black"
+          focusBorderColor="red.200"
+          _hover={{ borderColor: "red.200" }}
+        />
       </Stack>
     </Stack>
   );

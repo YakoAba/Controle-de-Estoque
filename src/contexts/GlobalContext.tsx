@@ -4,6 +4,7 @@ import useSWR from "swr";
 import { GlobalContextInterface } from "../interfaces/GlobalContext.interface";
 import { API_PRODUTOS, Sections } from "../config/constants";
 import { ProdutosClienteClass } from "../classes/Produtos";
+import { PdvModule, produtoModelo } from "../interfaces/Pdv.interface";
 
 const GlobalContext = createContext<GlobalContextInterface>(
   {} as GlobalContextInterface
@@ -15,6 +16,8 @@ export const Provider = ({ children }) => {
 
   const [token, setToken] = useState("");
   const [sections] = useState(Sections);
+  const [item, setItem] =
+    useState<PdvModule.ProdutosClienteInterface>(produtoModelo);
 
   const {
     data: listaProdutos,
@@ -26,7 +29,7 @@ export const Provider = ({ children }) => {
       return await ProdutosClienteClass.dbAll();
     },
     {
-      refreshInterval: 10000, // atualiza a cada 10 segundos
+      refreshInterval: 60000, // atualiza a cada 10 segundos
     }
   );
 
@@ -39,6 +42,8 @@ export const Provider = ({ children }) => {
     setToken,
     sections,
     mutate,
+    item,
+    setItem,
   };
 
   return (
