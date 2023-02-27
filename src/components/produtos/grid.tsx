@@ -148,10 +148,10 @@ function GridProdutos({ setBotoes }): JSX.Element {
             />
             TÍTULO
           </Th>
+          <Th color="black" textAlign="end">
+            BRUTO
+          </Th>{" "}
           <Show above={"sm"}>
-            <Th color="black" textAlign="end">
-              BRUTO
-            </Th>
             <Th color="black" textAlign="end">
               CUSTO
             </Th>
