@@ -97,14 +97,14 @@ function GridProdutos({ setBotoes }): JSX.Element {
             />
             {item.nome}
           </Td>
+          <Td color="black" textAlign="end">
+            {item.venda.bruto.toLocaleString("pt-BR", {
+              minimumFractionDigits: 2,
+              style: "currency",
+              currency: "BRL",
+            })}
+          </Td>
           <Show above={"sm"}>
-            <Td color="black" textAlign="end">
-              {item.venda.bruto.toLocaleString("pt-BR", {
-                minimumFractionDigits: 2,
-                style: "currency",
-                currency: "BRL",
-              })}
-            </Td>
             <Td color="black" textAlign="end">
               {item.venda.custo.toLocaleString("pt-BR", {
                 minimumFractionDigits: 2,
