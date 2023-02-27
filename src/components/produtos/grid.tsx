@@ -1,9 +1,6 @@
 import {
-  Box,
-  Flex,
-  HStack,
+  Checkbox,
   Show,
-  Stack,
   Table,
   Tbody,
   Td,
@@ -12,21 +9,19 @@ import {
   Tr,
   useToast,
 } from "@chakra-ui/react";
+import { useEffect, useState } from "react";
 import { ProdutosClienteClass } from "../../classes/Produtos";
 import { useGlobalContext } from "../../contexts/GlobalContext";
 import { PdvModule } from "../../interfaces/Pdv.interface";
-import ButtonDeletar from "../Buttons/deletar";
-import ButtonEditar from "../Buttons/editar";
 import PacMan from "../pacman";
 
-function GridProdutos(): JSX.Element {
+function GridProdutos({ setBotoes }): JSX.Element {
   const toast = useToast();
   const {
     listaProdutos,
     listaProdutosIsLoading,
     mutate,
     setItem,
-    item,
     disclosureModalProdCad,
   } = useGlobalContext();
 
@@ -56,11 +51,52 @@ function GridProdutos(): JSX.Element {
     return produto;
   }
 
+  const [checkedItems, setCheckedItems] = useState([]);
+
+  useEffect(() => {
+    if (listaProdutos) {
+      // Inicializa o estado dos checkboxes com um array de false com o mesmo tamanho do número de ingredientes
+      setCheckedItems(new Array(listaProdutos.length).fill(false));
+    }
+  }, [listaProdutos]);
+
+  const allChecked = checkedItems.every(Boolean);
+  const isIndeterminate = checkedItems.some(Boolean) && !allChecked;
+
+  const countChecked = (checked) => {
+    return checked.filter((item) => item).length;
+  };
+
+  const handleCheckAll = (event) => {
+    const allChecked = event.target.checked;
+    const newCheckedItems = listaProdutos.json.map(() => allChecked);
+    setCheckedItems(newCheckedItems);
+    setBotoes({ a: !event.target.checked, d: event.target.checked, e: false });
+  };
+
+  const handleCheck = (event, index) => {
+    // Altera o estado do checkbox na posição index
+
+    const newCheckedItems = [...checkedItems];
+    newCheckedItems[index] = event.target.checked;
+    setCheckedItems(newCheckedItems);
+    const count = countChecked(newCheckedItems);
+    setBotoes({ a: count === 0, d: count >= 1, e: count === 1 });
+  };
+
   const renderGrid = () => {
     return listaProdutos.json.map(
       (item: PdvModule.ProdutosClienteInterface, i) => (
         <Tr key={item._id}>
-          <Td color="black">{item.nome}</Td>
+          <Td color="black">
+            <Checkbox
+              colorScheme={"red"}
+              isChecked={checkedItems[i]}
+              onChange={(e) => handleCheck(e, i)}
+              mr={1}
+            />
+            {item.nome}
+          </Td>
           <Show above={"sm"}>
             <Td color="black" textAlign="end">
               {item.venda.bruto.toLocaleString("pt-BR", {
@@ -91,37 +127,6 @@ function GridProdutos(): JSX.Element {
               })}
             </Td>
           </Show>
-          <Td color="black" textAlign="end" maxWidth={40}>
-            <Flex
-              display={"flex"}
-              flexDirection={"column"}
-              justifyContent={"space-between"}
-              width={"100%"}
-            >
-              <ButtonEditar
-                id={item._id}
-                onClick={() => editar(item._id)}
-                fontSize={8}
-                padding="4px 7px"
-                icon={true}
-                colorScheme={""}
-                width={""}
-              >
-                EDITAR
-              </ButtonEditar>
-              <Box mt={1}/>
-              <ButtonDeletar
-                id={item._id}
-                onClick={() => deletar(item._id)}
-                fontSize={8}
-                padding="5px"
-                icon={true}
-                width={""}
-              >
-                DELETAR
-              </ButtonDeletar>
-            </Flex>
-          </Td>
         </Tr>
       )
     );
@@ -134,6 +139,13 @@ function GridProdutos(): JSX.Element {
       <Thead>
         <Tr>
           <Th fontWeight="bold" fontSize="14px">
+            <Checkbox
+              colorScheme={"red"}
+              mr={1}
+              isChecked={allChecked}
+              isIndeterminate={isIndeterminate}
+              onChange={handleCheckAll}
+            />
             TÍTULO
           </Th>
           <Show above={"sm"}>
@@ -150,7 +162,6 @@ function GridProdutos(): JSX.Element {
               LUCRO
             </Th>
           </Show>
-          <Th></Th>
         </Tr>
       </Thead>
       <Tbody>{renderGrid()}</Tbody>

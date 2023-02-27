@@ -37,7 +37,6 @@ function GridIngredientes({ setBotoes }): JSX.Element {
 
   const handleCheck = (event, index) => {
     // Altera o estado do checkbox na posição index
-
     const newCheckedItems = [...checkedItems];
     newCheckedItems[index] = event.target.checked;
     setCheckedItems(newCheckedItems);

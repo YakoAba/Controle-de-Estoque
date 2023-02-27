@@ -51,21 +51,6 @@ const Tab3 = () => {
           <></>
         )}
 
-        {botoes.d ? (
-          <ButtonDeletar
-            id={"delete"}
-            onClick={null}
-            fontSize={15}
-            padding={"10px"}
-            icon={true}
-            width={"100%"}
-          >
-            DELETE
-          </ButtonDeletar>
-        ) : (
-          <></>
-        )}
-
         {botoes.e ? (
           <ButtonEditar
             id={""}
@@ -80,6 +65,21 @@ const Tab3 = () => {
           >
             EDITAR
           </ButtonEditar>
+        ) : (
+          <></>
+        )}
+
+        {botoes.d ? (
+          <ButtonDeletar
+            id={"delete"}
+            onClick={null}
+            fontSize={15}
+            padding={"10px"}
+            icon={true}
+            width={"100%"}
+          >
+            DELETE
+          </ButtonDeletar>
         ) : (
           <></>
         )}

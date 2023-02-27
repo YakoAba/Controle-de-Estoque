@@ -91,7 +91,7 @@ const ButtonEditar = ({
         confirmButtonText="Sim"
         cancelButtonText="Não"
       >
-        <p>{`Deseja realmente editar este item? id:"${id}"`}</p>
+        <p>{`Deseja realmente editar este item "${id}"?`}</p>
       </ConfirmationBox>
     </>
   );
