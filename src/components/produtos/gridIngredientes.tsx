@@ -74,6 +74,7 @@ function GridIngredientes({ setBotoes }): JSX.Element {
               isChecked={allChecked}
               isIndeterminate={isIndeterminate}
               onChange={handleCheckAll}
+              mr={1}
             />
             nome
           </Th>

@@ -1,5 +1,6 @@
 import {
   Box,
+  Flex,
   HStack,
   Show,
   Stack,
@@ -90,29 +91,36 @@ function GridProdutos(): JSX.Element {
               })}
             </Td>
           </Show>
-          <Td
-            color="black"
-            textAlign="end"
-            display="flex"
-            alignContent={"center"}
-          >
-            <ButtonEditar
-              id={item._id}
-              onClick={() => editar(item._id)}
-              fontSize={11}
-              padding="8px 14px"
-              icon={true} colorScheme={""} width={""}            >
-              EDITAR
-            </ButtonEditar>
-            <Box ml={0.5} />
-            <ButtonDeletar
-              id={item._id}
-              onClick={() => deletar(item._id)}
-              fontSize={11}
-              padding="10px"
-              icon={true} width={""}            >
-              DELETAR
-            </ButtonDeletar>
+          <Td color="black" textAlign="end" maxWidth={40}>
+            <Flex
+              display={"flex"}
+              flexDirection={"column"}
+              justifyContent={"space-between"}
+              width={"100%"}
+            >
+              <ButtonEditar
+                id={item._id}
+                onClick={() => editar(item._id)}
+                fontSize={8}
+                padding="4px 7px"
+                icon={true}
+                colorScheme={""}
+                width={""}
+              >
+                EDITAR
+              </ButtonEditar>
+              <Box mt={1}/>
+              <ButtonDeletar
+                id={item._id}
+                onClick={() => deletar(item._id)}
+                fontSize={8}
+                padding="5px"
+                icon={true}
+                width={""}
+              >
+                DELETAR
+              </ButtonDeletar>
+            </Flex>
           </Td>
         </Tr>
       )
