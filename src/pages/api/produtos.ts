@@ -14,7 +14,7 @@ export default async function handler(req, res) {
         const { id } = req.query;
         let json;
         if (id) {
-          json = await db.collection("produtos").findOne({ _id: new ObjectId(id) });
+          json = await ProdutosServidorClass.DbOne({ id });
         } else {
           json = await ProdutosServidorClass.DbAll();
         }
@@ -34,18 +34,18 @@ export default async function handler(req, res) {
       }
       break;
 
-    // case "PATCH":
-    //   try {
-    //     const { id } = req.query;
-    //     await db
-    //       .collection("produtos")
-    //       .updateOne({ id: Number(id) }, req.body);
-    //     /* create a new model in the database */
-    //     res.status(201).json(mensagemSucesso);
-    //   } catch (error) {
-    //     res.status(400).json(mensagemErro);
-    //   }
-    //   break;
+    case "PATCH":
+      try {
+        const { id } = req.query;
+        delete req.body._id
+        const response = await db
+          .collection("produtos")
+          .updateOne({ _id: new ObjectId(id) }, { $set: req.body });
+        res.status(201).json(mensagemSucesso);
+      } catch (error) {
+        res.status(400).json(mensagemErro);
+      }
+      break;
 
     case "DELETE":
       try {

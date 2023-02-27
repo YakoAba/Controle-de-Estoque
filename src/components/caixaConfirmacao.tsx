@@ -68,7 +68,7 @@ export const ConfirmationBox: React.FC<ConfirmationBoxProps> = ({
               width="46"
               height="37"
               objectFit="fill"
-              src="harmonica cozinha.svg"
+              src="harmonica_cozinha.svg"
               alt="LOGO"
               mr={3}
             />

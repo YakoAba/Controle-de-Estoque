@@ -1,9 +1,29 @@
-import { DeleteIcon } from "@chakra-ui/icons";
+import { EditIcon } from "@chakra-ui/icons";
 import { Button } from "@chakra-ui/react";
-import { useState } from "react";
+import { Children, ReactNode, useState } from "react";
 import { ConfirmationBox } from "../caixaConfirmacao";
 
-const ButtonDeletar = ({ onClick, id }) => {
+interface ButtonEditarProps {
+  children: ReactNode;
+  id: string;
+  fontSize: number;
+  padding: string;
+  onClick: () => void;
+  icon: boolean;
+  colorScheme: string;
+  width: string;
+}
+
+const ButtonEditar = ({
+  onClick,
+  id,
+  fontSize,
+  padding,
+  children,
+  icon,
+  colorScheme,
+  width,
+}: ButtonEditarProps) => {
   const [isConfirmationOpen, setIsConfirmationOpen] = useState(false);
 
   const handleConfirm = () => {
@@ -15,24 +35,54 @@ const ButtonDeletar = ({ onClick, id }) => {
     setIsConfirmationOpen(false);
   };
 
-  return (
-    <>
+  function ComIcone() {
+    return (
       <Button
         id={`deletar${id}`}
         p="2"
         h="auto"
-        fontSize={11}
+        fontWeight="bold"
+        fontSize={fontSize}
         onClick={() => setIsConfirmationOpen(true)}
-        leftIcon={<DeleteIcon />}
-        ml={2}
+        leftIcon={<EditIcon />}
         border="2px solid red"
         bgColor="white"
         color={"red"}
         variant="solid"
-        padding= "8px 14px"
+        colorScheme={colorScheme}
+        padding={padding}
+        width={width}
+        mr={0.5}
+        ml={0.5}
       >
-        EDITAR
+        {children}
       </Button>
+    );
+  }
+
+  function SemIcone() {
+    return (
+      <Button
+        id={`deletar${id}`}
+        h="auto"
+        fontSize={fontSize}
+        onClick={() => setIsConfirmationOpen(true)}
+        border="2px solid red"
+        bgColor="white"
+        color={"red"}
+        variant="solid"
+        colorScheme={colorScheme}
+        padding={padding}
+        width={width}
+      >
+        {children}
+      </Button>
+    );
+  }
+
+  return (
+    <>
+      {icon ? <ComIcone /> : <SemIcone />}
       <ConfirmationBox
         isOpen={isConfirmationOpen}
         onConfirm={handleConfirm}
@@ -47,4 +97,4 @@ const ButtonDeletar = ({ onClick, id }) => {
   );
 };
 
-export default ButtonDeletar;
+export default ButtonEditar;

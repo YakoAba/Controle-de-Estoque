@@ -1,4 +1,5 @@
 import {
+  Box,
   HStack,
   Show,
   Stack,
@@ -19,7 +20,14 @@ import PacMan from "../pacman";
 
 function GridProdutos(): JSX.Element {
   const toast = useToast();
-  const { listaProdutos, listaProdutosIsLoading, mutate } = useGlobalContext();
+  const {
+    listaProdutos,
+    listaProdutosIsLoading,
+    mutate,
+    setItem,
+    item,
+    disclosureModalProdCad,
+  } = useGlobalContext();
 
   function toastDeletar() {
     return toast({
@@ -33,14 +41,17 @@ function GridProdutos(): JSX.Element {
   }
 
   async function deletar(id) {
-    const response = await ProdutosClienteClass.deleteDB(id);
+    const response = await ProdutosClienteClass.deleteDB({ id: id });
     await mutate();
     return response;
   }
 
   async function editar(id) {
-    const produto = await ProdutosClienteClass.deleteDB(id);
+    const produto = await ProdutosClienteClass.dbOne({ id: id });
+    setItem(produto.json);
     await mutate();
+    disclosureModalProdCad.onOpen();
+
     return produto;
   }
 
@@ -79,9 +90,29 @@ function GridProdutos(): JSX.Element {
               })}
             </Td>
           </Show>
-          <Td color="black" textAlign="end">
-            <ButtonEditar id={item._id} onClick={() => deletar(item._id)} />
-            <ButtonDeletar id={item._id} onClick={() => deletar(item._id)} />
+          <Td
+            color="black"
+            textAlign="end"
+            display="flex"
+            alignContent={"center"}
+          >
+            <ButtonEditar
+              id={item._id}
+              onClick={() => editar(item._id)}
+              fontSize={11}
+              padding="8px 14px"
+              icon={true} colorScheme={""} width={""}            >
+              EDITAR
+            </ButtonEditar>
+            <Box ml={0.5} />
+            <ButtonDeletar
+              id={item._id}
+              onClick={() => deletar(item._id)}
+              fontSize={11}
+              padding="10px"
+              icon={true} width={""}            >
+              DELETAR
+            </ButtonDeletar>
           </Td>
         </Tr>
       )

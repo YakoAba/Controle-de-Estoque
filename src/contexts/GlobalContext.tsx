@@ -13,6 +13,7 @@ const GlobalContext = createContext<GlobalContextInterface>(
 export const Provider = ({ children }) => {
   const disclosureMenu = useDisclosure();
   const disclosureModalProdCad = useDisclosure();
+  const disclosureModalProdIngrediente = useDisclosure();
 
   const [token, setToken] = useState("");
   const [sections] = useState(Sections);
@@ -38,6 +39,7 @@ export const Provider = ({ children }) => {
     listaProdutosIsLoading,
     disclosureMenu,
     disclosureModalProdCad,
+    disclosureModalProdIngrediente,
     token,
     setToken,
     sections,

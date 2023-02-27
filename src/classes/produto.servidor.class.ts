@@ -1,3 +1,4 @@
+import { ObjectId } from "mongodb";
 import clientPromise from "../../lib/mongodb";
 import { catalogURL, MONGODB_DB } from "../config/constants";
 import { PdvModule } from "../interfaces/Pdv.interface";
@@ -10,7 +11,7 @@ export class ProdutosServidorClass extends ProdutosClienteClass {
         try {
             const client = await clientPromise;
             const db = await client.db(MONGODB_DB);
-            const data  = await db.collection("produtos").findOne({ _id:`ObjectId(${id})` });
+            const data  = await db.collection("produtos").findOne({ _id: new ObjectId(id) });
             return await data
         } catch (error) {
             console.error(`Erro ao obter produto do banco de dados: ${error}`);

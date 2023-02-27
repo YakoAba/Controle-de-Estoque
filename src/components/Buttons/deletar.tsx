@@ -1,9 +1,26 @@
 import { DeleteIcon } from "@chakra-ui/icons";
 import { Button } from "@chakra-ui/react";
-import { useState } from "react";
+import { ReactNode, useState } from "react";
 import { ConfirmationBox } from "../caixaConfirmacao";
+interface ButtonDeletarProps {
+  children: ReactNode;
+  id: string;
+  fontSize: number;
+  padding: string;
+  onClick: () => void;
+  icon: boolean;
+  width: string;
+}
 
-const ButtonDeletar = ({ onClick, id }) => {
+const ButtonDeletar = ({
+  children,
+  onClick,
+  id,
+  fontSize,
+  padding,
+  icon,
+  width
+}: ButtonDeletarProps) => {
   const [isConfirmationOpen, setIsConfirmationOpen] = useState(false);
 
   const handleConfirm = () => {
@@ -15,22 +32,47 @@ const ButtonDeletar = ({ onClick, id }) => {
     setIsConfirmationOpen(false);
   };
 
-  return (
-    <>
+  function ComIcon() {
+    return (
       <Button
         id={`deletar${id}`}
         p="2"
         h="auto"
-        fontSize={11}
+        fontWeight="bold"
+        fontSize={fontSize}
         onClick={() => setIsConfirmationOpen(true)}
         leftIcon={<DeleteIcon />}
         colorScheme="red"
         variant="solid"
-        ml={3}
-        padding="10px"
+        padding={padding}
+        width={width}
+        mr={0.5}
+        ml={0.5}
       >
-        DELETAR
+        {children}
       </Button>
+    );
+  }
+
+  function SemIcon() {
+    return (
+      <Button
+        id={`deletar${id}`}
+        h="auto"
+        fontSize={fontSize}
+        onClick={() => setIsConfirmationOpen(true)}
+        colorScheme="red"
+        variant="solid"
+        padding={padding}
+      >
+        {children}
+      </Button>
+    );
+  }
+
+  return (
+    <>
+    {icon?<ComIcon/>:<SemIcon/>}
       <ConfirmationBox
         isOpen={isConfirmationOpen}
         onConfirm={handleConfirm}

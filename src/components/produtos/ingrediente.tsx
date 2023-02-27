@@ -20,12 +20,9 @@ import {
 import { useRef } from "react";
 import { ProdutosClienteClass } from "../../classes/Produtos";
 import { useGlobalContext } from "../../contexts/GlobalContext";
-import Tab1 from "./tab1";
-import Tab2 from "./tab2";
-import Tab3 from "./tab3";
 
-function ModalCadProd() {
-  const { disclosureModalProdCad, item, mutate } = useGlobalContext();
+function ModalCadProd2() {
+  const { disclosureModalProdIngrediente, item, mutate } = useGlobalContext();
   const initialRef = useRef(null);
   const finalRef = useRef(null);
 
@@ -35,7 +32,7 @@ function ModalCadProd() {
       ? await produto.InsertDB(produto)
       : await produto.EditDB(produto);
     mutate();
-    disclosureModalProdCad.onClose();
+    disclosureModalProdIngrediente.onClose();
     return { success: true };
   };
 
@@ -48,55 +45,14 @@ function ModalCadProd() {
         closeOnOverlayClick={false}
         initialFocusRef={initialRef}
         finalFocusRef={finalRef}
-        isOpen={disclosureModalProdCad.isOpen}
-        onClose={disclosureModalProdCad.onClose}
+        isOpen={disclosureModalProdIngrediente.isOpen}
+        onClose={disclosureModalProdIngrediente.onClose}
       >
         <ModalOverlay />
         <ModalContent>
-          <ModalHeader>
-            <Flex
-              maxHeight={"45px"}
-              mx="auto"
-              px="2"
-              py="2"
-              align="center"
-              boxShadow="0 1px 0 #ccc"
-              color="black"
-              fontWeight="bold"
-            >
-              <Image
-                width="46"
-                height="37"
-                objectFit="fill"
-                src="harmonica_cozinha.svg"
-                alt="LOGO"
-              />
-              <Flex ml={-46} justifyContent={"center"} w={"100vw"}>
-                <Text>Cadastro de Produtos</Text>
-              </Flex>
-            </Flex>
-          </ModalHeader>
+          <ModalHeader></ModalHeader>
           <ModalCloseButton />
-          <ModalBody>
-            <Tabs maxHeight={"65vh"} minHeight={"65vh"}>
-              <TabList>
-                <Tab>Produto</Tab>
-                <Tab>Venda</Tab>
-                <Tab>Ingredientes</Tab>
-              </TabList>
-              <TabPanels>
-                <TabPanel>
-                  <Tab1 />
-                </TabPanel>
-                <TabPanel>
-                  <Tab2 />
-                </TabPanel>
-                <TabPanel>
-                  <Tab3 />
-                </TabPanel>
-              </TabPanels>
-            </Tabs>
-          </ModalBody>
+          <ModalBody></ModalBody>
           <ModalFooter>
             <Button
               id="cadastrar"
@@ -119,7 +75,7 @@ function ModalCadProd() {
               color={"red"}
               variant="solid"
               padding="8px 16px"
-              onClick={disclosureModalProdCad.onClose}
+              onClick={disclosureModalProdIngrediente.onClose}
             >
               Cancel
             </Button>
@@ -130,4 +86,4 @@ function ModalCadProd() {
   );
 }
 
-export default ModalCadProd;
+export default ModalCadProd2;

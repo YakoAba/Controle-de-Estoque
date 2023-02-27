@@ -65,7 +65,7 @@ const Header = () => {
           width="67"
           height="50"
           objectFit="fill"
-          src="harmonica cozinha.svg"
+          src="harmonica_cozinha.svg"
           alt="LOGO"
         />
         <Flex ml="auto">

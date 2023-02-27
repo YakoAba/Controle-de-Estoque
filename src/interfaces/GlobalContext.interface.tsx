@@ -9,8 +9,9 @@ export interface GlobalContextInterface {
   listaProdutosIsLoading: boolean;
   disclosureMenu: UseDisclosureProps;
   disclosureModalProdCad: UseDisclosureProps;
+  disclosureModalProdIngrediente: UseDisclosureProps;
   sections: SectionInterface[];
   mutate();
-  item;
+  item: PdvModule.ProdutosClienteInterface;
   setItem: Dispatch<SetStateAction<PdvModule.ProdutosClienteInterface>>
 }
