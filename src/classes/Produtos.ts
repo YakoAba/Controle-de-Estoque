@@ -39,95 +39,95 @@ export class ProdutosClienteClass implements PdvModule.ProdutosClienteInterface 
         return produto;
     }
 
-    static async deleteDB({ id }): Promise<any> {
-        async function postData() {
-            const response = await fetch(`/api/produtos?id=${[id}`, {
-                method: 'DELETE',
-                headers: {
-                    'Content-Type': 'application/json'
-                }
-            });
-            return response.json();
-        }
-        try {
-            return await postData();
-        } catch (error) {
-            console.error(error);
-            return error;
-        }
-    }
+    // static async deleteDB({ id }): Promise<any> {
+    //     async function postData() {
+    //         const response = await fetch(`/api/produtos?id=${[id}`, {
+    //             method: 'DELETE',
+    //             headers: {
+    //                 'Content-Type': 'application/json'
+    //             }
+    //         });
+    //         return response.json();
+    //     }
+    //     try {
+    //         return await postData();
+    //     } catch (error) {
+    //         console.error(error);
+    //         return error;
+    //     }
+    // }
 
-    static async dbOne({ id }): Promise<any> {
-        async function postData() {
-            const response = await fetch(`/api/produtos?id=${id}`, {
-                method: 'GET',
-                headers: {
-                    'Content-Type': 'application/json'
-                }
-            });
-            return response.json();
-        }
-        try {
-            return await postData();
-        } catch (error) {
-            console.error(error);
-            return error;
-        }
-    }
+    // static async dbOne({ id }): Promise<any> {
+    //     async function postData() {
+    //         const response = await fetch(`/api/produtos?id=${id}`, {
+    //             method: 'GET',
+    //             headers: {
+    //                 'Content-Type': 'application/json'
+    //             }
+    //         });
+    //         return response.json();
+    //     }
+    //     try {
+    //         return await postData();
+    //     } catch (error) {
+    //         console.error(error);
+    //         return error;
+    //     }
+    // }
 
-    static async dbAll(): Promise<any> {
-        async function postData() {
-            const response = await fetch(`/api/produtos`, {
-                method: 'GET',
-                headers: {
-                    'Content-Type': 'application/json'
-                }
-            });
-            return response.json();
-        }
-        try {
-            return await postData();
-        } catch (error) {
-            console.error(error);
-            return error;
-        }
-    }
+    // static async dbAll(): Promise<any> {
+    //     async function postData() {
+    //         const response = await fetch(`/api/produtos`, {
+    //             method: 'GET',
+    //             headers: {
+    //                 'Content-Type': 'application/json'
+    //             }
+    //         });
+    //         return response.json();
+    //     }
+    //     try {
+    //         return await postData();
+    //     } catch (error) {
+    //         console.error(error);
+    //         return error;
+    //     }
+    // }
 
-    async EditDB(data: any): Promise<any> {
-        async function postData() {
-            const response = await fetch(`/api/produtos?id=${data._id}`, {
-                method: 'PATCH',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(data)
-            });
-            return await response.json();
-        }
-        try {
-            return await postData();
-        } catch (error) {
-            console.error(error);
-            return error;
-        }
-    }
+    // async EditDB(data: any): Promise<any> {
+    //     async function postData() {
+    //         const response = await fetch(`/api/produtos?id=${data._id}`, {
+    //             method: 'PATCH',
+    //             headers: {
+    //                 'Content-Type': 'application/json'
+    //             },
+    //             body: JSON.stringify(data)
+    //         });
+    //         return await response.json();
+    //     }
+    //     try {
+    //         return await postData();
+    //     } catch (error) {
+    //         console.error(error);
+    //         return error;
+    //     }
+    // }
 
-    async InsertDB(data: any): Promise<any> {
-        async function postData() {
-            const response = await fetch("/api/produtos", {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(data)
-            });
-            return await response.json();
-        }
-        try {
-            return await postData();
-        } catch (error) {
-            console.error(error);
-            return error;
-        }
-    }
+    // async InsertDB(data: any): Promise<any> {
+    //     async function postData() {
+    //         const response = await fetch("/api/produtos", {
+    //             method: 'POST',
+    //             headers: {
+    //                 'Content-Type': 'application/json'
+    //             },
+    //             body: JSON.stringify(data)
+    //         });
+    //         return await response.json();
+    //     }
+    //     try {
+    //         return await postData();
+    //     } catch (error) {
+    //         console.error(error);
+    //         return error;
+    //     }
+    // }
 }
