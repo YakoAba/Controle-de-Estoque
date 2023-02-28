@@ -10,19 +10,15 @@ import {
   useToast,
 } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
-import { ProdutosClienteClass } from "../../classes/Produtos";
 import { useGlobalContext } from "../../contexts/GlobalContext";
 import { PdvModule } from "../../interfaces/Pdv.interface";
 import PacMan from "../pacman";
 
-function GridProdutos({ setBotoes }): JSX.Element {
+function GridProdutos({ setBotoes, setCheckIndex }): JSX.Element {
   const toast = useToast();
   const {
     listaProdutos,
     listaProdutosIsLoading,
-    mutate,
-    setItem,
-    disclosureModalProdCad,
   } = useGlobalContext();
 
   function toastDeletar() {
@@ -36,20 +32,6 @@ function GridProdutos({ setBotoes }): JSX.Element {
     });
   }
 
-  async function deletar(id) {
-    const response = await ProdutosClienteClass.deleteDB({ id: id });
-    await mutate();
-    return response;
-  }
-
-  async function editar(id) {
-    const produto = await ProdutosClienteClass.dbOne({ id: id });
-    setItem(produto.json);
-    await mutate();
-    disclosureModalProdCad.onOpen();
-
-    return produto;
-  }
 
   const [checkedItems, setCheckedItems] = useState([]);
 
@@ -82,6 +64,9 @@ function GridProdutos({ setBotoes }): JSX.Element {
     setCheckedItems(newCheckedItems);
     const count = countChecked(newCheckedItems);
     setBotoes({ a: count === 0, d: count >= 1, e: count === 1 });
+    if (count === 1) {
+      setCheckIndex(listaProdutos.json[index]._id);
+    } else setCheckIndex("-1");
   };
 
   const renderGrid = () => {
@@ -93,7 +78,9 @@ function GridProdutos({ setBotoes }): JSX.Element {
               colorScheme={"red"}
               isChecked={checkedItems[i]}
               onChange={(e) => handleCheck(e, i)}
-              mr={1}
+              mr={3}
+              borderColor={"black"}
+              size={"lg"}
             />
             {item.nome}
           </Td>
@@ -141,16 +128,18 @@ function GridProdutos({ setBotoes }): JSX.Element {
           <Th fontWeight="bold" fontSize="14px">
             <Checkbox
               colorScheme={"red"}
-              mr={1}
+              mr={3}
               isChecked={allChecked}
               isIndeterminate={isIndeterminate}
               onChange={handleCheckAll}
+              borderColor={"black"}
+              size={"lg"}
             />
             TÍTULO
           </Th>
           <Th color="black" textAlign="end">
             BRUTO
-          </Th>{" "}
+          </Th>
           <Show above={"sm"}>
             <Th color="black" textAlign="end">
               CUSTO

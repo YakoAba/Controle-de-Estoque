@@ -81,7 +81,7 @@ const ButtonDeletar = ({
         confirmButtonText="Sim"
         cancelButtonText="Não"
       >
-        <p>Deseja realmente excluir este item?</p>
+        <p>{`Deseja realmente excluir este item? ${id}`}</p>
       </ConfirmationBox>
     </>
   );

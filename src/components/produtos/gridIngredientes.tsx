@@ -53,6 +53,7 @@ function GridIngredientes({ setBotoes }): JSX.Element {
             colorScheme={"red"}
             isChecked={checkedItems[i]}
             onChange={(e) => handleCheck(e, i)}
+            borderColor={"black"}
           />
           {item.produto.nome}
         </Td>
@@ -73,7 +74,8 @@ function GridIngredientes({ setBotoes }): JSX.Element {
               isChecked={allChecked}
               isIndeterminate={isIndeterminate}
               onChange={handleCheckAll}
-              mr={1}
+              mr={3}
+              borderColor={"black"}
             />
             nome
           </Th>

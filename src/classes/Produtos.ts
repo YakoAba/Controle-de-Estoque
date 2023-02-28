@@ -35,7 +35,7 @@ export class ProdutosClienteClass implements PdvModule.ProdutosClienteInterface 
             taxa: taxa,
         };
 
-        produto.ingredientes = [];
+        produto.ingredientes = item.ingredientes;
         return produto;
     }
 
