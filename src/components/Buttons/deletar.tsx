@@ -19,7 +19,7 @@ const ButtonDeletar = ({
   fontSize,
   padding,
   icon,
-  width
+  width,
 }: ButtonDeletarProps) => {
   const [isConfirmationOpen, setIsConfirmationOpen] = useState(false);
 
@@ -72,7 +72,7 @@ const ButtonDeletar = ({
 
   return (
     <>
-    {icon?<ComIcon/>:<SemIcon/>}
+      {icon ? <ComIcon /> : <SemIcon />}
       <ConfirmationBox
         isOpen={isConfirmationOpen}
         onConfirm={handleConfirm}

@@ -50,15 +50,19 @@ export default async function handler(req, res) {
     case "DELETE":
       try {
         const { id } = req.query;
+        const objIds =  id.split(',').map(idx => new ObjectId(idx));
         const alunos = await db
           .collection("produtos")
-          .deleteMany({ _id: new ObjectId(id) });
+          .deleteMany({ _id: { $in: objIds } });
         /* find all the data in our database */
         res.status(200).json({ ...mensagemSucesso, data: alunos });
       } catch (error) {
+
         res.status(400).json(mensagemErro);
+
       }
       break;
+
 
     default:
       res.status(400).json(mensagemErro);

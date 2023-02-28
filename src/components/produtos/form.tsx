@@ -13,18 +13,18 @@ const FormularioProdutos = () => {
   const { disclosureModalProdCad, setItem, mutate, listaProdutos  } = useGlobalContext();
   const [botoes, setBotoes] = useState({ a: true, d: false, e: false });
   const [checkIndex, setCheckIndex] = useState("-1");
+  const [checkIndexDelete, setCheckedItemsDelete] = useState([-1])
 
 
   async function editar() {
     const newCheckedItems = listaProdutos.json.find((i : PdvModule.ProdutosClienteInterface) => i._id = checkIndex);
     setItem(newCheckedItems);
-    await mutate();
     disclosureModalProdCad.onOpen();
     return newCheckedItems;
   }
 
   async function deletar() {
-    const response = await ProdutosClienteClass.deleteDB({ id: checkIndex });
+    const response = await ProdutosClienteClass.deleteDB({id: checkIndexDelete});
     await mutate();
     return response;
   }
@@ -61,7 +61,7 @@ const FormularioProdutos = () => {
             onClick={editar}
             padding={"6px 12px"}
             width={"100%"}
-            id={ checkIndex}
+            id={ checkIndex + "E"}
             icon={true}
             colorScheme={""}
           >
@@ -77,7 +77,7 @@ const FormularioProdutos = () => {
             onClick={deletar}
             padding={undefined}
             width={"100%"}
-            id={""}
+            id={checkIndex + "D"}
             icon={true}
           >
             DELETAR
@@ -86,7 +86,7 @@ const FormularioProdutos = () => {
           <></>
         )}
       </Flex>
-      <Grid setBotoes={setBotoes} setCheckIndex={setCheckIndex} />
+      <Grid setBotoes={setBotoes} setCheckIndex={setCheckIndex} setCheckedItemsDelete={setCheckedItemsDelete} checkIndexDelete={checkIndexDelete} />
     </Box>
   );
 };

@@ -8,8 +8,6 @@ import PacMan from "../pacman";
 function GridIngredientes({ setBotoes }): JSX.Element {
   const {
     item: itens,
-    setItem,
-    disclosureModalProdIngrediente,
   } = useGlobalContext();
 
   const [checkedItems, setCheckedItems] = useState([]);

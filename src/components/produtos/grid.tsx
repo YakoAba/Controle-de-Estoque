@@ -14,12 +14,14 @@ import { useGlobalContext } from "../../contexts/GlobalContext";
 import { PdvModule } from "../../interfaces/Pdv.interface";
 import PacMan from "../pacman";
 
-function GridProdutos({ setBotoes, setCheckIndex }): JSX.Element {
+function GridProdutos({
+  setBotoes,
+  setCheckIndex,
+  setCheckedItemsDelete,
+  checkIndexDelete,
+}): JSX.Element {
   const toast = useToast();
-  const {
-    listaProdutos,
-    listaProdutosIsLoading,
-  } = useGlobalContext();
+  const { listaProdutos, listaProdutosIsLoading } = useGlobalContext();
 
   function toastDeletar() {
     return toast({
@@ -31,7 +33,6 @@ function GridProdutos({ setBotoes, setCheckIndex }): JSX.Element {
       position: "top",
     });
   }
-
 
   const [checkedItems, setCheckedItems] = useState([]);
 
@@ -56,9 +57,20 @@ function GridProdutos({ setBotoes, setCheckIndex }): JSX.Element {
     setBotoes({ a: !event.target.checked, d: event.target.checked, e: false });
   };
 
+  const getSelectedItemsIds = () => {
+    const selectedIds = [];
+    const newCheckedItems = [...checkedItems];
+    for (let i = 0; i < newCheckedItems.length; i++) {
+      if (newCheckedItems[i]) {
+        const itemId = listaProdutos.json[i]._id;
+        selectedIds.push(itemId);
+      }
+    }
+    return selectedIds;
+  };
+
   const handleCheck = (event, index) => {
     // Altera o estado do checkbox na posição index
-
     const newCheckedItems = [...checkedItems];
     newCheckedItems[index] = event.target.checked;
     setCheckedItems(newCheckedItems);
@@ -66,13 +78,16 @@ function GridProdutos({ setBotoes, setCheckIndex }): JSX.Element {
     setBotoes({ a: count === 0, d: count >= 1, e: count === 1 });
     if (count === 1) {
       setCheckIndex(listaProdutos.json[index]._id);
-    } else setCheckIndex("-1");
+    } else {
+      setCheckIndex: "-1";
+    }
+    setCheckedItemsDelete(getSelectedItemsIds());
   };
 
   const renderGrid = () => {
     return listaProdutos.json.map(
       (item: PdvModule.ProdutosClienteInterface, i) => (
-        <Tr key={item._id}>
+        <Tr key={i}>
           <Td color="black">
             <Checkbox
               colorScheme={"red"}

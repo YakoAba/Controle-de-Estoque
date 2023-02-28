@@ -23,7 +23,7 @@ export class ProdutosClienteClass implements PdvModule.ProdutosClienteInterface 
 
         const bruto: number = item.venda.bruto || 0;
         const custo: number = item.venda.custo || 0;
-        const taxa = 0.27;
+        const taxa  : number = item.venda.taxa || 0;
         const liquido = bruto * (1 - taxa);
         const lucro = liquido - custo;
 
@@ -41,7 +41,7 @@ export class ProdutosClienteClass implements PdvModule.ProdutosClienteInterface 
 
     static async deleteDB({ id }): Promise<any> {
         async function postData() {
-            const response = await fetch(`/api/produtos?id=${id}`, {
+            const response = await fetch(`/api/produtos?id=${[id}`, {
                 method: 'DELETE',
                 headers: {
                     'Content-Type': 'application/json'
@@ -50,7 +50,6 @@ export class ProdutosClienteClass implements PdvModule.ProdutosClienteInterface 
             return response.json();
         }
         try {
-
             return await postData();
         } catch (error) {
             console.error(error);
