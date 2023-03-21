@@ -1,9 +1,9 @@
 import { Stack, Text } from "@chakra-ui/react";
-import { useGlobalContext } from "../../contexts/GlobalContext";
 import BrazilianRealInput from "../BrazilianRealInput";
+import { useProdutoContext } from "./context";
 
 const Tab2 = () => {
-  const { item, setItem } = useGlobalContext();
+  const { item, setItem } = useProdutoContext();
   return (
     <Stack>
       <Stack>
@@ -53,7 +53,7 @@ const Tab2 = () => {
           onChange={(valor) =>
             setItem({
               ...item,
-              venda: { ...item.venda, custo: parseFloat(valor)  },
+              venda: { ...item.venda, custo: parseFloat(valor) },
             })
           }
           id={"custo"}

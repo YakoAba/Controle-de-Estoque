@@ -1,17 +1,14 @@
 import { Flex } from "@chakra-ui/react";
-import { useProdutoContext } from "./context";
 import ButtonAdicionar from "../Buttons/adicionar";
 import ButtonDeletar from "../Buttons/deletar";
 import ButtonEditar from "../Buttons/editar";
-import ModalCadProd from "./modal";
+import { useItensContext } from "./context";
 
-const FormularioProdutos = () => {
-  const { botoes, editar, deletar, insert, item } = useProdutoContext();
+const Form = () => {
+  const { botoes, disclosureModal } = useItensContext();
 
   return (
     <>
-      <ModalCadProd />
-
       <Flex
         mt={"85px"}
         overflowY="auto"
@@ -24,7 +21,7 @@ const FormularioProdutos = () => {
           <ButtonAdicionar
             fontSize={15}
             mt={0}
-            onClick={insert}
+            onClick={disclosureModal.onOpen()}
             width={"100%"}
             padding={"8px"}
           />
@@ -34,12 +31,14 @@ const FormularioProdutos = () => {
         {botoes.e ? (
           <ButtonEditar
             fontSize={15}
-            onClick={editar}
+            //  onClick={editar}
             padding={"6px 12px"}
             width={"100%"}
-            id={item._id}
+            //   id={item._id}
             icon={true}
             colorScheme={"red"}
+            onClick={() => {}}
+            id={""}
           >
             EDITAR
           </ButtonEditar>
@@ -49,11 +48,13 @@ const FormularioProdutos = () => {
         {botoes.d ? (
           <ButtonDeletar
             fontSize={15}
-            onClick={deletar}
+            //    onClick={deletar}
             padding={undefined}
             width={"100%"}
             icon={true}
-            id={item._id}
+            //    id={item._id}
+            onClick={() => {}}
+            id={""}
           >
             DELETAR
           </ButtonDeletar>
@@ -65,4 +66,4 @@ const FormularioProdutos = () => {
   );
 };
 
-export default FormularioProdutos;
+export default Form;

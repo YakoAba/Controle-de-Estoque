@@ -2,10 +2,11 @@
 import { Input, Stack, Text, Textarea } from "@chakra-ui/react";
 import InputImage from "../editImage";
 import InputKg from "../inputKg";
-import { useGlobalContext } from "../../contexts/GlobalContext";
+import { useProdutoContext } from "./context";
 
 const Tab1 = () => {
-  const { item, setItem } = useGlobalContext();
+  const { item, setItem } = useProdutoContext();
+
   return (
     <Stack>
       <Stack>
@@ -51,7 +52,7 @@ const Tab1 = () => {
           focusBorderColor="red.200"
           _hover={{ borderColor: "red.200" }}
         />
-      </Stack>
+      </Stack >
     </Stack>
   );
 };

@@ -10,6 +10,8 @@ export const MONGODB_DB = process.env.MONGODB_DB;
 export const mensagemErro = { success: false };
 export const mensagemSucesso = { success: true }
 
+export const modelosBotoes = { a: true, d: false, e: false }
+
 export const Sections = [
     {
         title: "CADASTRO",
@@ -19,8 +21,12 @@ export const Sections = [
                 href: "/",
             },
             {
-                label: "INGREDIENTES",
-                href: "/ingredientes",
+                label: "FORNECEDORES",
+                href: "/fornecedores",
+            },
+            {
+                label: "ITENS",
+                href: "/itens",
             },
         ],
     },

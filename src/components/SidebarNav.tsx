@@ -4,9 +4,11 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import { useGlobalContext } from "../contexts/GlobalContext";
 
+
 const SidebarNav = () => {
   const { asPath } = useRouter();
   const { sections } = useGlobalContext();
+  
   
   const renderLinks = (links) =>
     links.map(({ label, href = "#" }) => (
@@ -34,6 +36,7 @@ const SidebarNav = () => {
             <Text fontSize="xs" fontWeight="bold" color="black">
               {title}
             </Text>
+          
             {renderLinks(links)}
           </Stack>
         ))}

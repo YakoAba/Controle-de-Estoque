@@ -2,12 +2,12 @@ import { ObjectId } from "mongodb";
 import clientPromise from "../../lib/mongodb";
 import { catalogURL, MONGODB_DB } from "../config/constants";
 import { PdvModule } from "../interfaces/Pdv.interface";
-import { ProdutosClienteClass } from "./Produtos";
+import { ProdutosClass } from "./produtos";
 import { TokenApiResponseIfoodClass } from "./Token.class";
 
-export class ProdutosServidorClass extends ProdutosClienteClass {
+export class ProdutosServidorClass extends ProdutosClass {
 
-    static async DbOne({id}): Promise<PdvModule.ProdutosClienteInterface[]> {
+    static async DbOne({id}): Promise<PdvModule.ProdutosInterface[]> {
         try {
             const client = await clientPromise;
             const db = await client.db(MONGODB_DB);
@@ -18,7 +18,7 @@ export class ProdutosServidorClass extends ProdutosClienteClass {
         }
     }
 
-    static async DbAll(): Promise<PdvModule.ProdutosClienteInterface[]> {
+    static async DbAll(): Promise<PdvModule.ProdutosInterface[]> {
         try {
             const client = await clientPromise;
             const db = await client.db(MONGODB_DB);

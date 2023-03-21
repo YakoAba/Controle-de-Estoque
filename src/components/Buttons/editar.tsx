@@ -1,6 +1,6 @@
 import { EditIcon } from "@chakra-ui/icons";
 import { Button } from "@chakra-ui/react";
-import { Children, ReactNode, useState } from "react";
+import { ReactNode, useState } from "react";
 import { ConfirmationBox } from "../caixaConfirmacao";
 
 interface ButtonEditarProps {
@@ -26,29 +26,26 @@ const ButtonEditar = ({
 }: ButtonEditarProps) => {
   const [isConfirmationOpen, setIsConfirmationOpen] = useState(false);
 
-  const handleConfirm = () => {
-    onClick();
-    setIsConfirmationOpen(false);
-  };
+  // const handleConfirm = () => {
+  //   onClick();
+  //   setIsConfirmationOpen(false);
+  // };
 
-  const handleCancel = () => {
-    setIsConfirmationOpen(false);
-  };
+  // const handleCancel = () => {
+  //   setIsConfirmationOpen(false);
+  // };
 
-  function ComIcone() {
-    return (
+  return (
+    <>
       <Button
         id={`deletar${id}`}
         p="2"
         h="auto"
         fontWeight="bold"
         fontSize={fontSize}
-        onClick={() => setIsConfirmationOpen(true)}
-        leftIcon={<EditIcon />}
-        border="2px solid red"
-        bgColor="white"
-        color={"red"}
-        variant="solid"
+        onClick={() =>    onClick()}
+        leftIcon={icon ? <EditIcon /> : null}
+        variant="outline"
         colorScheme={colorScheme}
         padding={padding}
         width={width}
@@ -57,33 +54,7 @@ const ButtonEditar = ({
       >
         {children}
       </Button>
-    );
-  }
-
-  function SemIcone() {
-    return (
-      <Button
-        id={`deletar${id}`}
-        h="auto"
-        fontSize={fontSize}
-        onClick={() => setIsConfirmationOpen(true)}
-        border="2px solid red"
-        bgColor="white"
-        color={"red"}
-        variant="solid"
-        colorScheme={colorScheme}
-        padding={padding}
-        width={width}
-      >
-        {children}
-      </Button>
-    );
-  }
-
-  return (
-    <>
-      {icon ? <ComIcone /> : <SemIcone />}
-      <ConfirmationBox
+      {/* <ConfirmationBox
         isOpen={isConfirmationOpen}
         onConfirm={handleConfirm}
         onCancel={handleCancel}
@@ -92,7 +63,7 @@ const ButtonEditar = ({
         cancelButtonText="Não"
       >
         <p>{`Deseja realmente editar este item "${id}"?`}</p>
-      </ConfirmationBox>
+      </ConfirmationBox> */}
     </>
   );
 };

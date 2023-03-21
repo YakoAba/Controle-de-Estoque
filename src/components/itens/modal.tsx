@@ -5,7 +5,6 @@ import {
   Image,
   Modal,
   ModalBody,
-  ModalCloseButton,
   ModalContent,
   ModalFooter,
   ModalHeader,
@@ -15,22 +14,22 @@ import {
   TabPanel,
   TabPanels,
   Tabs,
-  Text,
 } from "@chakra-ui/react";
 import { useRef } from "react";
-import { useProdutoContext } from "./context";
-import Tab1 from "./tab1";
-import Tab2 from "./tab2";
-import Tab3 from "./tab3";
+import { useItensContext } from "./context";
 
 function ModalCadProd() {
-  const { disclosureModalProdCad, handleSave, item } = useProdutoContext();
+  const { disclosureModal } = useItensContext();
 
   const initialRef = useRef(null);
   const finalRef = useRef(null);
 
   const fechar = () => {
-    disclosureModalProdCad.onClose;
+    disclosureModal.onClose;
+  };
+
+  const abrir = () => {
+    disclosureModal.onOpen;
   };
 
   return (
@@ -42,7 +41,7 @@ function ModalCadProd() {
         closeOnOverlayClick={false}
         initialFocusRef={initialRef}
         finalFocusRef={finalRef}
-        isOpen={disclosureModalProdCad.isOpen}
+        isOpen={true}
         onClose={fechar}
       >
         <ModalOverlay />
@@ -65,11 +64,10 @@ function ModalCadProd() {
                 alt="LOGO"
               />
               <Flex ml={-46} justifyContent={"center"} w={"100vw"}>
-                <Text>{!item._id ? `Cadastro` : `Alteração`} de Produtos</Text>
+                {/* <Text>{!item._id ? `Cadastro` : `Alteração`} de Itens</Text> */}
               </Flex>
             </Flex>
           </ModalHeader>
-          {/* <ModalCloseButton /> */}
           <ModalBody>
             <Tabs maxHeight={"380px"} minHeight={"380px"}>
               <TabList>
@@ -78,15 +76,9 @@ function ModalCadProd() {
                 <Tab>Ingredientes</Tab>
               </TabList>
               <TabPanels>
-                <TabPanel>
-                  <Tab1 />
-                </TabPanel>
-                <TabPanel>
-                  <Tab2 />
-                </TabPanel>
-                <TabPanel>
-                  <Tab3 />
-                </TabPanel>
+                <TabPanel></TabPanel>
+                <TabPanel></TabPanel>
+                <TabPanel></TabPanel>
               </TabPanels>
             </Tabs>
           </ModalBody>
@@ -99,7 +91,7 @@ function ModalCadProd() {
               leftIcon={<CheckIcon />}
               colorScheme="red"
               variant="solid"
-              onClick={handleSave}
+              // onClick={handleSave}
               fontWeight="bold"
               padding="10px 10px"
               mr="10px"
@@ -110,7 +102,7 @@ function ModalCadProd() {
               colorScheme="red"
               variant="outline"
               padding="8px 16px"
-              onClick={disclosureModalProdCad.onClose}
+              onClick={fechar}
             >
               Cancel
             </Button>

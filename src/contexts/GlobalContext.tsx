@@ -3,7 +3,7 @@ import { createContext, useContext, useState } from "react";
 import useSWR from "swr";
 import { GlobalContextInterface } from "../interfaces/GlobalContext.interface";
 import { API_PRODUTOS, Sections } from "../config/constants";
-import { ProdutosClienteClass } from "../classes/Produtos";
+import { ProdutosClass } from "../classes/produtos";
 import { PdvModule, produtoModelo } from "../interfaces/Pdv.interface";
 
 const GlobalContext = createContext<GlobalContextInterface>(
@@ -18,7 +18,7 @@ export const Provider = ({ children }) => {
   const [token, setToken] = useState("");
   const [sections] = useState(Sections);
   const [item, setItem] =
-    useState<PdvModule.ProdutosClienteInterface>(produtoModelo);
+    useState<PdvModule.ProdutosInterface>(produtoModelo);
 
   const {
     data: listaProdutos,
@@ -27,7 +27,7 @@ export const Provider = ({ children }) => {
   } = useSWR(
     API_PRODUTOS,
     async (url) => {
-      return await ProdutosClienteClass.dbAll();
+      return await ProdutosClass.dbAll();
     },
     {
       refreshInterval: 60000, // atualiza a cada 10 segundos
@@ -35,11 +35,13 @@ export const Provider = ({ children }) => {
   );
 
   const value = {
-    listaProdutos,
-    listaProdutosIsLoading,
     disclosureMenu,
     disclosureModalProdCad,
     disclosureModalProdIngrediente,
+
+    listaProdutos,
+    listaProdutosIsLoading,
+
     token,
     setToken,
     sections,

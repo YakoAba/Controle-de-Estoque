@@ -12,6 +12,6 @@ export interface GlobalContextInterface {
   disclosureModalProdIngrediente: UseDisclosureProps;
   sections: SectionInterface[];
   mutate();
-  item: PdvModule.ProdutosClienteInterface;
-  setItem: Dispatch<SetStateAction<PdvModule.ProdutosClienteInterface>>
+  item: PdvModule.ProdutosInterface;
+  setItem: Dispatch<SetStateAction<PdvModule.ProdutosInterface>>
 }

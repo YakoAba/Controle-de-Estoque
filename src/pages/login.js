@@ -37,9 +37,10 @@ export default function Login() {
         <form onSubmit={handleSubmit(onSubmit)}>
           <div className={style.image}>
             <Image
-              height="220"
-              width="280"
-              src="/icone512.png"
+
+              height="280"
+              width="300"
+              src="/harmonica_cozinha.svg"
               alt="logo"
             ></Image>
           </div>

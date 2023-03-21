@@ -1,94 +1,48 @@
 import {
+  Box,
   Checkbox,
+  HStack,
   Show,
   Table,
   Tbody,
   Td,
+  Text,
   Th,
   Thead,
   Tr,
-  useToast,
 } from "@chakra-ui/react";
-import { useEffect, useState } from "react";
-import { useGlobalContext } from "../../contexts/GlobalContext";
+import { useProdutoContext } from "./context";
 import { PdvModule } from "../../interfaces/Pdv.interface";
 import PacMan from "../pacman";
 
-function GridProdutos({
-  setBotoes,
-  setCheckIndex,
-  setCheckedItemsDelete,
-  checkIndexDelete,
-}): JSX.Element {
-  const toast = useToast();
-  const { listaProdutos, listaProdutosIsLoading } = useGlobalContext();
+function GridProdutos(): JSX.Element {
+  // const toast = useToast();
+  const {
+    listaProdutos,
+    listaProdutosIsLoading,
+    handleCheckAll,
+    handleCheck,
+    isIndeterminate,
+    allChecked,
+    checkedItems,
+  } = useProdutoContext();
 
-  function toastDeletar() {
-    return toast({
-      title: "Produto excluido!",
-      description: "Excluimos o produto para você.",
-      status: "success",
-      duration: 5000,
-      isClosable: true,
-      position: "top",
-    });
-  }
-
-  const [checkedItems, setCheckedItems] = useState([]);
-
-  useEffect(() => {
-    if (listaProdutos) {
-      // Inicializa o estado dos checkboxes com um array de false com o mesmo tamanho do número de ingredientes
-      setCheckedItems(new Array(listaProdutos.length).fill(false));
-    }
-  }, [listaProdutos]);
-
-  const allChecked = checkedItems.every(Boolean);
-  const isIndeterminate = checkedItems.some(Boolean) && !allChecked;
-
-  const countChecked = (checked) => {
-    return checked.filter((item) => item).length;
-  };
-
-  const handleCheckAll = (event) => {
-    const allChecked = event.target.checked;
-    const newCheckedItems = listaProdutos.json.map(() => allChecked);
-    setCheckedItems(newCheckedItems);
-    setBotoes({ a: !event.target.checked, d: event.target.checked, e: false });
-  };
-
-  const getSelectedItemsIds = () => {
-    const selectedIds = [];
-    const newCheckedItems = [...checkedItems];
-    for (let i = 0; i < newCheckedItems.length; i++) {
-      if (newCheckedItems[i]) {
-        const itemId = listaProdutos.json[i]._id;
-        selectedIds.push(itemId);
-      }
-    }
-    return selectedIds;
-  };
-
-  const handleCheck = (event, index) => {
-    // Altera o estado do checkbox na posição index
-    const newCheckedItems = [...checkedItems];
-    newCheckedItems[index] = event.target.checked;
-    setCheckedItems(newCheckedItems);
-    const count = countChecked(newCheckedItems);
-    setBotoes({ a: count === 0, d: count >= 1, e: count === 1 });
-    if (count === 1) {
-      setCheckIndex(listaProdutos.json[index]._id);
-    } else {
-      setCheckIndex: "-1";
-    }
-    setCheckedItemsDelete(getSelectedItemsIds());
-  };
+  // function toastDeletar() {
+  //   return toast({
+  //     title: "Produto excluido!",
+  //     description: "Excluimos o produto para você.",
+  //     status: "success",
+  //     duration: 5000,
+  //     isClosable: true,
+  //     position: "top",
+  //   });
+  // }
 
   const renderGrid = () => {
-    return listaProdutos.json.map(
-      (item: PdvModule.ProdutosClienteInterface, i) => (
-        <Tr key={i}>
-          <Td color="black">
+    return listaProdutos.json.map((item: PdvModule.ProdutosInterface, i) => (
+      <Tr key={i}>
+        <Td color="black">
+          <HStack>
             <Checkbox
               colorScheme={"red"}
               isChecked={checkedItems[i]}
@@ -97,79 +51,89 @@ function GridProdutos({
               borderColor={"black"}
               size={"lg"}
             />
-            {item.nome}
-          </Td>
+            <Text id={item._id}>{item.nome}</Text>
+          </HStack>
+        </Td>
+        <Td color="black" textAlign="end">
+          {item.venda.bruto.toLocaleString("pt-BR", {
+            minimumFractionDigits: 2,
+            style: "currency",
+            currency: "BRL",
+          })}
+        </Td>
+        <Show above={"sm"}>
           <Td color="black" textAlign="end">
-            {item.venda.bruto.toLocaleString("pt-BR", {
+            {item.venda.custo.toLocaleString("pt-BR", {
               minimumFractionDigits: 2,
               style: "currency",
               currency: "BRL",
             })}
           </Td>
-          <Show above={"sm"}>
-            <Td color="black" textAlign="end">
-              {item.venda.custo.toLocaleString("pt-BR", {
-                minimumFractionDigits: 2,
-                style: "currency",
-                currency: "BRL",
-              })}
-            </Td>
-            <Td color="black" textAlign="end">
-              {(item.venda.bruto - item.venda.liquido).toLocaleString("pt-BR", {
-                minimumFractionDigits: 2,
-                style: "currency",
-                currency: "BRL",
-              })}
-            </Td>
-            <Td color="black" textAlign="end">
-              {item.venda.lucro.toLocaleString("pt-BR", {
-                minimumFractionDigits: 2,
-                style: "currency",
-                currency: "BRL",
-              })}
-            </Td>
-          </Show>
-        </Tr>
-      )
-    );
+          <Td color="black" textAlign="end">
+            {(item.venda.bruto - item.venda.liquido).toLocaleString("pt-BR", {
+              minimumFractionDigits: 2,
+              style: "currency",
+              currency: "BRL",
+            })}
+          </Td>
+          <Td color="black" textAlign="end">
+            {item.venda.lucro.toLocaleString("pt-BR", {
+              minimumFractionDigits: 2,
+              style: "currency",
+              currency: "BRL",
+            })}
+          </Td>
+        </Show>
+      </Tr>
+    ));
   };
 
   return listaProdutosIsLoading ? (
     <PacMan />
   ) : (
-    <Table marginTop={"25px"} colorScheme="black" maxW={"100%"}>
-      <Thead>
-        <Tr>
-          <Th fontWeight="bold" fontSize="14px">
-            <Checkbox
-              colorScheme={"red"}
-              mr={3}
-              isChecked={allChecked}
-              isIndeterminate={isIndeterminate}
-              onChange={handleCheckAll}
-              borderColor={"black"}
-              size={"lg"}
-            />
-            TÍTULO
-          </Th>
-          <Th color="black" textAlign="end">
-            BRUTO
-          </Th>
-          <Show above={"sm"}>
-            <Th color="black" textAlign="end">
-              CUSTO
+    <Box
+      overflowY="auto"
+      maxW={"95%"}
+      sx={{ "::-webkit-scrollbar": { display: "none" } }}
+      marginLeft="auto"
+      marginRight="auto"
+    >
+      <Table marginTop={"25px"} colorScheme="black" maxW={"100%"}>
+        <Thead>
+          <Tr>
+            <Th fontWeight="bold" fontSize="14px">
+              <HStack>
+                <Checkbox
+                  colorScheme={"red"}
+                  mr={3}
+                  isChecked={allChecked}
+                  isIndeterminate={isIndeterminate}
+                  onChange={handleCheckAll}
+                  borderColor={"black"}
+                  size={"lg"}
+                />
+                <Text>TÍTULO</Text>
+              </HStack>
             </Th>
             <Th color="black" textAlign="end">
-              TAXA
+              BRUTO
             </Th>
-            <Th color="black" textAlign="end">
-              LUCRO
-            </Th>
-          </Show>
-        </Tr>
-      </Thead>
-      <Tbody>{renderGrid()}</Tbody>
-    </Table>
+            <Show above={"sm"}>
+              <Th color="black" textAlign="end">
+                CUSTO
+              </Th>
+              <Th color="black" textAlign="end">
+                TAXA
+              </Th>
+              <Th color="black" textAlign="end">
+                LUCRO
+              </Th>
+            </Show>
+          </Tr>
+        </Thead>
+        <Tbody>{renderGrid()}</Tbody>
+      </Table>
+    </Box>
   );
 }
 

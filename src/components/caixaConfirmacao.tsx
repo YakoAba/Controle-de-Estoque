@@ -81,13 +81,7 @@ export const ConfirmationBox: React.FC<ConfirmationBoxProps> = ({
           <Button colorScheme="red" mr={3} onClick={handleConfirm}>
             {confirmButtonText}
           </Button>
-          <Button
-            border="2px solid red"
-            bgColor="white"
-            color={"red"}
-            variant="solid"
-            onClick={handleCancel}
-          >
+          <Button colorScheme="red" variant="outline" onClick={handleCancel}>
             {cancelButtonText}
           </Button>
         </ModalFooter>

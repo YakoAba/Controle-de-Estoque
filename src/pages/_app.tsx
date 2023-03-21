@@ -1,13 +1,13 @@
 import { ChakraProvider } from "@chakra-ui/react";
-import { Provider as GlobalProvider } from "../contexts/GlobalContext";
 import type { AppProps } from "next/app";
+import { Provider } from "../contexts/GlobalContext";
 
 export default function App({ Component, pageProps }: AppProps) {
   return (
     <ChakraProvider>
-      <GlobalProvider>
+      <Provider>
         <Component {...pageProps} />
-      </GlobalProvider>
+      </Provider>
     </ChakraProvider>
   );
 }
