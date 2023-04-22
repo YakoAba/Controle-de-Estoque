@@ -5,13 +5,7 @@ import { SectionInterface } from "./Section.interface";
 
 
 export interface GlobalContextInterface {
-  listaProdutos: any;
-  listaProdutosIsLoading: boolean;
   disclosureMenu: UseDisclosureProps;
-  disclosureModalProdCad: UseDisclosureProps;
-  disclosureModalProdIngrediente: UseDisclosureProps;
   sections: SectionInterface[];
   mutate();
-  item: PdvModule.ProdutosInterface;
-  setItem: Dispatch<SetStateAction<PdvModule.ProdutosInterface>>
 }

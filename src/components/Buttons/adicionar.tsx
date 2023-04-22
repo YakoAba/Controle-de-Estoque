@@ -1,15 +1,23 @@
 import { AddIcon } from "@chakra-ui/icons";
 import { Button } from "@chakra-ui/react";
 
-const ButtonAdicionar = ({ mt, onClick, fontSize, padding, width }) => {
+interface ButtonAdicionarProps {
+  mt?: number;
+  onClick?: () => void;
+  fontSize?: string;
+  padding?: string;
+  width?: string;
+}
+
+const ButtonAdicionar = ({ mt, onClick, fontSize, padding, width }:ButtonAdicionarProps)  => {
   return (
     <Button
-      id={`adicionar`}
+      id= "adicionar"
       p="2"
       h="auto"
-      fontSize={fontSize}
+      fontSize={parseInt(fontSize)}
       leftIcon={<AddIcon />}
-      colorScheme="red"
+      colorScheme="blue"
       variant="solid"
       fontWeight="bold"
       mt={mt}
@@ -18,8 +26,9 @@ const ButtonAdicionar = ({ mt, onClick, fontSize, padding, width }) => {
       onClick={onClick}
       padding={padding}
       width={width}
+      borderRadius={25}
     >
-      ADICIONAR
+      Adicionar
     </Button>
   );
 };

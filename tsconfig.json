@@ -22,7 +22,7 @@
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx"
-, "src/contexts/global.js", "src/components/produtos/form.jsx"  ],
+, "src/contexts/global.js", "src/components/cliente/form.jsx"  ],
   "exclude": [
     "node_modules"
   ]

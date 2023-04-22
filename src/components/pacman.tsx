@@ -9,7 +9,7 @@ function PacMan(): JSX.Element {
       justifyContent="center"
       alignContent="center"
     >
-      <PacmanLoader color="red" size={70} />
+      <PacmanLoader color="blue" size={70} />
     </Box>
   );
 }

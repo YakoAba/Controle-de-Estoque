@@ -51,6 +51,7 @@ const ButtonEditar = ({
         width={width}
         mr={0.5}
         ml={0.5}
+        borderRadius={25}
       >
         {children}
       </Button>

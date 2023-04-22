@@ -8,3 +8,7 @@
 //   // next.js config
 //   reactStrictMode: true,
 // })
+
+module.exports = {
+    reactStrictMode : true
+}

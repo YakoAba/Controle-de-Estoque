@@ -69,14 +69,4 @@ export const vendaModelo: PdvModule.VendaInterface = {
     lucro: 0,
 }
 
-export const produtoModelo: PdvModule.ProdutosInterface = {
-    _id: null,
-    nome: '',
-    descricao: "",
-    peso: 0,
-    image: '',
-    venda: vendaModelo,
-    ingredientes: [
-        ingredientesModelo
-    ],
-};
+

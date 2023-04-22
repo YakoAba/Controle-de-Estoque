@@ -1,31 +1,30 @@
 import { Flex } from "@chakra-ui/react";
-import { useProdutoContext } from "./context";
+import { useClienteContext } from "./context";
 import ButtonAdicionar from "../Buttons/adicionar";
 import ButtonDeletar from "../Buttons/deletar";
 import ButtonEditar from "../Buttons/editar";
 import ModalCadProd from "./modal";
 
 const FormularioProdutos = () => {
-  const { botoes, editar, deletar, insert, item } = useProdutoContext();
+  const { botoes, editar, deletar, insert, cliente } = useClienteContext();
 
   return (
     <>
       <ModalCadProd />
-
       <Flex
         mt={"85px"}
         overflowY="auto"
-        maxW={"95%"}
+        maxW={"90%"}
         sx={{ "::-webkit-scrollbar": { display: "none" } }}
         marginLeft="auto"
         marginRight="auto"
       >
         {botoes.a ? (
           <ButtonAdicionar
-            fontSize={15}
+            fontSize={'18'}
             mt={0}
             onClick={insert}
-            width={"100%"}
+            width={"15%"}
             padding={"8px"}
           />
         ) : (
@@ -33,29 +32,29 @@ const FormularioProdutos = () => {
         )}
         {botoes.e ? (
           <ButtonEditar
-            fontSize={15}
+            fontSize={18}
             onClick={editar}
             padding={"6px 12px"}
-            width={"100%"}
-            id={item._id}
+            width={"15%"}
+            id={cliente.id.toString()}
             icon={true}
-            colorScheme={"red"}
+            colorScheme={"blue"}
           >
-            EDITAR
+            Editar
           </ButtonEditar>
         ) : (
           <></>
         )}
         {botoes.d ? (
           <ButtonDeletar
-            fontSize={15}
+            fontSize={18}
             onClick={deletar}
             padding={undefined}
-            width={"100%"}
+            width={"15%"}
             icon={true}
-            id={item._id}
+            id={cliente.id.toString()}
           >
-            DELETAR
+            Deletar
           </ButtonDeletar>
         ) : (
           <></>

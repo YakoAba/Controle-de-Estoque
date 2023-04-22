@@ -1,28 +1,27 @@
 import { ObjectId } from "mongodb";
 import clientPromise from "../../lib/mongodb";
-import { catalogURL, MONGODB_DB } from "../config/constants";
-import { PdvModule } from "../interfaces/Pdv.interface";
-import { ProdutosClass } from "./produtos";
-import { TokenApiResponseIfoodClass } from "./Token.class";
+import { MONGODB_DB } from "../config/constants";
+import { ClienteClass } from "./ClienteClass";
 
-export class ProdutosServidorClass extends ProdutosClass {
 
-    static async DbOne({id}): Promise<PdvModule.ProdutosInterface[]> {
+export class ClientesServidorClass extends ClienteClass {
+
+    static async DbOne({id}): Promise<any> {
         try {
             const client = await clientPromise;
             const db = await client.db(MONGODB_DB);
-            const data  = await db.collection("produtos").findOne({ _id: new ObjectId(id) });
+            const data  = await db.collection("mensagens").findOne({ _id: new ObjectId(id) });
             return await data
         } catch (error) {
             console.error(`Erro ao obter produto do banco de dados: ${error}`);
         }
     }
 
-    static async DbAll(): Promise<PdvModule.ProdutosInterface[]> {
+    static async DbAll(): Promise<any> {
         try {
             const client = await clientPromise;
             const db = await client.db(MONGODB_DB);
-            const data = await db.collection('produtos').find().toArray();
+            const data = await db.collection('mensagens').find().toArray();
             return await data
         } catch (error) {
             console.error(`Erro ao obter produto do banco de dados: ${error}`);
@@ -33,23 +32,18 @@ export class ProdutosServidorClass extends ProdutosClass {
 
     static async DbAllJson(): Promise<string> {
         try {
-            return JSON.stringify(await ProdutosServidorClass.DbAll())
+            return JSON.stringify(await ClientesServidorClass.DbAll())
         } catch (error) {
             console.error(`Erro ao obter produto json do banco de dados: ${error}`);
         }
     }
 
-    async IFoodAll() {
-        const { getHeaders } = await TokenApiResponseIfoodClass.createInstance();
-        const catalogDataResponse = await fetch(catalogURL, { headers: getHeaders() });
-        return await catalogDataResponse.json();
-    }
 
     async InsertDB(): Promise<any> {
         try {
             const client = await clientPromise;
             const db = await client.db(MONGODB_DB);
-            return await db.collection('produtos').insertOne(this);
+            return await db.collection('mensagens').insertOne(this);
         } catch (error) {
             console.error(error);
             return error;
@@ -73,7 +67,7 @@ export class ProdutosServidorClass extends ProdutosClass {
         try {
             const client = await clientPromise;
             const db = await client.db(MONGODB_DB);
-            return await db.collection('produtos').deleteOne({ nome: this.nome });
+            return await db.collection('mensagens').deleteOne({ nome: this.nome });
         } catch (error) {
             console.error(error);
             return error;
