@@ -38,7 +38,7 @@ const ButtonEditar = ({
   return (
     <>
       <Button
-        id={`deletar${id}`}
+        id={`editar${id}`}
         p="2"
         h="auto"
         fontWeight="bold"

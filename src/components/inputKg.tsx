@@ -17,24 +17,24 @@ export default function InputKg({ value , onChange, id }) {
     <>
       <Stack>
         <Text mb={-2} mt={1}>
-          Peso:
+          DOC:
         </Text>
         <InputGroup>
-          <InputLeftAddon children="KG" />
+          <InputLeftAddon children="CPF" />
           <NumberInput
             value={value}
             precision={2}
             step={0.1}
             w="100vw"
             name="peso"
-            focusBorderColor="red.200"
+            focusBorderColor="blue.200"
             id={id}
             onChange={onChange}
           >
             <NumberInputField
-              _placeholder={{ color: "red" }}
+              _placeholder={{ color: "blue" }}
               borderColor="black"
-              _hover={{ borderColor: "red" }}
+              _hover={{ borderColor: "blue" }}
             />
             <NumberInputStepper>
               <NumberIncrementStepper />

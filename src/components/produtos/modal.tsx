@@ -61,11 +61,11 @@ function ModalCadProd() {
                 width="46"
                 height="37"
                 objectFit="fill"
-                src="harmonica_cozinha.svg"
+               // src="harmonica_cozinha.svg"
                 alt="LOGO"
               />
               <Flex ml={-46} justifyContent={"center"} w={"100vw"}>
-                <Text>{!item._id ? `Cadastro` : `Alteração`} de Produtos</Text>
+                <Text>{!item._id ? `Cadastro` : `Alteração`} de Clientes</Text>
               </Flex>
             </Flex>
           </ModalHeader>
@@ -73,9 +73,9 @@ function ModalCadProd() {
           <ModalBody>
             <Tabs maxHeight={"380px"} minHeight={"380px"}>
               <TabList>
-                <Tab>Produto</Tab>
-                <Tab>Venda</Tab>
-                <Tab>Ingredientes</Tab>
+                <Tab>Cliente</Tab>
+                <Tab>Propostas</Tab>
+                <Tab>Importações</Tab>
               </TabList>
               <TabPanels>
                 <TabPanel>
@@ -97,7 +97,7 @@ function ModalCadProd() {
               h="auto"
               fontSize={18}
               leftIcon={<CheckIcon />}
-              colorScheme="red"
+              colorScheme="blue"
               variant="solid"
               onClick={handleSave}
               fontWeight="bold"
@@ -107,7 +107,7 @@ function ModalCadProd() {
               Salvar
             </Button>
             <Button
-              colorScheme="red"
+              colorScheme="blue"
               variant="outline"
               padding="8px 16px"
               onClick={disclosureModalProdCad.onClose}

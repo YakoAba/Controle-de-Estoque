@@ -1,4 +1,4 @@
-export const API_PRODUTOS = "/api/produtos";
+export const API_PRODUTOS = "/api/c6";
 export const API_PRODUTOS_IFOOD = "/api/listaProdutosIfood";
 export const API_CATEGORIAS = "/api/categorias";
 export const URL_DE_AUTENTICACAO = 'https://merchant-api.ifood.com.br/authentication/v1.0/oauth/token';
@@ -17,17 +17,17 @@ export const Sections = [
         title: "CADASTRO",
         links: [
             {
-                label: "PRODUTOS",
+                label: "CLIENTES",
                 href: "/",
-            },
-            {
-                label: "FORNECEDORES",
-                href: "/fornecedores",
-            },
-            {
-                label: "ITENS",
-                href: "/itens",
-            },
+            }
+            // {
+            //     label: "FORNECEDORES",
+            //     href: "/fornecedores",
+            // },
+            // {
+            //     label: "ITENS",
+            //     href: "/itens",
+            // },
         ],
     },
     // {

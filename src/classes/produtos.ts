@@ -82,7 +82,7 @@ export class ProdutosClass extends React.Component<PdvModule.ProdutosInterface> 
 
     static async dbAll(): Promise<any> {
         async function postData() {
-            const response = await fetch(`/api/produtos`, {
+            const response = await fetch(`/api/c6`, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json'

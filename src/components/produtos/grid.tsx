@@ -1,8 +1,8 @@
+import { useState, useEffect } from "react";
 import {
   Box,
   Checkbox,
   HStack,
-  Show,
   Table,
   Tbody,
   Td,
@@ -11,89 +11,83 @@ import {
   Thead,
   Tr,
 } from "@chakra-ui/react";
-import { useProdutoContext } from "./context";
-import { PdvModule } from "../../interfaces/Pdv.interface";
 import PacMan from "../pacman";
+import useSWR from "swr";
+import { useProdutoContext } from "./context";
 
-function GridProdutos(): JSX.Element {
-  // const toast = useToast();
-  const {
-    listaProdutos,
-    listaProdutosIsLoading,
-    handleCheckAll,
-    handleCheck,
-    isIndeterminate,
-    allChecked,
-    checkedItems,
-  } = useProdutoContext();
+type ContratoInterface = {
+  _id: string;
+  CPF: string;
+  Contratos: number;
+  Ativo: boolean;
+  Data: Date;
+  Itens: [
+    {
+      NUMERO: string;
+      "VALOR DO EMPRÉSTIMO": number;
+      "VALOR DA PARCELA": number;
+      "QUANTIDADE DE PARCELAS": number;
+      "STATUS ATUAL": string;
+      "DATA DA PRIMEIRA PARCELA": Date;
+    }
+  ];
+};
 
-  // function toastDeletar() {
-  //   return toast({
-  //     title: "Produto excluido!",
-  //     description: "Excluimos o produto para você.",
-  //     status: "success",
-  //     duration: 5000,
-  //     isClosable: true,
-  //     position: "top",
-  //   });
-  // }
+function GridProdutos({ setBotoes, setCheckIndex }): JSX.Element {
+  const [checkedCliente, setCheckedCliente] = useState([]);
+
+  const allChecked = checkedCliente.every(Boolean);
+  const isIndeterminate = checkedCliente.some(Boolean) && !allChecked;
+  const countChecked = (checked) => {
+    return checked.filter((cliente) => cliente).length;
+  };
+
+  const handleCheck = (event, index) => {
+    const newCheckedItems = [...checkedCliente];
+    newCheckedItems[index] = event.target.checked;
+
+    setCheckedCliente(newCheckedItems);
+    };
+
+  const handleCheckAll = (event) => {
+    const allChecked = event.currentTarget.checked;
+    const newCheckedItems = contratos.map(() => allChecked);
+    setCheckedCliente(newCheckedItems);
+  };
+
+  const fetcher = (url: string) => fetch(url).then((res) => res.json());
+  const { data, error } = useSWR("api/c6", fetcher);
+  const contratos = data?.contratos || [];
+
 
   const renderGrid = () => {
-    return listaProdutos.json.map((item: PdvModule.ProdutosInterface, i) => (
-      <Tr key={i}>
+    return contratos.map((contrato: ContratoInterface, index: number) => (
+      <Tr key={contrato._id}>
         <Td color="black">
           <HStack>
             <Checkbox
-              colorScheme={"red"}
-              isChecked={checkedItems[i]}
-              onChange={(e) => handleCheck(e, i)}
+              colorScheme={"blue"}
+              isChecked={checkedCliente[index]}
+              onChange={(event) => handleCheck(event, index)}
               mr={3}
               borderColor={"black"}
               size={"lg"}
             />
-            <Text id={item._id}>{item.nome}</Text>
+            <Text>{contrato.CPF}</Text>
           </HStack>
         </Td>
-        <Td color="black" textAlign="end">
-          {item.venda.bruto.toLocaleString("pt-BR", {
-            minimumFractionDigits: 2,
-            style: "currency",
-            currency: "BRL",
-          })}
-        </Td>
-        <Show above={"sm"}>
-          <Td color="black" textAlign="end">
-            {item.venda.custo.toLocaleString("pt-BR", {
-              minimumFractionDigits: 2,
-              style: "currency",
-              currency: "BRL",
-            })}
-          </Td>
-          <Td color="black" textAlign="end">
-            {(item.venda.bruto - item.venda.liquido).toLocaleString("pt-BR", {
-              minimumFractionDigits: 2,
-              style: "currency",
-              currency: "BRL",
-            })}
-          </Td>
-          <Td color="black" textAlign="end">
-            {item.venda.lucro.toLocaleString("pt-BR", {
-              minimumFractionDigits: 2,
-              style: "currency",
-              currency: "BRL",
-            })}
-          </Td>
-        </Show>
+        <Td color="black">{contrato.Contratos}</Td>
+        <Td>{contrato.Ativo ? "Ativo" : "Inativo"}</Td>
       </Tr>
     ));
   };
 
-  return listaProdutosIsLoading ? (
+  return contratos.length === 0 ? (
     <PacMan />
   ) : (
     <Box
       overflowY="auto"
-      maxW={"95%"}
+      maxW={"90%"}
       sx={{ "::-webkit-scrollbar": { display: "none" } }}
       marginLeft="auto"
       marginRight="auto"
@@ -101,10 +95,10 @@ function GridProdutos(): JSX.Element {
       <Table marginTop={"25px"} colorScheme="black" maxW={"100%"}>
         <Thead>
           <Tr>
-            <Th fontWeight="bold" fontSize="14px">
+            <Th w="20%" fontWeight="bold" fontSize="14px">
               <HStack>
                 <Checkbox
-                  colorScheme={"red"}
+                  colorScheme={"blue"}
                   mr={3}
                   isChecked={allChecked}
                   isIndeterminate={isIndeterminate}
@@ -112,23 +106,14 @@ function GridProdutos(): JSX.Element {
                   borderColor={"black"}
                   size={"lg"}
                 />
-                <Text>TÍTULO</Text>
+
+                <Text>CPF:</Text>
               </HStack>
             </Th>
-            <Th color="black" textAlign="end">
-              BRUTO
+            <Th w="20%" color="black">
+              Contratos:
             </Th>
-            <Show above={"sm"}>
-              <Th color="black" textAlign="end">
-                CUSTO
-              </Th>
-              <Th color="black" textAlign="end">
-                TAXA
-              </Th>
-              <Th color="black" textAlign="end">
-                LUCRO
-              </Th>
-            </Show>
+            <Th>Status:</Th>
           </Tr>
         </Thead>
         <Tbody>{renderGrid()}</Tbody>

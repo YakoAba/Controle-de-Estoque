@@ -42,7 +42,7 @@ const ButtonDeletar = ({
         fontSize={fontSize}
         onClick={() => setIsConfirmationOpen(true)}
         leftIcon={<DeleteIcon />}
-        colorScheme="red"
+        colorScheme="blue"
         variant="solid"
         padding={padding}
         width={width}

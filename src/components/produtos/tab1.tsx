@@ -47,10 +47,10 @@ const Tab1 = () => {
           value={item.descricao}
           onChange={(e) => setItem({ ...item, descricao: e.target.value })}
           id={"descricao"}
-          _placeholder={{ color: "red.200" }}
+          _placeholder={{ color: "blue.200" }}
           borderColor="black"
-          focusBorderColor="red.200"
-          _hover={{ borderColor: "red.200" }}
+          focusBorderColor="blue.200"
+          _hover={{ borderColor: "blue.200" }}
         />
       </Stack >
     </Stack>

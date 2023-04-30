@@ -9,7 +9,7 @@ const ButtonAdicionar = ({ mt, onClick, fontSize, padding, width }) => {
       h="auto"
       fontSize={fontSize}
       leftIcon={<AddIcon />}
-      colorScheme="red"
+      colorScheme="blue"
       variant="solid"
       fontWeight="bold"
       mt={mt}

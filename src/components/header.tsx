@@ -25,23 +25,23 @@ const Header = ({ titulo }: headerProps) => {
   return (
     <>
       <Head>
-        <title>Controle de Estoque</title>
+        <title>Controle de Clientes</title>
         <link rel="manifest" href="/manifest.json" />
-        <meta name="theme-color" content="red" />
+        <meta name="theme-color" content="blue" />
         <meta charSet="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <meta httpEquiv="X-UA-Compatible" content="ie=edge" />
         <meta name="robots" content="index, follow" />
-        <link rel="icon" href="harmonica_cozinha.png" />
-        <link
+        {/* <link rel="icon" href="harmonica_cozinha.png" /> */}
+        {/* <link
           rel="apple-touch-icon"
           sizes="180x180"
           href="appletouch.webp"
-        ></link>
+        ></link> */}
         <meta name="author" content="YakkoAba" />
         <meta
           name="description"
-          content="Controle de estoque para lojas - Mantenha o seu estoque organizado e garanta o sucesso do seu negócio."
+          content="Controle de empréstimos para lojas - Mantenha o seu suas planilhas organizadas e garanta o sucesso do seu negócio."
         />
       </Head>
       <Sidebar />
@@ -71,7 +71,7 @@ const Header = ({ titulo }: headerProps) => {
           width="67"
           height="50"
           objectFit="fill"
-          src="harmonica_cozinha.svg"
+          //src="harmonica_cozinha.svg"
           alt="LOGO"
         />
 
@@ -80,15 +80,15 @@ const Header = ({ titulo }: headerProps) => {
         <Flex ml="auto">
           <HStack>
             <Hide below="md">
-              <Text>Harmônica</Text>
+              <Text>IGOR</Text>
             </Hide>
 
             <Avatar
-              bg="red.500"
+              bg="blue"
               color="white"
               size="md"
-              name="Harmônica"
-              colorScheme="red"
+              name="IGOR"
+              colorScheme="blue"
             />
           </HStack>
         </Flex>

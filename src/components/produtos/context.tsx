@@ -80,7 +80,7 @@ export const Provider = ({ children }) => {
     isLoading: listaProdutosIsLoading,
     mutate,
   } = useSWR(API_PRODUTOS, fetchProdutos, {
-    refreshInterval: 60000, // atualiza a cada 10 segundos
+    refreshInterval: 6000, // atualiza a cada 10 segundos
   });
 
   useEffect(() => {
@@ -90,14 +90,14 @@ export const Provider = ({ children }) => {
     }
   }, [listaProdutos]);
 
-  useEffect(() => {
-    if (item) {
-      // Inicializa o estado dos checkboxes com um array de false com o mesmo tamanho do número de ingredientes
-      setCheckedItemsIngredientes(
-        new Array(item.ingredientes.length).fill(false)
-      );
-    }
-  }, [item]);
+  // useEffect(() => {
+  //   if (item) {
+  //     // Inicializa o estado dos checkboxes com um array de false com o mesmo tamanho do número de ingredientes
+  //     setCheckedItemsIngredientes(
+  //       new Array(item.ingredientes.length).fill(false)
+  //     );
+  //   }
+  // }, [item]);
 
   const handleCheckAll = (event) => {
     const allChecked = event.target.checked;

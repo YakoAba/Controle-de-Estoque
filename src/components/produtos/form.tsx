@@ -4,9 +4,10 @@ import ButtonAdicionar from "../Buttons/adicionar";
 import ButtonDeletar from "../Buttons/deletar";
 import ButtonEditar from "../Buttons/editar";
 import ModalCadProd from "./modal";
+import GridProdutos from "./grid";
 
 const FormularioProdutos = () => {
-  const { botoes, editar, deletar, insert, item } = useProdutoContext();
+  const { setBotoes, botoes, editar, deletar, insert, item } = useProdutoContext();
 
   return (
     <>
@@ -61,6 +62,7 @@ const FormularioProdutos = () => {
           <></>
         )}
       </Flex>
+      <GridProdutos setBotoes={setBotoes} setCheckIndex={1} />
     </>
   );
 };
