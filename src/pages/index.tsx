@@ -1,14 +1,14 @@
 import Header from "../components/header";
-import Form from "../components/produtos/form";
-import GridProdutos from "../components/produtos/grid";
-import { Provider } from "../components/produtos/context";
+import Form from "../components/clientes/form";
+import GridClientes from "../components/clientes/grid";
+import { Provider } from "../components/clientes/context";
 
 export default function Produtos(): JSX.Element {
   return (
     <Provider>
-      <Header titulo={"PRODUTOS"}/>
+      <Header titulo={"CLIENTES"}/>
       <Form />
-      <GridProdutos />
+      <GridClientes />
     </Provider>
   );
 }

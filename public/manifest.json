@@ -1,11 +1,10 @@
 {
-  "short_name": "Controle Harmonica",
-  "name": "Controle de Estoque",
+  "short_name": "Controle",
+  "name": "Controle de Agendamento",
   "icons": [
     {
-      "src":"harmonica cozinha.svg",
-      "type": "svg",
-      "purpose": "any maskable"
+      "src": "icone.pmg",
+      "type": "png"
     }
   ],
   "start_url": "/",
@@ -13,5 +12,4 @@
   "display": "standalone",
   "theme_color": "#000000",
   "background_color": "#ffffff"
-
 }

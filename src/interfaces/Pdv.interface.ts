@@ -1,82 +1,31 @@
-export module PdvModule {
-    export interface QuantidadesInterface {
-        quantidade: number,
-        peso: number,
-        valor: number
-    }
+// Importa a classe ClientesClass do arquivo "../classes/clientes/clientes"
+import { ClientesClass } from "../classes/clientes";
+import { ProfissionaisClass } from "../classes/profissionais";
+import { ServicosClass } from "../classes/servicos";
 
-    export interface ItensInterface {
-        nome: string,
-        unidade: string,
-        valor: number,
-        quantidades: QuantidadesInterface
+// Define um módulo chamado Module
+export module Module {
+    // Define a interface ClientesInterface com propriedades para representar informações de clientes
+    export interface ClientesInterface {
+        _id: string,       // Identificador único do cliente
+        nome: string,      // Nome do cliente
+        telefone: string,  // Número de telefone do cliente
     }
-
-    export interface IngredienteInteface {
-        quantidade: number,
-        valor: number,
-        nome: string,
-        produto: ItensInterface
+    // Define a interface ServicosInterface com propriedades para representar informações de servocp
+    export interface ServicosInterface {
+        _id: string,       // Identificador único do servico
+        nome: string,      // Nome do servico
     }
-
-    export interface VendaInterface {
-        bruto: number;
-        taxa: number;
-        liquido: number;
-        custo: number;
-        lucro: number;
-    }
-
-    export interface ProdutosInterface {
-        _id: string,
-        nome: string,
-        descricao: string,
-        peso: number,
-        image: string;
-        venda: VendaInterface,
-        ingredientes: IngredienteInteface[]
-    }
-
-    export interface ProdutosServidorInteface extends ProdutosInterface {
-        dbAll(): Promise<ProdutosInterface[]>
-        dbOne();
-        dbInsert(data: any): Promise<any>;
-        dbEdit();
+    // Define a interface ProfissionalInterface com propriedades para representar informações de profissional
+    export interface ProfissionaisInterface {
+        _id: string,       // Identificador único do profissional
+        nome: string,      // Nome do profissional
+        servico: string
     }
 }
 
-export const ingredientesModelo: PdvModule.IngredienteInteface = {
-    quantidade: 0,
-    valor: 0,
-    nome: "",
-    produto: {
-        nome: '',
-        unidade: '',
-        valor: 0,
-        quantidades: {
-            quantidade: 0,
-            peso: 0,
-            valor: 0
-        }
-    }
-}
+// Cria uma instância clienteModelo do tipo Module.ClientesInterface utilizando a classe ClientesClass
+export const clienteModelo: Module.ClientesInterface = new ClientesClass({} as Module.ClientesInterface);
+export const servicoModelo: Module.ServicosInterface = new ServicosClass({} as Module.ServicosInterface);
+export const profissionalModelo: Module.ProfissionaisInterface = new ProfissionaisClass({} as Module.ProfissionaisInterface);
 
-export const vendaModelo: PdvModule.VendaInterface = {
-    bruto: 0,
-    taxa: 0,
-    liquido: 0,
-    custo: 0,
-    lucro: 0,
-}
-
-export const produtoModelo: PdvModule.ProdutosInterface = {
-    _id: null,
-    nome: '',
-    descricao: "",
-    peso: 0,
-    image: '',
-    venda: vendaModelo,
-    ingredientes: [
-        ingredientesModelo
-    ],
-};

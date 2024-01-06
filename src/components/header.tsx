@@ -25,14 +25,14 @@ const Header = ({ titulo }: headerProps) => {
   return (
     <>
       <Head>
-        <title>Controle de Estoque</title>
+        <title>Controle de Agendamento</title>
         <link rel="manifest" href="/manifest.json" />
         <meta name="theme-color" content="red" />
         <meta charSet="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <meta httpEquiv="X-UA-Compatible" content="ie=edge" />
         <meta name="robots" content="index, follow" />
-        <link rel="icon" href="harmonica_cozinha.png" />
+        <link rel="icon" href="icone.png" />
         <link
           rel="apple-touch-icon"
           sizes="180x180"
@@ -41,7 +41,7 @@ const Header = ({ titulo }: headerProps) => {
         <meta name="author" content="YakkoAba" />
         <meta
           name="description"
-          content="Controle de estoque para lojas - Mantenha o seu estoque organizado e garanta o sucesso do seu negócio."
+          content="Controle de agendamento para salões - Mantenha o seus horários organizado e garanta o sucesso do seu negócio."
         />
       </Head>
       <Sidebar />
@@ -71,7 +71,7 @@ const Header = ({ titulo }: headerProps) => {
           width="67"
           height="50"
           objectFit="fill"
-          src="harmonica_cozinha.svg"
+          src="icone.png"
           alt="LOGO"
         />
 
@@ -80,14 +80,14 @@ const Header = ({ titulo }: headerProps) => {
         <Flex ml="auto">
           <HStack>
             <Hide below="md">
-              <Text>Harmônica</Text>
+              <Text>Admin</Text>
             </Hide>
 
             <Avatar
               bg="red.500"
               color="white"
               size="md"
-              name="Harmônica"
+              name="administrador"
               colorScheme="red"
             />
           </HStack>
